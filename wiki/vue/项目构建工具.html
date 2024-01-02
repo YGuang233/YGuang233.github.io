@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 7.0.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Vue：项目构建工具 - BoBoBlog</title>
+
+  
+    <meta name="description" content="在前开发中，前端开发人员方便快速构建和管理项目，一般会使用一些项目构建工具来辅助开发，而我们接下来要学习单文组件则必须依赖项目构建工具才能完成这块的学习，目前来说，vue开发中一般使用的前端开发工具无非:vue-cli和vite这2款最多人使用 Vue自动化工具（Vue-cli)vue2推荐使用vue-cli vue3推荐使用vite 一般情况下vue2.0的单文件组件使用，我们允许都会在vue-">
+<meta property="og:type" content="website">
+<meta property="og:title" content="项目构建工具">
+<meta property="og:url" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html">
+<meta property="og:site_name" content="BoBoBlog">
+<meta property="og:description" content="在前开发中，前端开发人员方便快速构建和管理项目，一般会使用一些项目构建工具来辅助开发，而我们接下来要学习单文组件则必须依赖项目构建工具才能完成这块的学习，目前来说，vue开发中一般使用的前端开发工具无非:vue-cli和vite这2款最多人使用 Vue自动化工具（Vue-cli)vue2推荐使用vue-cli vue3推荐使用vite 一般情况下vue2.0的单文件组件使用，我们允许都会在vue-">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230812202809048.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230812213728721.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/index/image-20230812214841088.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230812214941554.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230812220701353.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230812221028505.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/index/image-20230813094146616.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/index/image-20230813094243425.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813085904044.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813090532904.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813094611557.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813094628018.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813094850966.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813095524082.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813095202816.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813095805897.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813100040405.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813101543101.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103049686.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813101920608.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103120851.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813102107989.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103157506.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813102327605.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103225100.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813102339428.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103245959.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813102610211.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103315021.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813102826902.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103345463.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813102836392.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103414709.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103948980.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813103855221.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813104406459.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813144929665.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813144722163.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813144551310.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813145400338.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813122645080.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230813122801291.png">
+<meta property="article:published_time" content="2024-01-01T07:29:46.529Z">
+<meta property="article:modified_time" content="2024-01-01T07:29:46.529Z">
+<meta property="article:author" content="BXZDYG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bxzdyg.cn/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230812202809048.png">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
+  
+
+  
+
+  
+
+
+  
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+      <link rel="stylesheet" href="/css/darkmode.css">
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+  
+
+
+
+
+<div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1.2em" height="1.2em" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html"><div class="main" ff="title">Vue</div><div class="sub normal cap">很开心的学了</div><div class="sub hover cap" style="opacity:0"> 结果又多了一个学过而不会的技术</div></a></div></widget>
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/wiki/vue/" placeholder="在 Vue笔记 中搜索..."><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start"><span class="toc-text">Vue快速入门</span></a></div></div><div class="widget-header cap dis-select"><span class="name">基本使用</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.html"><span class="toc-text">Vue常用指令</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD.html"><span class="toc-text">Vue对象提供的属性功能</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html"><span class="toc-text">Vue对象的生命周期</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E5%92%8C%E6%B5%85%E5%85%A5.html"><span class="toc-text">Vue组件化开发基础和浅入</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">项目构建工具</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%88Vue-cli"><span class="toc-text">Vue自动化工具（Vue-cli)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85node-js%E5%92%8C%E8%AE%A4%E8%AF%86node-js"><span class="toc-text">安装node.js和认识node.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Enode-js"><span class="toc-text">关于node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nvm%E5%92%8Cnodejs"><span class="toc-text">nvm和nodejs</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#npm%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-text">npm包管理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85yarn"><span class="toc-text">安装yarn</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Vue-cli"><span class="toc-text">安装Vue-cli</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NPM%E8%AE%BE%E7%BD%AE%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F"><span class="toc-text">NPM设置淘宝镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%9F%A5%E8%AF%A2%E5%BD%93%E5%89%8D%E9%85%8D%E7%BD%AE%E7%9A%84%E9%95%9C%E5%83%8F"><span class="toc-text">1.查询当前配置的镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%AE%BE%E7%BD%AE%E6%88%90%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F"><span class="toc-text">2.设置成淘宝镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8D%A2%E6%88%90%E5%8E%9F%E6%9D%A5%E7%9A%84"><span class="toc-text">3.换成原来的</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F"><span class="toc-text">常用淘宝镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0%EF%BC%9A"><span class="toc-text">参考文章：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Vue-CLI%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%9B%E5%BB%BA%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE"><span class="toc-text">使用Vue-CLI初始化创建前端项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%89%E8%A3%85"><span class="toc-text">自定义安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%80%89%E6%8B%A9%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%EF%BC%8C%E7%A9%BA%E6%A0%BC%E8%A1%A8%E7%A4%BA%E9%80%89%E6%8B%A9-%E5%8F%96%E6%B6%88%E3%80%82%E9%80%89%E6%8B%A9%E5%AE%8C%E6%88%90%E4%BB%A5%E5%90%8E%E5%9B%9E%E8%BD%A6"><span class="toc-text">一、选择安装配置，空格表示选择&#x2F;取消。选择完成以后回车</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%80%89%E6%8B%A9vue%E7%89%88%E6%9C%AC"><span class="toc-text">二、选择vue版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%80%89%E6%8B%A9%E8%B7%AF%E7%94%B1%E6%8F%92%E4%BB%B6%E7%9A%84%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%BC%8F"><span class="toc-text">三、选择路由插件的路由模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%80%89%E6%8B%A9EsLint%E7%9A%84%E9%85%8D%E7%BD%AE%E9%A1%B9"><span class="toc-text">四、选择EsLint的配置项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94%E3%80%81EsLint%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E6%97%B6%E6%9C%BA%EF%BC%8C%E6%8A%8A2%E4%B8%AA%E9%83%BD%E5%8B%BE%E9%80%89%E4%B8%8A%E5%B0%B1%E8%A1%8C"><span class="toc-text">五、EsLint格式化的时机，把2个都勾选上就行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AD%E3%80%81EsLint%E5%92%8CBabel%E6%98%AF%E5%90%A6%E5%AD%98%E6%94%BE%E5%9C%A8%E4%B8%80%E8%B5%B7%EF%BC%8C%E8%BF%98%E6%98%AF%E5%8D%95%E7%8B%AC"><span class="toc-text">六、EsLint和Babel是否存放在一起，还是单独</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%98%AF%E5%90%A6%E4%BF%9D%E5%AD%98%E4%B8%8A%E9%9D%A2%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E4%B8%BA%E4%BB%A5%E5%90%8E%E5%AE%89%E8%A3%85%E5%A4%8D%E7%94%A8"><span class="toc-text">七、是否保存上面的安装配置为以后安装复用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95"><span class="toc-text">生成项目目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">项目目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8webstorm%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE"><span class="toc-text">在webstorm启动项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue%E9%A1%B9%E7%9B%AE%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-text">Vue项目执行流程图</span></a></li></ol></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">深入组件</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.html"><span class="toc-text">单文件组件的使用</span></a></div></div><div class="widget-header cap dis-select"><span class="name">应用规模化</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E8%B7%AF%E7%94%B1.html"><span class="toc-text">Vue路由</span></a></div></div><div class="widget-header cap dis-select"><span class="name">跨域问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Axios.html"><span class="toc-text">Axios</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Proxy.html"><span class="toc-text">Proxy</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/WebSocket.html"><span class="toc-text">WebSocket</span></a></div></div><div class="widget-header cap dis-select"><span class="name">进阶主题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E7%BB%84%E5%90%88API.html"><span class="toc-text">组合API</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">Vite项目构建工具</span></a></div></div></widget>
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+  
+<div class="bread-nav fs12"><div class="left"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/"><i class="fa-solid fa-book"></i></a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">Vue</a></div><div id="post-meta">
+    <span>更新于&nbsp;<time datetime="2024-01-01T07:29:46.529Z">2024-01-01</time></span>
+    </div></div></div>
+
+  <article class='md-text content wiki'>
+  <h1 class="article-title"><span>项目构建工具</span></h1>
+  <p>在前开发中，前端开发人员方便快速构建和管理项目，一般会使用一些项目构建工具来辅助开发，而我们接下来要学习单文组件则必须依赖项目构建工具才能完成这块的学习，目前来说，vue开发中一般使用的前端开发工具无非:vue-cli和vite这2款最多人使用</p>
+<h2 id="Vue自动化工具（Vue-cli"><a href="#Vue自动化工具（Vue-cli" class="headerlink" title="Vue自动化工具（Vue-cli)"></a>Vue自动化工具（Vue-cli)</h2><p>vue2推荐使用vue-cli</p>
+<p>vue3推荐使用vite</p>
+<p>一般情况下vue2.0的单文件组件使用，我们允许都会在vue-CLI中进行开发,</p>
+<p>它可以帮我们把单文件组件编译成普通的js代码。所以我们需要在电脑先安装搭建vue-CLI工具</p>
+<p>官网：<a target="_blank" rel="noopener" href="https://cli.vuejs.org/zh/">https://cli.vuejs.org/zh/</a></p>
+<h2 id="安装node-js和认识node-js"><a href="#安装node-js和认识node-js" class="headerlink" title="安装node.js和认识node.js"></a>安装node.js和认识node.js</h2><h3 id="关于node-js"><a href="#关于node-js" class="headerlink" title="关于node.js"></a>关于node.js</h3><p>Node.js发布于2009年5月，由谷歌工程师Ryan Dahl(瑞安·达尔）开发的JavaScripti运行环境，一个让JavaScript代码运行在服务端的开发平台，它让javascript变成了服务端语言，所以nodejs开发者编写的代码本质上就是javascript代码。<br>后端语言和前端语言的区别：</p>
+<ul>
+<li>工运行环境：后端语言一般运行在服务器端，前端语言运行在客户端的浏览器上。</li>
+<li>功能：后端语言可以操作文件，可以读写数据库，前端语言不能操作文件，不能读写数据库。</li>
+</ul>
+<p>我们一般安装LTS(长线支持版本 Long-Time Support):</p>
+<p>node.js的版本有两大分支：</p>
+<p>奇数版本：每年10月份发布，版本号为奇数，例如：11.0.0，叫当前版本(Current Version),维护期是3个月。<br>偶数版本：次年04月份发布，版本号为偶数，例如：12.0.0，叫长线支持版本(Long-Time Support Version),维护期是3年。</p>
+<p>其实是奇数版本还是偶数版本也不一定是对于的current version还是LST</p>
+<p>不过可以去官网查看这些版本的信息，或者通过nvm的命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm list available</span><br></pre></td></tr></table></figure>
+
+<h3 id="nvm和nodejs"><a href="#nvm和nodejs" class="headerlink" title="nvm和nodejs"></a>nvm和nodejs</h3><p>Vue CLI 由nodejs编写，所以我们需要Node.js8.9或更高版本（推荐8.11.0+）。你可以使用nvm或nvm-windows在同一台电脑中管理多个Node版本。</p>
+<p>nvm工具的下载和安装</p>
+<blockquote>
+<p>安装教程参考：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7074108351524634655">nvm for windows 下载、安装及使用 - 掘金 (juejin.cn)</a></p>
+</blockquote>
+<p>nvm工具常用命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">nvm ls ：列出所有已安装的 node 版本</span><br><span class="line"></span><br><span class="line">nvm ls-remote ：列出所有远程服务器的版本（官方node version list）</span><br><span class="line"></span><br><span class="line">nvm list ：列出所有已安装的 node 版本</span><br><span class="line"></span><br><span class="line">nvm list available ：显示所有可下载的版本 [nvm for windos 中无效，但是输出相当于nmv的命令]</span><br><span class="line"></span><br><span class="line">nvm install stable ：安装最新版 node</span><br><span class="line"></span><br><span class="line">nvm install [node版本号] ：安装指定版本 node</span><br><span class="line"></span><br><span class="line">nvm uninstall [node版本号] ：删除已安装的指定版本</span><br><span class="line"></span><br><span class="line">nvm use [node版本号] ：切换到指定版本 node</span><br><span class="line"></span><br><span class="line">nvm current ：当前 node 版本</span><br><span class="line"></span><br><span class="line">nvm alias [别名] [node版本号] ：给不同的版本号添加别名</span><br><span class="line"></span><br><span class="line">nvm unalias [别名] ：删除已定义的别名</span><br><span class="line"></span><br><span class="line">nvm alias default [node版本号] ：设置默认版本</span><br></pre></td></tr></table></figure>
+
+<p>如果需要特殊 npm版本下载</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g npm@&lt;version&gt;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 例如</span></span></span><br><span class="line">npm install -g npm@8.5.3</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230812202809048.png" fancybox="true"/></div></div>
+
+<p>如果安装较慢可以改成淘宝镜像，在安装目录的setting文件内</p>
+<h2 id="npm包管理器"><a href="#npm包管理器" class="headerlink" title="npm包管理器"></a>npm包管理器</h2><p>在安装node.js完成后，在node,js中会同时帮我们安装一个包管理器npm。我们可以借助npm命令来安装node,js的包。这个工具相当于python的pip包管理器。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install -g 包名							##安装模块-g表示全局安装，如果没有-g,则表示在当前项目安装</span><br><span class="line">npm list									##查看当前目录下已安装的node包</span><br><span class="line">npm view 包名engines							##查看包所依赖的Node的版本</span><br><span class="line">npm outdated								##检查包是否已经过时，命令会列出所有已过时的包</span><br><span class="line">npm	update包名								##更新node包</span><br><span class="line">npm	uninstall/remove 包名						##卸载node包,推荐使用remove在vite中，要不然清不掉依赖源文件配置信息</span><br><span class="line">npm	命令-h									##查看指定命令的帮助文档</span><br></pre></td></tr></table></figure>
+
+<p>下载和安装后面对应的参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-S, –save：dependencies</span><br><span class="line"></span><br><span class="line">-D, –save-dev：devDependencies</span><br><span class="line"></span><br><span class="line">-O, –save-optional：optionalDependencies</span><br></pre></td></tr></table></figure>
+
+<p>其他的包管理器</p>
+<p>yarn(Facebook、Google、Exponent 和 Tilde 联合推出) cnpm(淘宝做的)…</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23493436">Yarn vs npm：你需要知道的一切 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/df1696de1d77">为什么不推荐使用 cnpm？ - 简书 (jianshu.com)</a></p>
+<p>注意：npm虽然是nodejs’官方提供的包管理工具，但事实上并不好用，所以有第三方开发者提供了更好用的yarn包管理器。<br>我们可以通过npm来安装yarn包管理器。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">npm install yarn</span><br><span class="line">npm install --global yarn</span><br><span class="line">yarn --version		##查看版本</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#基本命令</span></span></span><br><span class="line">yarn global add 包名 ##全局安装模块</span><br><span class="line">yarn remove			##卸载、移除或模块</span><br><span class="line">yarn				##根据当前目录下的package.json文件的配置自动下载安装包列表</span><br><span class="line">yarn install 		##同上</span><br><span class="line">yarn dev			##根据当前目录下的package.json文件的配置启动一个http服务器运行前端项目</span><br><span class="line">yarn init			##根据当前目录下生成package.json配置文件，用于自动构建前端项目</span><br><span class="line">yarn publish		##将包发布到包管理器</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://classic.yarnpkg.cn/docs">中文文档 | Yarn 中文文档 (yarnpkg.cn)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/021df9efdda5">npm 安装 yarn - 简书 (jianshu.com)</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">npm init === yarn init</span><br><span class="line"></span><br><span class="line">npm install === yarn 或者 yarn install</span><br><span class="line"></span><br><span class="line">npm install taco --save === yarn add taco</span><br><span class="line"></span><br><span class="line">npm uninstall taco --save === yarn remove taco</span><br><span class="line"></span><br><span class="line">npm install taco --save-dev === yarn add taco --dev</span><br><span class="line"></span><br><span class="line">npm update --save === yarn upgrade</span><br><span class="line"></span><br><span class="line">npm install taco@latest --save === yarn add taco</span><br><span class="line"></span><br><span class="line">npm install taco --global === yarn global add taco</span><br><span class="line"></span><br><span class="line">npm init --yes/-y === yarn init --yes/-y</span><br><span class="line"></span><br><span class="line">npm link === yarn link</span><br><span class="line"></span><br><span class="line">npm outdated === yarn outdated</span><br><span class="line"></span><br><span class="line">npm publish === yarn publish</span><br><span class="line"></span><br><span class="line">npm run === yarn run</span><br><span class="line"></span><br><span class="line">npm cache clean === yarn cache clean</span><br><span class="line"></span><br><span class="line">npm login === yarn login</span><br><span class="line"></span><br><span class="line">npm test === yarn test</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">初始化项目:</span><br><span class="line">yarn init // 同npm init，执行输入信息后，会生成package.json文件</span><br><span class="line"></span><br><span class="line">yarn的配置项：</span><br><span class="line">yarn config list // 显示所有配置项</span><br><span class="line">yarn config get &lt;key&gt; //显示某配置项</span><br><span class="line">yarn config delete &lt;key&gt; //删除某配置项</span><br><span class="line">yarn config set &lt;key&gt; &lt;value&gt; [-g|--global] //设置配置项</span><br><span class="line"></span><br><span class="line">安装包：</span><br><span class="line">yarn install //安装package.json里所有包，并将包及它的所有依赖项保存进yarn.lock</span><br><span class="line">yarn install --flat //安装一个包的单一版本</span><br><span class="line">yarn install --force //强制重新下载所有包</span><br><span class="line">yarn install --production //只安装dependencies里的包</span><br><span class="line">yarn install --no-lockfile //不读取或生成yarn.lock</span><br><span class="line">yarn install --pure-lockfile //不生成yarn.lock</span><br><span class="line"></span><br><span class="line">添加包（会更新package.json和yarn.lock）：</span><br><span class="line">yarn add [package] // 在当前的项目中添加一个依赖包，会自动更新到package.json和yarn.lock文件中</span><br><span class="line">yarn add [package]@[version] // 安装指定版本，这里指的是主要版本，如果需要精确到小版本，使用-E参数</span><br><span class="line">yarn add [package]@[tag] // 安装某个tag（比如beta,next或者latest）</span><br><span class="line"></span><br><span class="line">//不指定依赖类型默认安装到dependencies里，你也可以指定依赖类型：</span><br><span class="line">yarn add --dev/-D // 加到 devDependencies</span><br><span class="line">yarn add --peer/-P // 加到 peerDependencies</span><br><span class="line">yarn add --optional/-O // 加到 optionalDependencies</span><br><span class="line"></span><br><span class="line">//默认安装包的主要版本里的最新版本，下面两个命令可以指定版本：</span><br><span class="line">yarn add --exact/-E // 安装包的精确版本。例如yarn add foo@1.2.3会接受1.9.1版，但是yarn add foo@1.2.3 --exact只会接受1.2.3版</span><br><span class="line">yarn add --tilde/-T // 安装包的次要版本里的最新版。例如yarn add foo@1.2.3 --tilde会接受1.2.9，但不接受1.3.0</span><br><span class="line"></span><br><span class="line">发布包</span><br><span class="line">yarn publish</span><br><span class="line"></span><br><span class="line">移除一个包</span><br><span class="line">yarn remove &lt;packageName&gt;：移除一个包，会自动更新package.json和yarn.lock</span><br><span class="line"></span><br><span class="line">更新一个依赖</span><br><span class="line">yarn upgrade 用于更新包到基于规范范围的最新版本</span><br><span class="line"></span><br><span class="line">运行脚本</span><br><span class="line">yarn run 用来执行在 package.json 中 scripts 属性下定义的脚本</span><br><span class="line"></span><br><span class="line">显示某个包的信息</span><br><span class="line">yarn info &lt;packageName&gt; 可以用来查看某个模块的最新版本信息</span><br><span class="line"></span><br><span class="line">缓存</span><br><span class="line">yarn cache</span><br><span class="line">yarn cache list ## 列出已缓存的每个包 yarn cache dir ## 返回 全局缓存位置 yarn cache clean ## 清除缓存</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="安装yarn"><a href="#安装yarn" class="headerlink" title="安装yarn"></a>安装yarn</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230812213728721.png" fancybox="true"/></div></div>
+
+
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40132161/article/details/103697245?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-103697245-blog-120362110.235%5Ev38%5Epc_relevant_anti_vip_base&spm=1001.2101.3001.4242.1&utm_relevant_index=3">解决yarn install总是失败_yarn安装不成功_heeyaaa的博客-CSDN博客</a></p>
+</blockquote>
+<p>以为没有安装成根据上面文章提供的方式重新安装一遍</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="./index/image-20230812214841088.png" alt="image-20230812214841088" fancybox="true"/></div><div class="image-meta"><span class="image-caption center">image-20230812214841088</span></div></div>
+
+<p>这什么玩意装到一半弹出个github登陆界面？？？我也没有下什么东西</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40544291/article/details/103593448">yarn的安装和使用，并配置用户环境变量_yarn环境变量_麦兜:)的博客-CSDN博客</a></p>
+</blockquote>
+<p>这篇文章有毒。</p>
+<p>可我检验又是早就装好了</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230812214941554.png" fancybox="true"/></div></div>
+
+<p>结果：就是一开始的安装yarn要选择全局安装，或者添加变量吧</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230812220701353.png" fancybox="true"/></div></div>
+
+<h2 id="安装Vue-cli"><a href="#安装Vue-cli" class="headerlink" title="安装Vue-cli"></a>安装Vue-cli</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g @vue/cli</span><br><span class="line">yarn global add @vue/cli</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230812221028505.png" fancybox="true"/></div></div>
+
+<p>不是说yarn没有warning吗？还有安装个vueCli这么慢，我还开了vpn</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\53078&gt;yarn -v</span><br><span class="line">1.22.19</span><br><span class="line"></span><br><span class="line">C:\Users\53078&gt;npm get registry</span><br><span class="line">https://registry.npmjs.org/</span><br><span class="line"></span><br><span class="line">C:\Users\53078&gt;yarn config get registry</span><br><span class="line">warning package.json: No license field</span><br><span class="line">https://registry.yarnpkg.com</span><br><span class="line"></span><br><span class="line">C:\Users\53078&gt;yarn config set registry http://registry.npm.taobao.org/</span><br><span class="line">yarn config v1.22.19</span><br><span class="line">warning package.json: No license field</span><br><span class="line">success Set &quot;registry&quot; to &quot;http://registry.npm.taobao.org/&quot;.</span><br><span class="line">Done in 0.05s.</span><br><span class="line"></span><br><span class="line">C:\Users\53078&gt;yarn config get registry</span><br><span class="line">warning package.json: No license field</span><br><span class="line">http://registry.npm.taobao.org/</span><br><span class="line"></span><br><span class="line">C:\Users\53078&gt;yarn global add @vue/cli</span><br><span class="line">yarn global v1.22.19</span><br><span class="line">warning package.json: No license field</span><br><span class="line">[1/4] Resolving packages...</span><br><span class="line">warning @vue/cli &gt; shortid@2.2.16: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; shortid@2.2.16: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express@3.12.0: The `apollo-server-express` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; subscriptions-transport-ws@0.11.0: The `subscriptions-transport-ws` package is no longer maintained. We recommend you use `graphql-ws` instead. For help migrating Apollo software to `graphql-ws`, see https://www.apollographql.com/docs/apollo-server/data/subscriptions/##switching-from-subscriptions-transport-ws    For general help using `graphql-ws`, see https://github.com/enisdenjo/graphql-ws/blob/master/README.md</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core@3.12.0: The `apollo-server-core` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-types@3.8.0: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core &gt; apollo-server-types@3.8.0: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core &gt; apollo-reporting-protobuf@3.4.0: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-types &gt; apollo-reporting-protobuf@3.4.0: The `apollo-reporting-protobuf` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/usage-reporting-protobuf` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core &gt; apollo-datasource@3.3.2: The `apollo-datasource` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core &gt; apollo-server-env@4.2.1: The `apollo-server-env` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/utils.fetcher` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-types &gt; apollo-server-env@4.2.1: The `apollo-server-env` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/utils.fetcher` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core &gt; apollo-datasource &gt; apollo-server-env@4.2.1: The `apollo-server-env` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/utils.fetcher` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core &gt; apollo-server-errors@3.3.1: The `apollo-server-errors` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core &gt; apollo-server-plugin-base@3.7.2: The `apollo-server-plugin-base` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; @vue/cli-ui &gt; apollo-server-express &gt; apollo-server-core &gt; apollo-server-plugin-base &gt; apollo-server-types@3.8.0: The `apollo-server-types` package is part of Apollo Server v2 and v3, which are now deprecated (end-of-life October 22nd 2023). This package&#x27;s functionality is now found in the `@apollo/server` package. See https://www.apollographql.com/docs/apollo-server/previous-versions/ for more details.</span><br><span class="line">warning @vue/cli &gt; vue-codemod &gt; jscodeshift &gt; micromatch &gt; snapdragon &gt; source-map-resolve@0.5.3: See https://github.com/lydell/source-map-resolve##deprecated</span><br><span class="line">warning @vue/cli &gt; vue-codemod &gt; jscodeshift &gt; micromatch &gt; snapdragon &gt; source-map-resolve &gt; resolve-url@0.2.1: https://github.com/lydell/resolve-url##deprecated</span><br><span class="line">warning @vue/cli &gt; vue-codemod &gt; jscodeshift &gt; micromatch &gt; snapdragon &gt; source-map-resolve &gt; urix@0.1.0: Please see https://github.com/lydell/urix##deprecated</span><br><span class="line">warning @vue/cli &gt; vue-codemod &gt; jscodeshift &gt; micromatch &gt; snapdragon &gt; source-map-resolve &gt; source-map-url@0.4.1: See https://github.com/lydell/source-map-url##deprecated</span><br><span class="line">[2/4] Fetching packages...</span><br><span class="line">[3/4] Linking dependencies...</span><br><span class="line">[4/4] Building fresh packages...</span><br><span class="line">success Installed &quot;@vue/cli@5.0.8&quot; with binaries:</span><br><span class="line">      - vue</span><br><span class="line">Done in 22.70s.</span><br><span class="line"></span><br><span class="line">C:\Users\53078&gt;</span><br></pre></td></tr></table></figure>
+
+<p>麻了切换成国内的淘宝镜像源22.70s就安装好了</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="./index/image-20230813094146616.png" alt="image-20230813094146616" fancybox="true"/></div><div class="image-meta"><span class="image-caption center">image-20230813094146616</span></div></div>
+
+<p>麻了，还需要手动添加环境变量，重启一下cmd就好了</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="./index/image-20230813094243425.png" alt="image-20230813094243425" fancybox="true"/></div><div class="image-meta"><span class="image-caption center">image-20230813094243425</span></div></div>
+
+<blockquote>
+<p>参考文章:<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40544291/article/details/103593448">yarn的安装和使用，并配置用户环境变量_yarn环境变量_麦兜:)的博客-CSDN博客</a></p>
+</blockquote>
+<h3 id="NPM设置淘宝镜像"><a href="#NPM设置淘宝镜像" class="headerlink" title="NPM设置淘宝镜像"></a>NPM设置淘宝镜像</h3><h4 id="1-查询当前配置的镜像"><a href="#1-查询当前配置的镜像" class="headerlink" title="1.查询当前配置的镜像"></a>1.查询当前配置的镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm get registry</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://registry.npmjs.org/">https://registry.npmjs.org/</a></p>
+</blockquote>
+<h4 id="2-设置成淘宝镜像"><a href="#2-设置成淘宝镜像" class="headerlink" title="2.设置成淘宝镜像"></a>2.设置成淘宝镜像</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-换成原来的"><a href="#3-换成原来的" class="headerlink" title="3.换成原来的"></a>3.换成原来的</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npmjs.org/</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用淘宝镜像"><a href="#常用淘宝镜像" class="headerlink" title="常用淘宝镜像"></a>常用淘宝镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install phantomjs --phantomjs_cdnurl=http://npm.taobao.org/mirrors/phantomjs</span><br><span class="line">npm install chromedriver --chromedriver_cdnurl=http://npm.taobao.org/mirrors/chromedriver</span><br><span class="line">npm install operadriver --operadriver_cdnurl=http://npm.taobao.org/mirrors/operadriver</span><br><span class="line">npm config set disturl https://npm.taobao.org/dist</span><br><span class="line">npm config set electron_mirror https://npm.taobao.org/mirrors/electron/</span><br><span class="line">npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/</span><br><span class="line">npm config set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yarn config set disturl https://npm.taobao.org/dist -g</span><br><span class="line">yarn config set electron_mirror https://npm.taobao.org/mirrors/electron/ -g</span><br><span class="line">yarn config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ -g</span><br><span class="line">yarn config set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs/ -g</span><br><span class="line">yarn config set chromedriver_cdnurl https://cdn.npm.taobao.org/dist/chromedriver -g</span><br><span class="line">yarn config set operadriver_cdnurl https://cdn.npm.taobao.org/dist/operadriver -g</span><br><span class="line">yarn config set fse_binary_host_mirror https://npm.taobao.org/mirrors/fsevents -g</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考文章："><a href="#参考文章：" class="headerlink" title="参考文章："></a>参考文章：</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ggq89/article/details/107519969">yarn npm 设置淘宝镜像_AlbertGou的博客-CSDN博客</a></p>
+</li>
+<li><p>npm 和 yarn 更改为淘宝镜像: <a target="_blank" rel="noopener" href="http://www.mamicode.com/info-detail-3035713.html">http://www.mamicode.com/info-detail-3035713.html</a></p>
+</li>
+<li><p>yarn npm 淘宝镜像: <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f2319084efaf">https://www.jianshu.com/p/f2319084efaf</a></p>
+</li>
+</ul>
+<p>yarn默认的包管理服务器在国外，所以第一次使用yarn安装模块时会出现提示是否切换到淘宝镜像站，我们填写y即可</p>
+<h2 id="使用Vue-CLI初始化创建前端项目"><a href="#使用Vue-CLI初始化创建前端项目" class="headerlink" title="使用Vue-CLI初始化创建前端项目"></a>使用Vue-CLI初始化创建前端项目</h2><p>使用vue-cli自动化工具可以快速搭建单页应用项目目录。</p>
+<p>该工具为现代化的前端开发工作流提供了开箱即用的构建配置。只需几分钟即可创建并启动一个带热重载、保存时静态检擦以及可用于生成环境的构建配置项目：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 生成一个基于webpack模块的新项目</span><br><span class="line">vue create 项目目录</span><br><span class="line">列如：</span><br><span class="line">cd ~/Desktop				cd ./Desktop //windows操作</span><br><span class="line">vue create myproject</span><br><span class="line"></span><br><span class="line">// 启动开发服务器ctrl+c停止服务</span><br><span class="line">cd myproject	##项目名需要全部小写</span><br><span class="line">npm run serve	##运行这个命令就可以启动node提供的测试http服务器</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813085904044.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813090532904.png" fancybox="true"/></div></div>
+
+<p>此处我们选择中间vue3(通过上下键切换)</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813094611557.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813094628018.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813094850966.png" fancybox="true"/></div></div>
+
+<p>假如安装了一半突然因为网络异常，而安装失败，可以重试几次</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813095524082.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813095202816.png" fancybox="true"/></div></div>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd myvueproject</span><br><span class="line">yarn serve</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813095805897.png" fancybox="true"/></div></div>
+
+<p>如此便可以通过提供的url访问本地前端vue服务器</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813100040405.png" fancybox="true"/></div></div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctrl +c //停止服务器</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义安装"><a href="#自定义安装" class="headerlink" title="自定义安装"></a>自定义安装</h3><h4 id="一、选择安装配置，空格表示选择-取消。选择完成以后回车"><a href="#一、选择安装配置，空格表示选择-取消。选择完成以后回车" class="headerlink" title="一、选择安装配置，空格表示选择&#x2F;取消。选择完成以后回车"></a>一、选择安装配置，空格表示选择&#x2F;取消。选择完成以后回车</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813101543101.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103049686.png" fancybox="true"/></div></div>
+
+<h4 id="二、选择vue版本"><a href="#二、选择vue版本" class="headerlink" title="二、选择vue版本"></a>二、选择vue版本</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813101920608.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103120851.png" fancybox="true"/></div></div>
+
+<h4 id="三、选择路由插件的路由模式"><a href="#三、选择路由插件的路由模式" class="headerlink" title="三、选择路由插件的路由模式"></a>三、选择路由插件的路由模式</h4><p>历史状态管理模式，就是路由没有##号？</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813102107989.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103157506.png" fancybox="true"/></div></div>
+
+<h4 id="四、选择EsLint的配置项"><a href="#四、选择EsLint的配置项" class="headerlink" title="四、选择EsLint的配置项"></a>四、选择EsLint的配置项</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813102327605.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103225100.png" fancybox="true"/></div></div>
+
+<h4 id="五、EsLint格式化的时机，把2个都勾选上就行"><a href="#五、EsLint格式化的时机，把2个都勾选上就行" class="headerlink" title="五、EsLint格式化的时机，把2个都勾选上就行"></a>五、EsLint格式化的时机，把2个都勾选上就行</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813102339428.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103245959.png" fancybox="true"/></div></div>
+
+<p>保存时，和运行提交时</p>
+<h4 id="六、EsLint和Babel是否存放在一起，还是单独"><a href="#六、EsLint和Babel是否存放在一起，还是单独" class="headerlink" title="六、EsLint和Babel是否存放在一起，还是单独"></a>六、EsLint和Babel是否存放在一起，还是单独</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813102610211.png" fancybox="true"/></div></div>
+
+<p>选择第二个</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103315021.png" fancybox="true"/></div></div>
+
+<h4 id="七、是否保存上面的安装配置为以后安装复用"><a href="#七、是否保存上面的安装配置为以后安装复用" class="headerlink" title="七、是否保存上面的安装配置为以后安装复用"></a>七、是否保存上面的安装配置为以后安装复用</h4><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813102826902.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103345463.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813102836392.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103414709.png" fancybox="true"/></div></div>
+
+<p>下次再安装就会出现这种配置方案</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103948980.png" fancybox="true"/></div></div>
+
+<p>要全部小写</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813103855221.png" fancybox="true"/></div></div>
+
+<p>启动服务器后</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813104406459.png" fancybox="true"/></div></div>
+
+<p>和之前的页面有些不一样，因为多配置了一个路由依赖</p>
+<p>如果在第三部选择了n那么当前访问的路由会变的多一个<code>##</code>号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:8080/##/</span><br><span class="line">http://127.0.0.1:8080/##/about</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成项目目录"><a href="#生成项目目录" class="headerlink" title="生成项目目录"></a>生成项目目录</h3><blockquote>
+<p>在windows上使用更丰富的tree命令</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ricolee/p/cmd-tree.html">Window平台下tree 命令使用 - 牧白 - 博客园 (cnblogs.com)</a></p>
+</blockquote>
+<p>而如果你强制使用可能会提示你</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">参数太多 - 1</span><br></pre></td></tr></table></figure>
+
+<p>winodws cmd不支持丰富的tree命令,但可以使用git bash进行tree命令操作，生成文件目录</p>
+<p>下载window for tree工具</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://gnuwin32.sourceforge.net/packages/tree.htm">Tree for Windows (sourceforge.net)</a></p>
+</blockquote>
+<p>选择其中的Binaries.zip</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813144929665.png" fancybox="true"/></div></div>
+
+<p>解压后将其中bin目录下的tree.exe复制到<code>C:\\Program Files\Git\usr\bin</code>目录下</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813144722163.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813144551310.png" fancybox="true"/></div></div>
+
+<p>tree 命令格式和参数：</p>
+<p>TREE [drive:][path] [&#x2F;F] [&#x2F;A]</p>
+<ul>
+<li>&#x2F;F 显示每个文件夹中文件的名称。（带扩展名）</li>
+<li>&#x2F;A 使用 ASCII 字符，而不使用扩展字符。(如果要显示中文，例如 tree &#x2F;f &#x2F;A &gt;tree.txt)</li>
+</ul>
+<p>tree命令行参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">-a 显示所有文件和目录。							<span class="comment">##默认</span></span><br><span class="line">-A 使用ASNI绘图字符显示树状图而非以ASCII字符组合。</span><br><span class="line">-C 在文件和目录清单加上色彩，便于区分各种类型。</span><br><span class="line">-d 显示目录名称而非内容。</span><br><span class="line">-D 列出文件或目录的更改时间。</span><br><span class="line">-f 在每个文件或目录之前，显示完整的相对路径名称。</span><br><span class="line">-F 在执行文件，目录，Socket，符号连接，管道名称名称，各自加上<span class="string">&quot;*&quot;</span>,<span class="string">&quot;/&quot;</span>,<span class="string">&quot;=&quot;</span>,<span class="string">&quot;@&quot;</span>,<span class="string">&quot;|“号。</span></span><br><span class="line"><span class="string">-g 列出文件或目录的所属群组名称，没有对应的名称时，则显示群组识别码。</span></span><br><span class="line"><span class="string">-i 不以阶梯状列出文件或目录名称。</span></span><br><span class="line"><span class="string">-I 不显示符合范本样式的文件或目录名称。</span></span><br><span class="line"><span class="string">-l 如遇到性质为符号连接的目录，直接列出该连接所指向的原始目录。</span></span><br><span class="line"><span class="string">-L 限制tree命令的分支数量,显示几级目录			##常用</span></span><br><span class="line"><span class="string">-n 不在文件和目录清单加上色彩。</span></span><br><span class="line"><span class="string">-N 直接列出文件和目录名称，包括控制字符。</span></span><br><span class="line"><span class="string">-p 列出权限标示。</span></span><br><span class="line"><span class="string">-P 只显示符合范本样式的文件或目录名称。</span></span><br><span class="line"><span class="string">-q 用”?&quot;</span>号取代控制字符，列出文件和目录名称。</span><br><span class="line">-s 列出文件或目录大小。</span><br><span class="line">-t 用文件和目录的更改时间排序。</span><br><span class="line">-u 列出文件或目录的拥有者名称，没有对应的名称时，则显示用户识别码。</span><br><span class="line">-x 将范围局限在现行的文件系统中，若指定目录下的某些子目录，其存放于另一个文件系统上，则将该子目录予以排除在寻找范围外。</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813145400338.png" fancybox="true"/></div></div>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tree -I <span class="string">&quot;node_modules&quot;</span>&gt;tree.txt</span><br></pre></td></tr></table></figure>
+
+<p>排除”node_modules”目录，并且将生成的目录树导入tree.txt文件</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://gnuwin32.sourceforge.net/packages/tree.htm">Tree for Windows (sourceforge.net)</a></p>
+</blockquote>
+<p>或者你是Ubuntu,可以参考这个文章</p>
+<h3 id="项目目录结构"><a href="#项目目录结构" class="headerlink" title="项目目录结构"></a>项目目录结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">.<span class="comment">##项目根目录</span></span><br><span class="line">|-- README.md</span><br><span class="line">|-- node_modules	<span class="comment">##本地开发项目运行的依赖目录</span></span><br><span class="line">|-- dist			<span class="comment">##项目完成以后，如果项目上线，会编译整个项目成js代码，编译后代码保存在这里</span></span><br><span class="line">|-- babel.config.js	<span class="comment">##高级代码转译器</span></span><br><span class="line">|-- jsconfig.json	<span class="comment">##</span></span><br><span class="line">|-- package.json	<span class="comment">##项目运行的配置文件</span></span><br><span class="line">|-- public			<span class="comment">##访问入口目录</span></span><br><span class="line">|   |               ┕-- favicon.ico</span><br><span class="line">|                   ┕-- index.html		<span class="comment">##项目唯一html页面，整个项目的内容都是被index.html加载提供给用户访问的</span></span><br><span class="line">|-- src				<span class="comment">##核心开发目录，所有的源代码都保存在这里</span></span><br><span class="line">|   |-- App.vue		<span class="comment">##项目的根组件，由App.vue进行加载所有的组件页面和子组件</span></span><br><span class="line">|   |-- assets		<span class="comment">##资产目录，保存项目所需的静态资源[img/视频/音频等附件]</span></span><br><span class="line">|   |               ┕-- logo.png</span><br><span class="line">|   |-- components	<span class="comment">##子组件目录，保存一些零零碎碎的部分页面内容的组件</span></span><br><span class="line">|   |               ┕-- HelloWorld.vue</span><br><span class="line">|   |-- main.js		<span class="comment">##全局初始化入口脚本，index.html被运行时会自动加载这个js文件</span></span><br><span class="line">|   |-- router		<span class="comment">##路由文件保存</span></span><br><span class="line">|   |               ┕-- index.js		<span class="comment">##默认情况下路由文件</span></span><br><span class="line">|   |-- store		<span class="comment">##全局状态管理器，保存公共数据/公共变量的.vuex</span></span><br><span class="line">|   |               ┕-- index.js		<span class="comment">##默认情况的全局变量保存文件</span></span><br><span class="line">|   ┕-- views		<span class="comment">##页面组件目录，一个vue文件就一个页面</span></span><br><span class="line">|       |           ┕-- AboutView.vue</span><br><span class="line">|                   ┕-- HomeView.vue</span><br><span class="line">|-- tree.txt</span><br><span class="line">|-- vue.config.js</span><br><span class="line">┕-- yarn.lock</span><br><span class="line"></span><br><span class="line">7 directories, 18 files</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="在webstorm启动项目"><a href="#在webstorm启动项目" class="headerlink" title="在webstorm启动项目"></a>在webstorm启动项目</h3><p>想直接在终端执行yarn脚本启动服务器和安装package.json的依赖文件报了这么一个错误。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\53078\Desktop\myproject2&gt; yarn</span><br><span class="line">yarn : 无法加载文件 C:\Program Files\nodejs\yarn.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 https:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies  </span><br><span class="line">。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ yarn</span><br><span class="line">+ ~~~~</span><br><span class="line">    + CategoryInfo          : SecurityError: (:) []，PSSecurityException</span><br><span class="line">    + FullyQualifiedErrorId : UnauthorizedAccess</span><br><span class="line">PS C:\Users\53078\Desktop\myproject2&gt; yarn serve</span><br><span class="line">yarn : 无法加载文件 C:\Program Files\nodejs\yarn.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 https:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies</span><br><span class="line">。</span><br><span class="line">所在位置 行:1 字符: 1</span><br><span class="line">+ yarn serve</span><br><span class="line">+ ~~~~</span><br><span class="line">    + CategoryInfo          : SecurityError: (:) []，PSSecurityException</span><br><span class="line">    + FullyQualifiedErrorId : UnauthorizedAccess</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>原因在于PowerShell 执行策略是一项安全功能，用于控制 PowerShell 加载配置文件和运行脚本的条件。 此功能有助于防止恶意脚本的执行</p>
+<p>所以如果要使用yarn等脚本命令，需要更改执行策略</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">get-ExecutionPolicy</span><br><span class="line">set-ExecutionPolicy RemoteSigned</span><br><span class="line">set-ExecutionPolicy Restricted</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813122645080.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="项目构建工具/image-20230813122801291.png" fancybox="true"/></div></div>
+
+
+
+<h3 id="Vue项目执行流程图"><a href="#Vue项目执行流程图" class="headerlink" title="Vue项目执行流程图"></a>Vue项目执行流程图</h3><pre class="mermaid" data-processed="true"><svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="-7.999998092651367 -8 709.65625 427" height="427" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="709.65625" id="mermaid-1695277850518"><style>#mermaid-1695277850518{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#ccc;}#mermaid-1695277850518 .error-icon{fill:#a44141;}#mermaid-1695277850518 .error-text{fill:#ddd;stroke:#ddd;}#mermaid-1695277850518 .edge-thickness-normal{stroke-width:2px;}#mermaid-1695277850518 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1695277850518 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1695277850518 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1695277850518 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1695277850518 .marker{fill:lightgrey;stroke:lightgrey;}#mermaid-1695277850518 .marker.cross{stroke:lightgrey;}#mermaid-1695277850518 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1695277850518 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#ccc;}#mermaid-1695277850518 .cluster-label text{fill:#F9FFFE;}#mermaid-1695277850518 .cluster-label span{color:#F9FFFE;}#mermaid-1695277850518 .label text,#mermaid-1695277850518 span{fill:#ccc;color:#ccc;}#mermaid-1695277850518 .node rect,#mermaid-1695277850518 .node circle,#mermaid-1695277850518 .node ellipse,#mermaid-1695277850518 .node polygon,#mermaid-1695277850518 .node path{fill:#1f2020;stroke:#81B1DB;stroke-width:1px;}#mermaid-1695277850518 .node .label{text-align:center;}#mermaid-1695277850518 .node.clickable{cursor:pointer;}#mermaid-1695277850518 .arrowheadPath{fill:lightgrey;}#mermaid-1695277850518 .edgePath .path{stroke:lightgrey;stroke-width:2.0px;}#mermaid-1695277850518 .flowchart-link{stroke:lightgrey;fill:none;}#mermaid-1695277850518 .edgeLabel{background-color:hsl(0, 0%, 34.4117647059%);text-align:center;}#mermaid-1695277850518 .edgeLabel rect{opacity:0.5;background-color:hsl(0, 0%, 34.4117647059%);fill:hsl(0, 0%, 34.4117647059%);}#mermaid-1695277850518 .cluster rect{fill:hsl(180, 1.5873015873%, 28.3529411765%);stroke:rgba(255, 255, 255, 0.25);stroke-width:1px;}#mermaid-1695277850518 .cluster text{fill:#F9FFFE;}#mermaid-1695277850518 .cluster span{color:#F9FFFE;}#mermaid-1695277850518 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(20, 1.5873015873%, 12.3529411765%);border:1px solid rgba(255, 255, 255, 0.25);border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1695277850518 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#ccc;}#mermaid-1695277850518 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="10" viewBox="0 0 12 20" class="marker flowchart" id="flowchart-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="0" viewBox="0 0 10 10" class="marker flowchart" id="flowchart-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart" id="flowchart-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart" id="flowchart-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart" id="flowchart-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart" id="flowchart-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id1 LE-id2" id="L-id1-id2-0" d="M348.2156219482422,42.20000076293945L348.2156219482422,67.20000076293945L348.2156219482422,92.20000076293945"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id2 LE-id3" id="L-id2-id3-0" d="M348.2156219482422,134.4000015258789L348.2156219482422,159.4000015258789L348.2156219482422,184.4000015258789"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id3 LE-id4" id="L-id3-id4-0" d="M295.4906234741211,214.4300606588461L76.03124809265137,251.60000228881836L76.03124809265137,276.60000228881836"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id3 LE-id5" id="L-id3-id5-0" d="M299.8695602724645,226.60000228881836L242.58749771118164,251.60000228881836L242.58749771118164,276.60000228881836"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id3 LE-id6" id="L-id3-id6-0" d="M396.56168362401985,226.60000228881836L453.84374618530273,251.60000228881836L453.84374618530273,276.60000228881836"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id3 LE-id7" id="L-id3-id7-0" d="M400.9406204223633,213.24230181021767L662.1562442779541,251.60000228881836L662.1562442779541,276.60000228881836"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id4 LE-id8" id="L-id4-id8-0" d="M53.912864451653604,318.8000030517578L27.706249237060547,343.8000030517578L27.706249237060547,368.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id4 LE-id9" id="L-id4-id9-0" d="M102.27752004195173,318.8000030517578L133.37499809265137,343.8000030517578L133.37499809265137,368.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id5 LE-id10" id="L-id5-id10-0" d="M242.58749771118164,318.8000030517578L242.58749771118164,343.8000030517578L242.58749771118164,368.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id6 LE-id11" id="L-id6-id11-0" d="M422.34374618530273,311.42137535070975L348.0124969482422,343.8000030517578L348.0124969482422,368.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id6 LE-id12" id="L-id6-id12-0" d="M453.84374618530273,318.8000030517578L453.84374618530273,343.8000030517578L453.84374618530273,368.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id6 LE-id13" id="L-id6-id13-0" d="M485.34374618530273,311.6186514225592L558.1749954223633,343.8000030517578L558.1749954223633,368.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id7 LE-id14" id="L-id7-id14-0" d="M662.1562442779541,318.8000030517578L662.1562442779541,343.8000030517578L662.1562442779541,368.8000030517578"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(348.2156219482422, 21.100000381469727)" id="flowchart-id1-80" class="node default default"><rect height="42.20000076293945" width="92.92500305175781" y="-21.100000381469727" x="-46.462501525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-38.962501525878906, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="77.92500305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">index.html</span></div></foreignObject></g></g><g transform="translate(348.2156219482422, 113.30000114440918)" id="flowchart-id2-81" class="node default"><rect height="42.20000076293945" width="68.2125015258789" y="-21.100000381469727" x="-34.10625076293945" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-26.606250762939453, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="53.212501525878906"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">main.js</span></div></foreignObject></g></g><g transform="translate(348.2156219482422, 205.50000190734863)" id="flowchart-id3-82" class="node default"><rect height="42.20000076293945" width="105.45000457763672" y="-21.100000381469727" x="-52.72500228881836" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-45.22500228881836, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="90.45000457763672"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">App.vue路由</span></div></foreignObject></g></g><g transform="translate(76.03124809265137, 297.7000026702881)" id="flowchart-id4-83" class="node default default"><rect height="42.20000076293945" width="63" y="-21.100000381469727" x="-31.5" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-24, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="48"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件一</span></div></foreignObject></g></g><g transform="translate(242.58749771118164, 297.7000026702881)" id="flowchart-id5-84" class="node default default"><rect height="42.20000076293945" width="63" y="-21.100000381469727" x="-31.5" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-24, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="48"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件二</span></div></foreignObject></g></g><g transform="translate(453.84374618530273, 297.7000026702881)" id="flowchart-id6-85" class="node default default"><rect height="42.20000076293945" width="63" y="-21.100000381469727" x="-31.5" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-24, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="48"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件三</span></div></foreignObject></g></g><g transform="translate(662.1562442779541, 297.7000026702881)" id="flowchart-id7-86" class="node default default"><rect height="42.20000076293945" width="63" y="-21.100000381469727" x="-31.5" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-24, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="48"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件四</span></div></foreignObject></g></g><g transform="translate(27.706249237060547, 389.90000343322754)" id="flowchart-id8-87" class="node default default"><rect height="42.20000076293945" width="55.41250228881836" y="-21.100000381469727" x="-27.70625114440918" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-20.20625114440918, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="40.41250228881836"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件a</span></div></foreignObject></g></g><g transform="translate(133.37499809265137, 389.90000343322754)" id="flowchart-id9-88" class="node default default"><rect height="42.20000076293945" width="55.92499923706055" y="-21.100000381469727" x="-27.962499618530273" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-20.462499618530273, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="40.92499923706055"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件b</span></div></foreignObject></g></g><g transform="translate(242.58749771118164, 389.90000343322754)" id="flowchart-id10-89" class="node default default"><rect height="42.20000076293945" width="54.92499923706055" y="-21.100000381469727" x="-27.462499618530273" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-19.962499618530273, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="39.92499923706055"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件c</span></div></foreignObject></g></g><g transform="translate(348.0124969482422, 389.90000343322754)" id="flowchart-id11-90" class="node default default"><rect height="42.20000076293945" width="55.92499923706055" y="-21.100000381469727" x="-27.962499618530273" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-20.462499618530273, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="40.92499923706055"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件d</span></div></foreignObject></g></g><g transform="translate(453.84374618530273, 389.90000343322754)" id="flowchart-id12-91" class="node default default"><rect height="42.20000076293945" width="55.73749923706055" y="-21.100000381469727" x="-27.868749618530273" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-20.368749618530273, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="40.73749923706055"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件e</span></div></foreignObject></g></g><g transform="translate(558.1749954223633, 389.90000343322754)" id="flowchart-id13-92" class="node default default"><rect height="42.20000076293945" width="52.92499923706055" y="-21.100000381469727" x="-26.462499618530273" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-18.962499618530273, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="37.92499923706055"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件f</span></div></foreignObject></g></g><g transform="translate(662.1562442779541, 389.90000343322754)" id="flowchart-id14-93" class="node default default"><rect height="42.20000076293945" width="55.03750228881836" y="-21.100000381469727" x="-27.51875114440918" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-20.01875114440918, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="40.03750228881836"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">组件g</span></div></foreignObject></g></g></g></g></g></svg></pre>
+
+
+
+<p>整个项目是一个主文件index.html,index.html中会引入src文件夹中的main.js,main,js中会导入顶级单文件组件App.vue,<br>App.vue中会通过组件嵌套或者路由来引用views页面组件，views组件会根据开发的页面需要加载components.文件夹中的其他<br>单文件子组件。</p>
+<p>将一个组件相关的html结构，css样式，以及交互的JavaScript代码从html文件中剥离出来，合成一个文件，这种文件就是单文件组件，相当于一个组件具有了结构、表现和行为的完整功能，方便组件之间随意组合以及组件的重用，这种文件的扩展名为“vue”，比如：”Home.vue”。</p>
+
+  
+  
+<div class="article-footer reveal fs14"></div>
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/vue/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E5%92%8C%E6%B5%85%E5%85%A5.html">Vue组件化开发基础和浅入</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.html">单文件组件的使用</a></div></section></div>
+
+  
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs14">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
+<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
+<!--不蒜子计数器-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--添加一个访问量-->
+<span>
+      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
+</span>
+</br>
+<span id="runtime_span"></span>
+<script type="text/javascript">
+function show_runtime() {
+    window.setTimeout("show_runtime()", 1000);
+    X = new Date("2023/09/17 17:00:00");
+    Y = new Date();
+    T = (Y.getTime() - X.getTime());
+    M = 24 * 60 * 60 * 1000;
+    a = T / M;
+    A = Math.floor(a);
+    b = (a - A) * 24;
+    B = Math.floor(b);
+    c = (b - B) * 60;
+    C = Math.floor((b - B) * 60);
+    D = Math.floor((c - C) * 60);
+    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
+}
+show_runtime();
+</script>
+</center>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.22.1';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img, .gallery img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+  
+    <script type="text/javascript" src="/js/darkmode.js"></script>
+  
+
+
+  </div>
+</body>
+</html>

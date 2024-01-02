@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 7.0.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Vue：Vue组件化开发基础和浅入 - BoBoBlog</title>
+
+  
+    <meta name="description" content="脚本化组件[component]组件(Component)是自定义封装代码的功能。在前端开发的过程中，经常出现多个网页的功能是重复的，而且很多不同的页面之间，也存在同意的功能。 而在网页中实现一个功能，需要使用html定义功能的内容结构，使用css生命功能的外观样式，还要使用js来定义功能的特效，因此就产生了把一个功能相关的[HTML、css和javascript]代码封装在一起组成一个整体的代码">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vue组件化开发基础和浅入">
+<meta property="og:url" content="https://bxzdyg.cn/wiki/vue/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E5%92%8C%E6%B5%85%E5%85%A5.html">
+<meta property="og:site_name" content="BoBoBlog">
+<meta property="og:description" content="脚本化组件[component]组件(Component)是自定义封装代码的功能。在前端开发的过程中，经常出现多个网页的功能是重复的，而且很多不同的页面之间，也存在同意的功能。 而在网页中实现一个功能，需要使用html定义功能的内容结构，使用css生命功能的外观样式，还要使用js来定义功能的特效，因此就产生了把一个功能相关的[HTML、css和javascript]代码封装在一起组成一个整体的代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-01T06:05:25.296Z">
+<meta property="article:modified_time" content="2024-01-01T01:04:35.984Z">
+<meta property="article:author" content="BXZDYG">
+<meta name="twitter:card" content="summary">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
+  
+
+  
+
+  
+
+
+  
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+      <link rel="stylesheet" href="/css/darkmode.css">
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+  
+
+
+
+
+<div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1.2em" height="1.2em" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html"><div class="main" ff="title">Vue</div><div class="sub normal cap">很开心的学了</div><div class="sub hover cap" style="opacity:0"> 结果又多了一个学过而不会的技术</div></a></div></widget>
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/wiki/vue/" placeholder="在 Vue笔记 中搜索..."><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start"><span class="toc-text">Vue快速入门</span></a></div></div><div class="widget-header cap dis-select"><span class="name">基本使用</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.html"><span class="toc-text">Vue常用指令</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD.html"><span class="toc-text">Vue对象提供的属性功能</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html"><span class="toc-text">Vue对象的生命周期</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/vue/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E5%92%8C%E6%B5%85%E5%85%A5.html"><span class="toc-text">Vue组件化开发基础和浅入</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E5%8C%96%E7%BB%84%E4%BB%B6-component"><span class="toc-text">脚本化组件[component]</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E7%BB%84%E4%BB%B6"><span class="toc-text">默认组件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C"><span class="toc-text">全局注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C"><span class="toc-text">局部注册</span></a></li></ol></li></ol></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">项目构建工具</span></a></div></div><div class="widget-header cap dis-select"><span class="name">深入组件</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.html"><span class="toc-text">单文件组件的使用</span></a></div></div><div class="widget-header cap dis-select"><span class="name">应用规模化</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E8%B7%AF%E7%94%B1.html"><span class="toc-text">Vue路由</span></a></div></div><div class="widget-header cap dis-select"><span class="name">跨域问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Axios.html"><span class="toc-text">Axios</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Proxy.html"><span class="toc-text">Proxy</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/WebSocket.html"><span class="toc-text">WebSocket</span></a></div></div><div class="widget-header cap dis-select"><span class="name">进阶主题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E7%BB%84%E5%90%88API.html"><span class="toc-text">组合API</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">Vite项目构建工具</span></a></div></div></widget>
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+  
+<div class="bread-nav fs12"><div class="left"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/"><i class="fa-solid fa-book"></i></a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">Vue</a></div><div id="post-meta">
+    <span>更新于&nbsp;<time datetime="2024-01-01T01:04:35.984Z">2024-01-01</time></span>
+    </div></div></div>
+
+  <article class='md-text content wiki'>
+  <h1 class="article-title"><span>Vue组件化开发基础和浅入</span></h1>
+  <h2 id="脚本化组件-component"><a href="#脚本化组件-component" class="headerlink" title="脚本化组件[component]"></a>脚本化组件[component]</h2><p>组件(Component)是自定义封装代码的功能。在前端开发的过程中，经常出现多个网页的功能是重复的，而且很多不同的页面之间，也存在同意的功能。</p>
+<p>而在网页中实现一个功能，需要使用html定义功能的内容结构，使用css生命功能的外观样式，还要使用js来定义功能的特效，因此就产生了把一个功能相关的[HTML、css和javascript]代码封装在一起组成一个整体的代码块封装模式，我们称之为”组件”。</p>
+<p>所以，组件就是一个html网页中的功能，一般就是一个标签，标签中有自己的html内容结构，css样式和js特效。</p>
+<p>这样，前端人员就可以在组件化开发时，只需要书写一次代码，随处引入即可使用。</p>
+<p>vue的组件有两种：默认组件[全局组件]和单文件组件。组件名：小写加横杠</p>
+<h4 id="默认组件"><a href="#默认组件" class="headerlink" title="默认组件"></a>默认组件</h4><h4 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../js/vue.3.3.4.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">header-nav</span>&gt;</span><span class="tag">&lt;/<span class="name">header-nav</span>&gt;</span><span class="comment">&lt;!--vm对象外的，即使使用组件名的标签也无法调用组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header-nav</span>&gt;</span><span class="tag">&lt;/<span class="name">header-nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header-nav</span>&gt;</span><span class="tag">&lt;/<span class="name">header-nav</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--    &lt;ul&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--        &lt;li&gt;&lt;a href=&quot;&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--        &lt;li&gt;&lt;a href=&quot;&quot;&gt;列表&lt;/a&gt;&lt;/li&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--        &lt;li&gt;&lt;a href=&quot;&quot;&gt;详情&lt;/a&gt;&lt;/li&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--        &lt;li&gt;&lt;a href=&quot;&quot;&gt;注册&lt;/a&gt;&lt;/li&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--    &lt;/ul&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-handlebars"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //组件声明</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //组件使用/其实和过滤器的使用方式很相似</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    // Vue.component(&quot;组件名&quot;, &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //     data() &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //     &#125;,//组件内部的数据</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //     methods: &#123;&#125;,//组件内部操作方法</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //     template:&quot;&quot;,//组件内部的html代码</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    // &#125;);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //一般使用的方法组件名作为标签使用，所以组件名一般以两个单词左右</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //组件内部的数据是隔离开来的是互相独立的，在操作过程中，又属于当前组件的vm对象进行控制</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //以往我们学习过的所有代码都可以在组件中使用</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    const headerNav = &#123;//导航栏</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        data() &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">            return &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">                nav_list: [&#x27;首页&#x27;, &#x27;注册&#x27;, &#x27;详情&#x27;, &#x27;列表&#x27;],</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">                num: 0//组件与组件之间的数据是隔离开来的</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">            &#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        &#125;,//组件内部的数据</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        methods: &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">            show(nav) &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">                alert(nav)</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">            &#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        &#125;,//组件内部操作方法</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        template: `</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">          <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">          <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;nav in nav_list&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;&quot;</span> @<span class="attr">click.prevent</span>=<span class="string">&quot;show(nav)&quot;</span>&gt;</span></span><span class="template-variable">&#123;&#123; <span class="name">nav</span> &#125;&#125;</span><span class="language-xml"><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">          <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;num++&quot;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">v-model.number</span>=<span class="string">&quot;num&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">          <span class="comment">&lt;!--          &lt;li&gt;&lt;a href=&quot;&quot;&gt;列表&lt;/a&gt;&lt;/li&gt;--&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">          <span class="comment">&lt;!--          &lt;li&gt;&lt;a href=&quot;&quot;&gt;详情&lt;/a&gt;&lt;/li&gt;--&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">          <span class="comment">&lt;!--          &lt;li&gt;&lt;a href=&quot;&quot;&gt;注册&lt;/a&gt;&lt;/li&gt;--&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">          <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>`,//组件内部的html代码</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    &#125;;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    //设计模式：链式调用：方法以当前对象作为返回值</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    const vm = Vue.createApp(&#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        data() &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">            return &#123;&#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        &#125;,</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        methods: &#123;&#125;,</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        mounted() &#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        &#125;,</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        // &#125;);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        // vm.component(&#x27;header-nav&#x27;, headerNav);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        // vm.mount(&quot;##box&quot;);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    &#125;).component(&#x27;header-nav&#x27;, headerNav).mount(&quot;##box&quot;);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"></span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../js/vue.3.3.4.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">header-nav</span>&gt;</span><span class="tag">&lt;/<span class="name">header-nav</span>&gt;</span><span class="comment">&lt;!--vm对象外的，即使使用组件名的标签也无法调用组件--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header-nav</span>&gt;</span><span class="tag">&lt;/<span class="name">header-nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">header-nav</span>&gt;</span><span class="tag">&lt;/<span class="name">header-nav</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">headerNav</span>&gt;</span><span class="tag">&lt;/<span class="name">headerNav</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 无用   --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> headerNav = &#123;<span class="comment">//导航栏</span></span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">data</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">nav_list</span>: [<span class="string">&#x27;首页&#x27;</span>, <span class="string">&#x27;注册&#x27;</span>, <span class="string">&#x27;详情&#x27;</span>, <span class="string">&#x27;列表&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">num</span>: <span class="number">0</span><span class="comment">//组件与组件之间的数据是隔离开来的</span></span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;,<span class="comment">//组件内部的数据</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">show</span>(<span class="params">nav</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="title function_">alert</span>(nav)</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;,<span class="comment">//组件内部操作方法</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">template</span>: <span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">          &lt;ul&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">          &lt;li v-for=&quot;nav in nav_list&quot;&gt;&lt;a href=&quot;&quot; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">          @click.prevent=&quot;show(nav)&quot;&gt;&#123;&#123; nav &#125;&#125;&lt;/a&gt;&lt;/li&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">          &lt;button @click=&quot;num++&quot;&gt;+&lt;/button&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">          &lt;input type=&quot;text&quot; v-model.number=&quot;num&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">          &lt;/ul&gt;`</span>,<span class="comment">//组件内部的html代码</span></span></span><br><span class="line"><span class="language-javascript">    &#125;;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//设计模式：链式调用：方法以当前对象作为返回值</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> vm = <span class="title class_">Vue</span>.<span class="title function_">createApp</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">data</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> &#123;&#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">methods</span>: &#123;&#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">component</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// &#x27;header-nav&#x27;:headerNav,//写法一</span></span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// &#x27;headerNav&#x27;:headerNav,//写法二:js中属性值和属性名都是同一个变量名，则可以简写成一句话,而且如果叫做会自动headerNav转换为header-nav</span></span></span><br><span class="line"><span class="language-javascript">            headerNav<span class="comment">//相当于headerNav:headerNav//调用标签名还是&lt;header-nav&gt;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// &#125;);</span></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// vm.component(&#x27;header-nav&#x27;, headerNav);</span></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// vm.mount(&quot;##box&quot;);</span></span></span><br><span class="line"><span class="language-javascript">    &#125;).<span class="title function_">mount</span>(<span class="string">&quot;##box&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// &#125;).component(&#x27;header-nav&#x27;, headerNav).mount(&quot;##box&quot;);</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+  
+  
+<div class="article-footer reveal fs14"></div>
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html">Vue对象的生命周期</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html">项目构建工具</a></div></section></div>
+
+  
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs14">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
+<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
+<!--不蒜子计数器-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--添加一个访问量-->
+<span>
+      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
+</span>
+</br>
+<span id="runtime_span"></span>
+<script type="text/javascript">
+function show_runtime() {
+    window.setTimeout("show_runtime()", 1000);
+    X = new Date("2023/09/17 17:00:00");
+    Y = new Date();
+    T = (Y.getTime() - X.getTime());
+    M = 24 * 60 * 60 * 1000;
+    a = T / M;
+    A = Math.floor(a);
+    b = (a - A) * 24;
+    B = Math.floor(b);
+    c = (b - B) * 60;
+    C = Math.floor((b - B) * 60);
+    D = Math.floor((c - C) * 60);
+    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
+}
+show_runtime();
+</script>
+</center>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.22.1';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img, .gallery img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+  
+    <script type="text/javascript" src="/js/darkmode.js"></script>
+  
+
+
+  </div>
+</body>
+</html>

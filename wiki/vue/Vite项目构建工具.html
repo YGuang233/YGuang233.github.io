@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 7.0.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Vue：Vite项目构建工具 - BoBoBlog</title>
+
+  
+    <meta name="description" content="vite是用于替代vue-cli而推出的新一代vue项目构建工具。在vue3.0版本中，推荐我们使用vite构建vue项目  工具链 | Vue.js (vuejs.org)   开始 | Vite 官方中文文档 (vitejs.dev)    安装和搭建项目123##安装vite+vue3项目 Viteyarn create vitenpm create vite@latest  如果使用的">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vite项目构建工具">
+<meta property="og:url" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html">
+<meta property="og:site_name" content="BoBoBlog">
+<meta property="og:description" content="vite是用于替代vue-cli而推出的新一代vue项目构建工具。在vue3.0版本中，推荐我们使用vite构建vue项目  工具链 | Vue.js (vuejs.org)   开始 | Vite 官方中文文档 (vitejs.dev)    安装和搭建项目123##安装vite+vue3项目 Viteyarn create vitenpm create vite@latest  如果使用的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bxzdyg.cn/assets/wiki/vite/vite.svg">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815144446445.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815144540830.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815144925786.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815145036011.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815145107410.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815145549543.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815150549091.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815151145825.png">
+<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/image-20230815153410951.png">
+<meta property="article:published_time" content="2024-01-01T07:30:21.555Z">
+<meta property="article:modified_time" content="2024-01-01T07:30:21.555Z">
+<meta property="article:author" content="BXZDYG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bxzdyg.cn/assets/wiki/vite/vite.svg">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
+  
+
+  
+
+  
+
+
+  
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+      <link rel="stylesheet" href="/css/darkmode.css">
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+  
+
+
+
+
+<div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1.2em" height="1.2em" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html"><div class="main" ff="title">Vue</div><div class="sub normal cap">很开心的学了</div><div class="sub hover cap" style="opacity:0"> 结果又多了一个学过而不会的技术</div></a></div></widget>
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/wiki/vue/" placeholder="在 Vue笔记 中搜索..."><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc multi" id="data-toc"><div class="widget-header cap dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start"><span class="toc-text">Vue快速入门</span></a></div></div><div class="widget-header cap dis-select"><span class="name">基本使用</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.html"><span class="toc-text">Vue常用指令</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD.html"><span class="toc-text">Vue对象提供的属性功能</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html"><span class="toc-text">Vue对象的生命周期</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E5%92%8C%E6%B5%85%E5%85%A5.html"><span class="toc-text">Vue组件化开发基础和浅入</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">项目构建工具</span></a></div></div><div class="widget-header cap dis-select"><span class="name">深入组件</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.html"><span class="toc-text">单文件组件的使用</span></a></div></div><div class="widget-header cap dis-select"><span class="name">应用规模化</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E8%B7%AF%E7%94%B1.html"><span class="toc-text">Vue路由</span></a></div></div><div class="widget-header cap dis-select"><span class="name">跨域问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Axios.html"><span class="toc-text">Axios</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Proxy.html"><span class="toc-text">Proxy</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/WebSocket.html"><span class="toc-text">WebSocket</span></a></div></div><div class="widget-header cap dis-select"><span class="name">进阶主题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E7%BB%84%E5%90%88API.html"><span class="toc-text">组合API</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">Vite项目构建工具</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">安装和搭建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE"><span class="toc-text">项目配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85"><span class="toc-text">项目打包</span></a></li></ol></div></div></widget>
+
+
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+  
+<div class="bread-nav fs12"><div class="left"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/"><i class="fa-solid fa-book"></i></a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">Vue</a></div><div id="post-meta">
+    <span>更新于&nbsp;<time datetime="2024-01-01T07:30:21.555Z">2024-01-01</time></span>
+    </div></div></div>
+
+  <article class='md-text content wiki'>
+  <h1 class="article-title"><span>Vite项目构建工具</span></h1>
+  <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/wiki/vite/vite.svg" alt="vite" style="zoom:900%;" />
+
+<p>vite是用于替代vue-cli而推出的新一代vue项目构建工具。在vue3.0版本中，推荐我们使用vite构建vue项目</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/scaling-up/tooling.html##project-scaffolding">工具链 | Vue.js (vuejs.org)</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/">开始 | Vite 官方中文文档 (vitejs.dev)</a></p>
+</blockquote>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815144446445.png" fancybox="true"/></div></div>
+
+<h2 id="安装和搭建项目"><a href="#安装和搭建项目" class="headerlink" title="安装和搭建项目"></a>安装和搭建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##安装vite+vue3项目 Vite</span></span><br><span class="line">yarn create vite</span><br><span class="line">npm create vite@latest</span><br></pre></td></tr></table></figure>
+
+<p>如果使用的是vue2进行开发可以使用Vite1的版本</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815144540830.png" fancybox="true"/></div></div>
+
+<p>切换到工作目录下</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815144925786.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815145036011.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815145107410.png" fancybox="true"/></div></div>
+
+<p>基本上回车后就构建好了，真的是非常快</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">√ Project name: ... vite<span class="literal">-project</span></span><br><span class="line">√ <span class="built_in">Select</span> a framework: » Vue</span><br><span class="line">√ <span class="built_in">Select</span> a variant: » JavaScript</span><br></pre></td></tr></table></figure>
+
+<p>将文件使用webstorm打开，安装所需依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815145549543.png" fancybox="true"/></div></div>
+
+<p>运行项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn dev</span><br><span class="line">yarn run dev</span><br><span class="line">vite</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815150549091.png" fancybox="true"/></div></div>
+
+<p>启动配置</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815151145825.png" fancybox="true"/></div></div>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--port=8000 --host=0.0.0.0</span><br></pre></td></tr></table></figure>
+
+<p>阅览文件发现index.html从public移至根目录，而且还多了一段导入<code>/src/main.js</code>的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;module&quot;</span> src=<span class="string">&quot;/src/main.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h2><p>项目根目录下新增了一个<code>vitew.config.js</code>文件，我们可以通过vite配置一些插件和外部依赖</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">  <span class="attr">plugins</span>: [<span class="title function_">vue</span>()],</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目打包"><a href="#项目打包" class="headerlink" title="项目打包"></a>项目打包</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vite build</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Vite项目构建工具/image-20230815153410951.png" fancybox="true"/></div></div>
+
+<p>打包成功后会在根目录生成一个dist文件</p>
+<p>不管我们使用的是vue-cli还是vite进行项目构建和管理，将来要进行项目的部署迁移到外网服务器时，都是需要使用打包后的项目代码，打包后的代码会进行压缩，并且只需要运行在http服务器下面即可。我们一般在公司里面往往使用nginx来运行打包后的web前端项目。</p>
+<p>除了nginx,还可以使用前端开发人员经常用于进行项目测试的Iive-server测试服务器来运行打包后的vue项目代码。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##npm install -g live-server</span></span><br><span class="line">yarn add live<span class="literal">-server</span></span><br></pre></td></tr></table></figure>
+
+<p>切换到dist目录下,运行项目,这个文件是将来部署到服务器的源码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">liver-server</span><br></pre></td></tr></table></figure>
+
+
+
+
+  
+  
+<div class="article-footer reveal fs14"></div>
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/vue/%E7%BB%84%E5%90%88API.html">组合API</a></div><div class="item" id="next"></div></section></div>
+
+  
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs14">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
+<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
+<!--不蒜子计数器-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--添加一个访问量-->
+<span>
+      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
+</span>
+</br>
+<span id="runtime_span"></span>
+<script type="text/javascript">
+function show_runtime() {
+    window.setTimeout("show_runtime()", 1000);
+    X = new Date("2023/09/17 17:00:00");
+    Y = new Date();
+    T = (Y.getTime() - X.getTime());
+    M = 24 * 60 * 60 * 1000;
+    a = T / M;
+    A = Math.floor(a);
+    b = (a - A) * 24;
+    B = Math.floor(b);
+    c = (b - B) * 60;
+    C = Math.floor((b - B) * 60);
+    D = Math.floor((c - C) * 60);
+    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
+}
+show_runtime();
+</script>
+</center>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.22.1';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img, .gallery img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+
+
+<!-- inject -->
+
+  
+    <script type="text/javascript" src="/js/darkmode.js"></script>
+  
+
+
+  </div>
+</body>
+</html>
