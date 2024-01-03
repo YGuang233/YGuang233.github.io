@@ -20,18 +20,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
   
-  <title>Django：快速开始 - BoBoBlog</title>
+  <title>comment - BoBoBlog</title>
 
   
-    <meta name="description" content="待编辑……qwq其实写了的，一定是不见了！">
+    <meta name="description" content="留言板 &nbsp;&nbsp;你可以在这里留盐，我会找到你的，放心大胆发言，欢迎再来关顾我的小站，就怕一段时间我又消失了，请来提醒我。&nbsp;&nbsp;当然，你可以给我提出一些更好的意见，也可以提携我走入行业深处，教会我更多编程、历史、小说、游戏方面的知识，因为我还是个超级小白。&nbsp;&nbsp;最后，愿来者都能有所收获！">
 <meta property="og:type" content="website">
-<meta property="og:title" content="快速开始">
-<meta property="og:url" content="https://bxzdyg.cn/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">
+<meta property="og:title" content="comment">
+<meta property="og:url" content="https://bxzdyg.cn/comment/index.html">
 <meta property="og:site_name" content="BoBoBlog">
-<meta property="og:description" content="待编辑……qwq其实写了的，一定是不见了！">
+<meta property="og:description" content="留言板 &nbsp;&nbsp;你可以在这里留盐，我会找到你的，放心大胆发言，欢迎再来关顾我的小站，就怕一段时间我又消失了，请来提醒我。&nbsp;&nbsp;当然，你可以给我提出一些更好的意见，也可以提携我走入行业深处，教会我更多编程、历史、小说、游戏方面的知识，因为我还是个超级小白。&nbsp;&nbsp;最后，愿来者都能有所收获！">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-01T09:45:39.252Z">
-<meta property="article:modified_time" content="2024-01-01T09:45:34.772Z">
+<meta property="article:published_time" content="2024-01-03T10:40:57.000Z">
+<meta property="article:modified_time" content="2024-01-03T10:58:24.220Z">
 <meta property="article:author" content="BXZDYG">
 <meta name="twitter:card" content="summary">
   
@@ -74,53 +74,65 @@
   
 
 
-
-
   <div class='l_body' id='start'>
-    <aside class='l_left' layout='wiki'>
+    <aside class='l_left' layout='page'>
     
 
   
 
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/assets/website/avatar/avatar.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">BoBoBlog</div><div class="sub normal cap">我秃了头</div><div class="sub hover cap" style="opacity:0"> 可我却还不是程序员</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item" href="/"><i class="fa-solid fa-house-chimney"></i></a><a class="nav-item" href="/wiki/"><i class="fa-solid fa-book"></i></a><a class="nav-item" href="/bookmark/"><i class="fa-solid fa-icons"></i></a><a class="nav-item" href="/friends/"><i class="fa-brands fa-squarespace"></i></a><a class="nav-item" href="/about/"><i class="fa-solid fa-plus fa-flip"></i></a></nav>
+</header>
 
 
+<div class="widgets">
+<widget class="widget-wrapper markdown"><div class="widget-header cap theme dis-select"><span class="name">哈喽~ 远道而来的朋友呀 ：</span></div><div class="widget-body fs14"><p id="bxzdyg">
+<span id="bxzdyg_text">:D 获取中...</span>
+</p>
+<script>
+const myArray = ['龙年大吉！阖家欢乐！', '目标实现共产主义', '天天幸福快乐！健健康康！远离疾病与伤痛。', '人民万岁！', '我想玩黑神话悟空！','丝之歌！呜呜呜~']; // 将字符替换为你要说的话
+const getRandomText = (array) => {
+return array[Math.floor(Math.random() * array.length)];
+};
+const bxzdyg = document.querySelector('#bxzdyg_text');
+bxzdyg.innerText = getRandomText(myArray);
+</script>
+</div></widget>
 
-<div class="widgets"><widget class="widget-wrapper logo-wrap wiki"><div class="widget-body"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1.2em" height="1.2em" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有项目</a><a class="title" href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html"><div class="main" ff="title">Django</div><div class="sub normal cap">高集成化</div><div class="sub hover cap" style="opacity:0"> 谁能不爱</div></a></div></widget>
-<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" data-filter="/wiki/django/" placeholder="在 Django笔记 中搜索..."><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" placeholder="站内搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
 
-<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><div class="doc-tree active"></div></div></widget>
-
-
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">comment</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%95%99%E8%A8%80%E6%9D%BF"><span class="toc-text">留言板</span></a></li></ol></div></div></widget>
 </div>
-
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/YGuang233" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-github"></i></a><a class="social" href="javaScript:hud.toast('你在听🎵啦啦啦~');" rel="noopener noreferrer"><i class="fa-solid fa-music"></i></a><a class="social" href="https://space.bilibili.com/65447634?spm_id_from=333.1007.0.0" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-bilibili fa-bounce"></i></a><a class="social" href="https://www.zhihu.com/people/wo-yao-ren-ren-zhen-zhen-xue-xi-liao" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-zhihu"></i></a><a class="social" href="/atom.xml" rel="noopener noreferrer"><i class="fa-solid fa-rss fa-shake"></i></a><a class="social" href="javaScript:hud.toast('暂未开启该功能🤷‍♂️');" rel="noopener noreferrer"><i class="fa-regular fa-comment-dots"></i></a><a class="social" href="javaScript:void(0);" rel="noopener noreferrer"><i class="fa-solid fa-circle-half-stroke fa-flip"></i></a></div></footer>
 
     </aside>
     <div class='l_main'>
       
+  
+
+<header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/assets/website/avatar/avatar.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">BoBoBlog</div><div class="sub normal cap">我秃了头</div><div class="sub hover cap" style="opacity:0"> 可我却还不是程序员</div></a></div></header>
+
+
 
       
 
-  
-  
-  
-<div class="bread-nav fs12"><div class="left"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/"><i class="fa-solid fa-book"></i></a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">Django</a></div><div id="post-meta">
-    <span>更新于&nbsp;<time datetime="2024-01-01T09:45:34.772Z">2024-01-01</time></span>
-    </div></div></div>
-
-  <article class='md-text content wiki'>
-  <h1 class="article-title"><span>快速开始</span></h1>
-  <p>待编辑……qwq<psw>其实写了的，一定是不见了！</psw></p>
-
-  
-  
-<div class="article-footer reveal fs14"></div>
-
-  </article>
-  
 
 
-  
+    <div class="bread-nav fs12">
+      <div class="left">
+        <div id="breadcrumb">
+          <a class="cap breadcrumb" href="/">主页</a>
+          <span class="sep"></span>
+          <a class="cap breadcrumb" href="/comment/index.html">comment</a>
+        </div>
+      </div>
+    </div>
+    
+<article class="md-text content page"><h1 class="article-title"><span>comment</span></h1><div class="tag-plugin quot"><h2 class="content" id="留言板" type="text"><a href="#留言板" class="headerlink" title="留言板"></a>留言板</h2></div>
+<p>&nbsp;&nbsp;你可以在这里留盐，我会找到你的，放心大胆发言，欢迎再来关顾我的小站，就怕一段时间我又消失了，请来提醒我。<br>&nbsp;&nbsp;当然，你可以给我提出一些更好的意见，也可以提携我走入行业深处，教会我更多编程、历史、小说、游戏方面的知识，因为我还是个超级小白。<br>&nbsp;&nbsp;最后，愿来者都能有所收获！</p>
+</article>
 
   <div class='related-wrap md-text reveal' id="comments">
     <section class='header cmt-title cap theme'>
@@ -133,7 +145,6 @@
 
     </section>
   </div>
-
 
 
 
