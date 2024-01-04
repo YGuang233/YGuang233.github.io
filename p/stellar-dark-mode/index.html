@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 7.0.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>stellar主题深色模式设置 - BoBoBlog</title>
+
+  
+    <meta name="description" content="总文章在这里 使用Hexo和Stellar部署个人博客网站https:&#x2F;&#x2F;bxzdyg.cn&#x2F;p&#x2F;%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99&#x2F;  本篇文章是这篇大文章的抽离，因为本篇文章代码段落较长刚好拿来凑文章节数，且具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stellar主题深色模式设置">
+<meta property="og:url" content="https://bxzdyg.cn/p/stellar-dark-mode/index.html">
+<meta property="og:site_name" content="BoBoBlog">
+<meta property="og:description" content="总文章在这里 使用Hexo和Stellar部署个人博客网站https:&#x2F;&#x2F;bxzdyg.cn&#x2F;p&#x2F;%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99&#x2F;  本篇文章是这篇大文章的抽离，因为本篇文章代码段落较长刚好拿来凑文章节数，且具">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-01-03T13:46:06.000Z">
+<meta property="article:modified_time" content="2024-01-04T03:39:09.884Z">
+<meta property="article:author" content="BXZDYG">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Stellar">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <meta name="keywords" content="Hexo,Stellar">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
+  
+
+  
+
+  
+
+
+  
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+      <link rel="stylesheet" href="/css/darkmode.css">
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/assets/website/avatar/avatar.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">BoBoBlog</div><div class="sub normal cap">我秃了头</div><div class="sub hover cap" style="opacity:0"> 可我却还不是程序员</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item active" href="/"><i class="fa-solid fa-house-chimney"></i></a><a class="nav-item" href="/wiki/"><i class="fa-solid fa-book"></i></a><a class="nav-item" href="/bookmark/"><i class="fa-solid fa-icons"></i></a><a class="nav-item" href="/friends/"><i class="fa-brands fa-squarespace"></i></a><a class="nav-item" href="/about/"><i class="fa-solid fa-plus fa-flip"></i></a></nav>
+</header>
+
+
+<div class="widgets">
+
+
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" placeholder="站内搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">stellar主题深色模式设置</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E4%BA%BA%E7%9A%84%E8%82%A9%E8%86%80"><span class="toc-text">前人的肩膀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-text">CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#stellar%E4%B8%BB%E9%A2%98%E7%9A%84dark%E6%A8%A1%E5%BC%8F"><span class="toc-text">stellar主题的dark模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#waline%E8%AF%84%E8%AE%BA%E6%A0%B7%E5%BC%8F-%E9%80%89"><span class="toc-text">waline评论样式(选)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aplayer%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8-%E9%80%89"><span class="toc-text">aplayer音乐播放器(选)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E6%9D%83-%E4%B8%8D%E6%98%AFai%E5%88%B6%E4%BD%9C%E6%A0%87%E8%AF%86-%E9%80%89"><span class="toc-text">版权-不是ai制作标识(选)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JS"><span class="toc-text">JS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%89%E9%92%AE"><span class="toc-text">按钮</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5"><span class="toc-text">引入</span></a></li></ol></div></div></widget>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/YGuang233" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-github"></i></a><a class="social" href="javaScript:hud.toast('你在听🎵啦啦啦~');" rel="noopener noreferrer"><i class="fa-solid fa-music"></i></a><a class="social" href="https://space.bilibili.com/65447634?spm_id_from=333.1007.0.0" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-bilibili fa-bounce"></i></a><a class="social" href="https://www.zhihu.com/people/wo-yao-ren-ren-zhen-zhen-xue-xi-liao" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-zhihu"></i></a><a class="social" href="/atom.xml" rel="noopener noreferrer"><i class="fa-solid fa-rss fa-shake"></i></a><a class="social" href="/comments/" rel="noopener noreferrer"><i class="fa-regular fa-comment-dots"></i></a><a class="social" href="javaScript:void(0);" rel="noopener noreferrer"><i class="fa-solid fa-circle-half-stroke fa-flip"></i></a></div></footer>
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
+
+  <script>
+    var mermaid_config = {
+      startOnLoad: true,
+      theme:
+        "auto" == "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "dark",
+      logLevel: 3,
+      themeVariables: {
+        darkMode: true
+      },
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: "linear"
+      },
+      gantt: {
+        axisFormat: "%Y/%m/%d"
+      },
+      sequence: {
+        actorMargin: 50
+      }
+    }
+    if (window.mermaid) {
+      mermaid.initialize(mermaid_config);
+    }
+  </script>
+
+
+
+
+<div class="bread-nav fs12"><div class="left"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E8%AE%B0%E5%BD%95/">记录</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E8%AE%B0%E5%BD%95/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/">博客开发</a></div><div id="post-meta">
+    <span>发布于&nbsp;<time datetime="2024-01-03T13:46:06.000Z">2024-01-03</time></span>
+    
+    <span>更新于&nbsp;<time datetime="2024-01-04T03:39:09.884Z">2024-01-04</time></span>
+    </div></div></div>
+
+<article class='md-text content post'>
+<h1 class="article-title"><span>stellar主题深色模式设置</span></h1>
+<p>总文章在这里</p>
+<div class="tag-plugin link dis-select"><a class="link-card plain" title="使用Hexo和Stellar部署个人博客网站" href="/p/使用Hexo和Stellar部署个人博客网站/" cardlink autofill="icon"><div class="left"><span class="title">使用Hexo和Stellar部署个人博客网站</span><span class="cap link fs12">https://bxzdyg.cn/p/%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+
+<p>本篇文章是这篇大文章的抽离，因为本篇文章代码段落较长<psw>刚好拿来凑文章节数</psw>，且具有随时更新的特性，不好固定在一个文章里，也不能写在wiki里，否则无法被推荐。</p>
+<h2 id="前人的肩膀"><a href="#前人的肩膀" class="headerlink" title="前人的肩膀"></a>前人的肩膀</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.thatcoder.cn/Stellar%E5%8F%AF%E6%8E%A7%E5%A4%9C%E9%97%B4%E6%A8%A1%E5%BC%8F/">Stellar可控夜间模式 - 那个码农 (thatcoder.cn)</a></p>
+</blockquote>
+<p>stellar本来就提供了dark模式，不过做不到手动切换，找到一个大佬提取了样式，head中插入js代码，然后由css检验并展示当前是什么模式，中间用到了<code>localStorage</code>存储主题模式</p>
+<p>不过还是有些样式没有照顾到位，比如引入一些stellar大佬支持的评论，对应的评论样式比较突兀，原方法的博主，通过css选择器，没有判断下面标签有没有存在，导致在wiki页面会弹一个错误（强迫症），虽然影响不大，还有跟随模式到底是什么呢？</p>
+<p>新建两个文件，没有就大胆创建，因为这是我们自己加的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blog\source\css\darkmode.css</span><br><span class="line">blog\source\js\darkmode.js</span><br></pre></td></tr></table></figure>
+
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><p>先提取对应的css样式，设置不同的类名，以便于之后自动切换样式</p>
+<h3 id="stellar主题的dark模式"><a href="#stellar主题的dark模式" class="headerlink" title="stellar主题的dark模式"></a>stellar主题的dark模式</h3><figure class="highlight css"><figcaption><span>blog\source\css\darkmode.css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#Dark</span><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attr">--site-bg</span>: <span class="number">#1c1e21</span>;</span><br><span class="line">    <span class="attr">--card</span>: <span class="number">#373d43</span>;</span><br><span class="line">    <span class="attr">--block</span>: <span class="number">#26292c</span>;</span><br><span class="line">    <span class="attr">--block-border</span>: <span class="number">#383d42</span>;</span><br><span class="line">    <span class="attr">--block-hover</span>: <span class="number">#2f3337</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#ccc</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#b3b3b3</span>;</span><br><span class="line">    <span class="attr">--text-p3</span>: <span class="number">#858585</span>;</span><br><span class="line">    <span class="attr">--text-p4</span>: <span class="number">#707070</span>;</span><br><span class="line">    <span class="attr">--text-meta</span>: <span class="number">#4d4d4d</span>;</span><br><span class="line">    <span class="attr">--text-code</span>: <span class="number">#ff6333</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">667px</span>) &#123;</span><br><span class="line">    <span class="selector-id">#Dark</span><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">        <span class="attr">--site-bg</span>: <span class="number">#000</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">    <span class="attr">--blur-bg</span>: <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.float-panel</span> &#123;</span><br><span class="line">    <span class="attr">--blur-bg</span>: <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.4</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-class">.tag</span> &#123;</span><br><span class="line">    <span class="attr">--theme</span>: <span class="number">#ff6333</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#3d1e14</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#2f2522</span>;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#5c2d1f</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#ffc4b3</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#dfae9f</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#f1997e</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;red&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme</span>: <span class="number">#f44336</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#3d1714</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#2f2322</span>;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#5c231f</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#ffb8b3</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#dfa49f</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#f1867e</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;orange&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme</span>: <span class="number">#fa6400</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#3d2514</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#2f2722</span>;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#5c371f</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#ffd1b3</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#dfb99f</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#f1ac7e</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;yellow&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme</span>: <span class="number">#ffbd2b</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#3d3014</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#2f2b22</span>;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#5c491f</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#ffe7b3</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#dfcb9f</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#f1cd7e</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;green&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme</span>: <span class="number">#3dc550</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#143d1a</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#222f24</span>;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#1f5c27</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#b3ffbd</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#9fdfa8</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#7ef18e</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;cyan&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme</span>: <span class="number">#1bcdfc</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#14353d</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#222d2f</span>;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#1f4f5c</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#b3efff</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#9fd2df</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#7ed9f1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;blue&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme</span>: <span class="number">#2196f3</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#142b3d</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#222a2f</span>;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#1f415c</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#b3ddff</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#9fc3df</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#7ebef1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;purple&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme</span>: <span class="number">#9c27b0</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#37143d</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#2d222f</span>;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#531f5c</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#f4b3ff</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#d69fdf</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#e07ef1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;light&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#e0e0e0</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#111</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#1f1f1f</span>;</span><br><span class="line">    <span class="attr">--text-p3</span>: <span class="number">#555</span>;</span><br><span class="line">    <span class="attr">--text-code</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;dark&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--theme-border</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attr">--theme-bg1</span>: <span class="number">#1f1f1f</span>;</span><br><span class="line">    <span class="attr">--theme-bg2</span>: <span class="number">#111</span>;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#e0e0e0</span>;</span><br><span class="line">    <span class="attr">--text-p3</span>: <span class="number">#ddd</span>;</span><br><span class="line">    <span class="attr">--text-code</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;warning&#x27;</span>]</span>,</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.tag-plugin</span><span class="selector-attr">[color=<span class="string">&#x27;light&#x27;</span>]</span> &#123;</span><br><span class="line">    <span class="attr">--text-p0</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attr">--text-p1</span>: <span class="number">#111</span>;</span><br><span class="line">    <span class="attr">--text-p2</span>: <span class="number">#1f1f1f</span>;</span><br><span class="line">    <span class="attr">--text-p3</span>: <span class="number">#555</span>;</span><br><span class="line">    <span class="attr">--text-code</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.social-wrap</span> <span class="selector-tag">a</span><span class="selector-class">.social</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">box-shadow</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="waline评论样式-选"><a href="#waline评论样式-选" class="headerlink" title="waline评论样式(选)"></a>waline评论样式(选)</h3><figure class="highlight css"><figcaption><span>blog\source\css\darkmode.css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* waline评论样式 */</span></span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.wl-count</span>&#123;</span><br><span class="line">    <span class="attribute">padding</span>: .<span class="number">375em</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">1.25em</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.cmt-body</span><span class="selector-class">.waline</span>&#123;</span><br><span class="line">    <span class="attr">--waline-white</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attr">--waline-light-grey</span>: <span class="number">#666</span>;</span><br><span class="line">    <span class="attr">--waline-dark-grey</span>: <span class="number">#999</span>;</span><br><span class="line">    <span class="comment">/* 布局颜色 */</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">--waline-color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attr">--waline-bgcolor</span>: <span class="built_in">var</span>(--block);</span><br><span class="line">    <span class="attr">--waline-bgcolor-light</span>: <span class="number">#272727</span>;</span><br><span class="line">    <span class="attr">--waline-border-color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attr">--waline-disable-bgcolor</span>: <span class="number">#444</span>;</span><br><span class="line">    <span class="attr">--waline-disable-color</span>: <span class="number">#272727</span>;</span><br><span class="line">    <span class="comment">/* 特殊颜色 */</span></span><br><span class="line">    <span class="attr">--waline-bq-color</span>: <span class="number">#272727</span>;</span><br><span class="line">    <span class="comment">/* 其他颜色 */</span></span><br><span class="line">    <span class="attr">--waline-info-bgcolor</span>: <span class="number">#272727</span>;</span><br><span class="line">    <span class="attr">--waline-info-color</span>: <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="aplayer音乐播放器-选"><a href="#aplayer音乐播放器-选" class="headerlink" title="aplayer音乐播放器(选)"></a>aplayer音乐播放器(选)</h3><div class="tag-plugin link dis-select"><a class="link-card plain" title="" href="/p/stellar-aplayer-meetingjs" cardlink autofill="title,icon"><div class="left"><span class="title">/p/stellar-aplayer-meetingjs</span><span class="cap link fs12">https://bxzdyg.cn/p/stellar-aplayer-meetingjs</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+<p>相关的文章在这里。</p>
+<figure class="highlight css"><figcaption><span>blog\source\css\darkmode.css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* aplayer音乐播放器样式 */</span></span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.aplayer</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#26292c</span>;</span><br><span class="line">    <span class="attribute">font-family</span>: Arial,Helvetica,sans-serif;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">2px</span> <span class="number">2px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">07</span>),<span class="number">0</span> <span class="number">1px</span> <span class="number">5px</span> <span class="number">0</span> <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,.<span class="number">1</span>);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">2px</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">    -webkit-user-select: none;</span><br><span class="line">    -moz-user-select: none;</span><br><span class="line">    -ms-user-select: none;</span><br><span class="line">    user-select: none;</span><br><span class="line">    <span class="attribute">line-height</span>: normal;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.aplayer</span> <span class="selector-class">.aplayer-list</span> <span class="selector-tag">ol</span> <span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">32px</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">32px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">15px</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">    <span class="attribute">border-top</span>: <span class="number">1px</span> solid <span class="number">#383d42</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    <span class="attribute">transition</span>: all .<span class="number">2s</span> ease;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 当前选择歌曲 */</span></span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.aplayer</span> <span class="selector-class">.aplayer-list</span> <span class="selector-tag">ol</span> <span class="selector-tag">li</span><span class="selector-class">.aplayer-list-light</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#f4f4f4</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#373737</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: small;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 经过字体颜色和大小变化 */</span></span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-class">.aplayer</span> <span class="selector-class">.aplayer-list</span> <span class="selector-tag">ol</span> <span class="selector-tag">li</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#efefef</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#ff5722</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: small;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.aplayer</span> <span class="selector-class">.aplayer-list</span> <span class="selector-tag">ol</span> <span class="selector-tag">li</span><span class="selector-class">.aplayer-list-light</span>,</span><br><span class="line"><span class="selector-class">.aplayer</span> <span class="selector-class">.aplayer-list</span> <span class="selector-tag">ol</span> <span class="selector-tag">li</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: small;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.aplayer</span> <span class="selector-class">.aplayer-info</span> <span class="selector-class">.aplayer-music</span> <span class="selector-class">.aplayer-title</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">17px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="版权-不是ai制作标识-选"><a href="#版权-不是ai制作标识-选" class="headerlink" title="版权-不是ai制作标识(选)"></a>版权-不是ai制作标识(选)</h3><p>这里只是利用css切换了一下图片，这个图片有黑白两者款式，黑夜用黑的，白天用白的</p>
+<figure class="highlight css"><figcaption><span>blog\source\css\darkmode.css</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 不是ai制作标识 */</span></span><br><span class="line"><span class="selector-id">#Dark</span> <span class="selector-id">#notbyai</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="built_in">url</span>(<span class="string">&quot;/assets/website/Written-By-Human-black.png&quot;</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><figure class="highlight js"><figcaption><span>blog\source\js\darkmode.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 监听系统主题</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@type</span> &#123;<span class="type">MediaQueryList</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">OSTheme</span> = <span class="variable language_">window</span>.<span class="title function_">matchMedia</span>(<span class="string">&#x27;(prefers-color-scheme: dark)&#x27;</span>);</span><br><span class="line"><span class="title class_">OSTheme</span>.<span class="title function_">addListener</span>(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;Theme_Mode&#x27;</span>) === <span class="string">&#x27;auto&#x27;</span>) &#123;</span><br><span class="line">        <span class="title class_">ThemeChange</span>(<span class="string">&#x27;auto&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自动模式 6:00-18:00-Light 18:00-6:00-Dark,开启后每三十分钟检查一次</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">AutoMode</span> = (<span class="params">htmlElement</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">var</span> date = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line">    <span class="keyword">var</span> hours = date.<span class="title function_">getHours</span>();</span><br><span class="line">    <span class="keyword">if</span> (hours &lt; <span class="number">18</span> &amp;&amp; hours &gt;= <span class="number">6</span>) &#123;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;html&quot;</span>).<span class="property">id</span> = <span class="string">&quot;Light&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;html&quot;</span>).<span class="property">id</span> = <span class="string">&quot;Dark&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// if (htmlElement.id === &quot;Light&quot;) &#123;    // 闪瞎你的眼模式（速度快一点的话）</span></span><br><span class="line">    <span class="comment">//     htmlElement.id = &quot;Dark&quot;;</span></span><br><span class="line">    <span class="comment">// &#125; else &#123; htmlElement.id = &quot;Light&quot;; &#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> autoTimer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 修改博客主题</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> theme 亮为light,暗为dark,自动为auto</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@constructor</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">ThemeChange</span> = (<span class="params">theme</span>) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 清除计时器</span></span><br><span class="line">    <span class="built_in">clearInterval</span>(autoTimer);</span><br><span class="line">    <span class="comment">// 抽取元素</span></span><br><span class="line">    <span class="keyword">const</span> htmlElement = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;html&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> themeBtnIcon;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        themeBtnIcon = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#start &gt; aside &gt; footer &gt; div &gt; a:last-child &gt; i&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> &#123;</span><br><span class="line">        <span class="comment">// 元素不存在</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (theme === <span class="string">&#x27;light&#x27;</span> || (theme === <span class="string">&#x27;auto&#x27;</span> &amp;&amp; !<span class="title class_">OSTheme</span>.<span class="property">matches</span>)) &#123;</span><br><span class="line">        htmlElement.<span class="property">id</span> = <span class="string">&quot;Light&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (themeBtnIcon) &#123;</span><br><span class="line">            themeBtnIcon.<span class="property">className</span> = <span class="string">&#x27;fa-solid fa-sun fa-spin fa-spin-reverse&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        htmlElement.<span class="property">id</span> = <span class="string">&quot;Dark&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (themeBtnIcon) &#123;</span><br><span class="line">            themeBtnIcon.<span class="property">className</span> = <span class="string">&#x27;fa-solid fa-moon fa-fade&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (theme === <span class="string">&#x27;auto&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (themeBtnIcon) &#123;</span><br><span class="line">            themeBtnIcon.<span class="property">className</span> = <span class="string">&#x27;fa-solid fa-circle-half-stroke fa-flip&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="title class_">AutoMode</span>(htmlElement);</span><br><span class="line">        autoTimer = <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            <span class="title class_">AutoMode</span>(htmlElement);</span><br><span class="line">        &#125;, <span class="number">1000</span> * <span class="number">60</span> * <span class="number">30</span>); <span class="comment">// 半小时一次</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;Theme_Mode&#x27;</span>, theme);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 初始化博客主题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">switch</span> (<span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;Theme_Mode&#x27;</span>)) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;light&#x27;</span>:</span><br><span class="line">        <span class="title class_">ThemeChange</span>(<span class="string">&#x27;light&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;dark&#x27;</span>:</span><br><span class="line">        <span class="title class_">ThemeChange</span>(<span class="string">&#x27;dark&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">        <span class="title class_">ThemeChange</span>(<span class="string">&#x27;auto&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 切换主题模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 绑定按钮点击事件</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#start &gt; aside &gt; footer &gt; div &gt; a:last-child&quot;</span>).<span class="property">onclick</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;Theme_Mode&#x27;</span>) === <span class="string">&#x27;auto&#x27;</span>) &#123;</span><br><span class="line">            hud.<span class="title function_">toast</span>(<span class="string">&#x27;🌞白天模式&#x27;</span>);</span><br><span class="line">            <span class="title class_">ThemeChange</span>(<span class="string">&#x27;light&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;Theme_Mode&#x27;</span>) === <span class="string">&#x27;light&#x27;</span>) &#123;</span><br><span class="line">            hud.<span class="title function_">toast</span>(<span class="string">&#x27;🌙 夜间模式&#x27;</span>);</span><br><span class="line">            <span class="title class_">ThemeChange</span>(<span class="string">&#x27;dark&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            hud.<span class="title function_">toast</span>(<span class="string">&#x27;🌞/🌙 自动模式&#x27;</span>);</span><br><span class="line">            <span class="title class_">ThemeChange</span>(<span class="string">&#x27;auto&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">    <span class="comment">// 元素不存在</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="按钮"><a href="#按钮" class="headerlink" title="按钮"></a>按钮</h2><figure class="highlight yaml"><figcaption><span>blog\_config.stellar.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">######## Footer ########</span></span><br><span class="line"><span class="attr">footer:</span></span><br><span class="line">  <span class="attr">social:</span></span><br><span class="line">    <span class="attr">mode:</span></span><br><span class="line">      <span class="attr">icon:</span> <span class="string">&#x27;&lt;i class=&quot;fa-solid fa-circle-half-stroke fa-flip&quot;&gt;&lt;/i&gt;&#x27;</span></span><br><span class="line">      <span class="attr">url:</span> <span class="string">javaScript:void(0);</span></span><br></pre></td></tr></table></figure>
+
+<p>注意要结合上面js文件的css选择器，我的是最后一个a标签</p>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><figure class="highlight yaml"><figcaption><span>blog\_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">inject:</span></span><br><span class="line">  <span class="attr">head:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;link</span> <span class="string">rel=&quot;stylesheet&quot;</span> <span class="string">href=&quot;/css/darkmode.css&quot;&gt;</span> <span class="comment"># 黑夜样式</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&lt;script</span> <span class="string">type=&quot;text/javascript&quot;</span> <span class="string">src=&quot;/js/darkmode.js&quot;&gt;&lt;/script&gt;</span> <span class="comment"># 黑夜控制</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>最后的最后，好好学前端，顺便给这个模式多加上一个动画，像是element-plus官网的那个，很炫酷。</p>
+
+
+
+<div class="article-footer reveal fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://bxzdyg.cn/p/stellar-dark-mode/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://bxzdyg.cn/p/stellar-dark-mode/&title=stellar主题深色模式设置 - BoBoBlog&pics=/assets/wiki/stellar/stellar-dark-mode.png&summary=总文章在这里
+使用Hexo和Stellar部署个人博客网站https://bxzdyg.cn/p/%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4..."><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=stellar主题深色模式设置 - BoBoBlog&amp;body=https://bxzdyg.cn/p/stellar-dark-mode/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/social/8411ed322ced6.svg"/></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0">
+          <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://bxzdyg.cn/p/stellar-dark-mode/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/p/stellar-aplayer-metingjs/">stellar主题使用meetingjs接入aplayer音乐播放器</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/p/vercel-wall/">国庆Vercel小崩，小站博主何去何从</a></div></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class='header'>
+      <div class='title cap theme'>您可能感兴趣的文章</div>
+    </section>
+    <section class='body'>
+    <div class="related-posts"><a class="item" href="\p\使用Hexo和Stellar部署个人博客网站\" title="使用Hexo和Stellar部署个人博客网站【超详细贴心保姆级教程💖】"><span class="title">使用Hexo和Stellar部署个人博客网站【超详细贴心保姆级教程💖】</span><span class="excerpt">我要整一个又好看又好用的博客！😀</span></a><a class="item" href="\p\hello-world\" title="Hello World"><span class="title">Hello World</span><span class="excerpt">从这里开始……</span></a><a class="item" href="\p\vercel-wall\" title="国庆Vercel小崩，小站博主何去何从"><span class="title">国庆Vercel小崩，小站博主何去何从</span><span class="excerpt">救命啊，Vercel你为什么倒下了QAQ,我的破站还没开多久啊</span></a></div></section></div>
+
+
+
+  <div class='related-wrap md-text reveal' id="comments">
+    <section class='header cmt-title cap theme'>
+      快来参与讨论吧
+    </section>
+    <section class='body cmt-body waline'>
+      
+
+<div id="waline_container" class="waline_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs14">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/comments/">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
+<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
+<!--不蒜子计数器-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--添加一个访问量-->
+<span>
+      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
+</span>
+</br>
+<span id="runtime_span"></span>
+<script type="text/javascript">
+function show_runtime() {
+    window.setTimeout("show_runtime()", 1000);
+    X = new Date("2023/09/17 17:00:00");
+    Y = new Date();
+    T = (Y.getTime() - X.getTime());
+    M = 24 * 60 * 60 * 1000;
+    a = T / M;
+    A = Math.floor(a);
+    b = (a - A) * 24;
+    B = Math.floor(b);
+    c = (b - B) * 60;
+    C = Math.floor((b - B) * 60);
+    D = Math.floor((c - C) * 60);
+    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
+}
+show_runtime();
+</script>
+</center>
+<div style="display: flex;justify-content: center;align-items: center;margin: 10px;">
+<a target="_blank" rel="noopener" href="https://notbyai.fyi/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/Written-By-Human-white.png" alt='全部都是博主用心学编写的啊！不是ai啊' style="width:140px;height:50px;margin-right: 10px " id='notbyai'></a>
+<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/by-nc-sa.eu.png" alt="只要保留原作者姓名并在基于原作创作的新作品适用同类型的许可协议，即可基于非商业目的对原作重新编排、改编或者再创作。" style="width:140px;height:50px"></a>
+</div>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.22.1';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img, .gallery img ,#waline_container .vcontent img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function load_comment(){
+    if(!document.getElementById("waline_container"))return;
+    stellar.loadCSS('https://unpkg.com/@waline/client@2.14.1/dist/waline.css');
+    stellar.loadScript('https://unpkg.com/@waline/client@2.14.1/dist/waline.js', {defer:true}).then(function () {
+      const el = document.getElementById("waline_container");
+      var path = el.getAttribute('comment_id');
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      Waline.init(Object.assign({"js":"https://unpkg.com/@waline/client@2.14.1/dist/waline.js","css":"https://unpkg.com/@waline/client@2.14.1/dist/waline.css","serverURL":"https://comment.bxzdyg.cn/","commentCount":true,"pageview":false,"locale":{"placeholder":"有什么想说的？大胆说出来吧(*^_^*)"},"emoji":["https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs","https://unpkg.com/@waline/emojis@1.1.0/bilibili"]}, {
+        el: '#waline_container',
+        path: path,
+        
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script type="text/javascript" src="/js/darkmode.js"></script>
+  
+
+
+  </div>
+</body>
+</html>

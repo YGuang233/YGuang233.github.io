@@ -177,6 +177,10 @@
   font-weight: bold;
 }
 
+.aplayer .aplayer-info .aplayer-music .aplayer-title {
+    font-size: 17px;
+}
+
 /* waline评论样式 */
 #Dark .wl-count{
     padding: .375em;
