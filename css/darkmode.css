@@ -207,6 +207,10 @@
     --waline-info-color: #666;
 }
 
+#Dark .wl-user-name {
+    color: #999;
+}
+
 /* 不是ai制作标识 */
 #Dark #notbyai {
     content: url("/assets/website/Written-By-Human-black.png");
