@@ -31,7 +31,7 @@
 <meta property="og:description" content="留言板 &nbsp;&nbsp;你可以在这里留盐，我会找到你的，放心大胆发言，欢迎再来关顾我的小站，就怕一段时间我又消失了，请来提醒我。&nbsp;&nbsp;当然，你可以给我提出一些更好的意见，也可以提携我走入行业深处，教会我更多编程、历史、小说、游戏等方面的知识，因为我还是个超级小白。&nbsp;&nbsp;最后，愿来者都能有所收获！">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T10:40:57.000Z">
-<meta property="article:modified_time" content="2024-01-04T03:11:05.987Z">
+<meta property="article:modified_time" content="2024-01-05T02:00:16.304Z">
 <meta property="article:author" content="BXZDYG">
 <meta name="twitter:card" content="summary">
   
@@ -87,23 +87,27 @@
 
 
 <div class="widgets">
-<widget class="widget-wrapper markdown"><div class="widget-header cap theme dis-select"><span class="name">哈喽~ 远道而来的朋友呀 ：</span></div><div class="widget-body fs14"><p id="bxzdyg">
-<span id="bxzdyg_text">:D 获取中...</span>
-</p>
-<script>
-const myArray = ['龙年大吉！阖家欢乐！', '目标实现共产主义', '天天幸福快乐！健健康康！远离疾病与伤痛。', '人民万岁！', '我想玩黑神话悟空！','丝之歌！呜呜呜~','服章之美谓之华，礼仪之大谓之夏']; // 将字符替换为你要说的话
-const getRandomText = (array) => {
-return array[Math.floor(Math.random() * array.length)];
-};
-const bxzdyg = document.querySelector('#bxzdyg_text');
-bxzdyg.innerText = getRandomText(myArray);
-</script>
-</div></widget>
-
 <widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" placeholder="站内搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
 
+<widget class="widget-wrapper markdown"><div class="widget-header cap theme dis-select"><span class="name">本站发言榜</span></div><div class="widget-body fs14"><div id="waline-users"><i class="fa-solid fa-cog fa-spin"></i>连接waline数据中...</div>
+<script type="module">
+import { UserList } from 'https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.mjs';
+UserList({
+  el: '#waline-users',
+  serverURL: 'https://comment.bxzdyg.cn', // 注意这里不能写成https://comment.bxzdyg.cn/ 
+  count: 10,
+});
+</script>
+<style>
+#waline-users > ul > li > a{display: flex;overflow: hidden;-webkit-box-orient: vertical;}
+#waline-users > ul > li > a > div.wl-user-meta{font-size:14px;color: #999999;}
+#waline-users > ul > li > a > div.wl-user-meta > div{color: var(--swiper-theme-color);}
+#waline-users > ul > li > a > div.wl-user-meta > div:hover {color: #ff5724;}
+.wl-user-name {color: #666666;font-weight: bold;}
+</style>
+</div></widget>
 
-<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"></div></div></widget>
+<widget class="widget-wrapper recent"><div class="widget-header cap theme dis-select"><span class="name">最近更新</span><a class="cap-action" id="rss" title="Subscribe" href="/atom.xml"><svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8938"><path d="M800.966 947.251c0-404.522-320.872-732.448-716.69-732.448V62.785c477.972 0 865.44 395.987 865.44 884.466h-148.75z m-162.273 0h-148.74c0-228.98-181.628-414.598-405.678-414.598v-152.01c306.205 0 554.418 253.68 554.418 566.608z m-446.24-221.12c59.748 0 108.189 49.503 108.189 110.557 0 61.063-48.44 110.563-108.188 110.563-59.747 0-108.18-49.5-108.18-110.563 0-61.054 48.433-110.556 108.18-110.556z" p-id="8939"></path></svg></a></div><div class="widget-body related-posts fs14"><a class="item title" href="/p/stellar-dark-mode/"><span class="title">stellar主题深色模式设置</span></a><a class="item title" href="/p/stellar-aplayer-metingjs/"><span class="title">stellar主题使用meetingjs接入aplayer音乐播放器</span></a><a class="item title" href="/p/%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"><span class="title">使用Hexo和Stellar部署个人博客网站【超详细贴心保姆级教程💖】</span></a><a class="item title" href="/p/MySQL%E5%BF%85%E5%A4%87%E8%AF%AD%E5%8F%A5%E5%92%8C%E6%8E%88%E6%9D%83-%E5%9B%9B%E5%8D%81%E9%81%93%E7%BB%83%E4%B9%A0%E9%A2%98/"><span class="title">MySQL必备语句和授权🧠&四十道练习题📜</span></a><a class="item title" href="/p/mysql-setup/"><span class="title">超详细MySql的安装✨，包含各种安装问题及解决方法🎯</span></a></div></widget>
 </div>
 <footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/YGuang233" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-github"></i></a><a class="social" href="javaScript:hud.toast('你在听🎵啦啦啦~');" rel="noopener noreferrer"><i class="fa-solid fa-music"></i></a><a class="social" href="https://space.bilibili.com/65447634?spm_id_from=333.1007.0.0" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-bilibili fa-bounce"></i></a><a class="social" href="https://www.zhihu.com/people/wo-yao-ren-ren-zhen-zhen-xue-xi-liao" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-zhihu"></i></a><a class="social" href="/atom.xml" rel="noopener noreferrer"><i class="fa-solid fa-rss fa-shake"></i></a><a class="social" href="/comments/" rel="noopener noreferrer"><i class="fa-regular fa-comment-dots"></i></a><a class="social" href="javaScript:void(0);" rel="noopener noreferrer"><i class="fa-solid fa-circle-half-stroke fa-flip"></i></a></div></footer>
 
@@ -172,6 +176,7 @@ show_runtime();
 <a target="_blank" rel="noopener" href="https://notbyai.fyi/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/Written-By-Human-white.png" alt='全部都是博主用心学编写的啊！不是ai啊' style="width:140px;height:50px;margin-right: 10px " id='notbyai'></a>
 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/by-nc-sa.eu.png" alt="只要保留原作者姓名并在基于原作创作的新作品适用同类型的许可协议，即可基于非商业目的对原作重新编排、改编或者再创作。" style="width:140px;height:50px"></a>
 </div>
+ 
 </div></footer>
 
       <div class='float-panel mobile-only blur' style='display:none'>
