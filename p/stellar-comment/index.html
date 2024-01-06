@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 7.0.0">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://gcore.jsdelivr.net'>
+  <link rel="preconnect" href="https://gcore.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>stellar之waline评论系统的使用 - BoBoBlog</title>
+
+  
+    <meta name="description" content="总文章在这里 使用Hexo和Stellar部署个人博客网站https:&#x2F;&#x2F;bxzdyg.cn&#x2F;p&#x2F;%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99&#x2F;  本篇文章是这篇大文章的抽离，因为本篇文章代码段落较长刚好拿来凑文章节数，且具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="stellar之waline评论系统的使用">
+<meta property="og:url" content="https://bxzdyg.cn/p/stellar-comment/index.html">
+<meta property="og:site_name" content="BoBoBlog">
+<meta property="og:description" content="总文章在这里 使用Hexo和Stellar部署个人博客网站https:&#x2F;&#x2F;bxzdyg.cn&#x2F;p&#x2F;%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99&#x2F;  本篇文章是这篇大文章的抽离，因为本篇文章代码段落较长刚好拿来凑文章节数，且具">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bxzdyg.cn/p/stellar-comment/leancloudcreate.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/stellar-comment/image-20240106185805106.png">
+<meta property="og:image" content="https://vercel.com/button">
+<meta property="og:image" content="https://bxzdyg.cn/p/stellar-comment/image-20240106190356026.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/stellar-comment/image-20240106191006785.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/stellar-comment/image-20240106192846407.png">
+<meta property="article:published_time" content="2024-01-04T13:24:12.000Z">
+<meta property="article:modified_time" content="2024-01-06T12:54:08.511Z">
+<meta property="article:author" content="BXZDYG">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Stellar">
+<meta property="article:tag" content="Waline">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bxzdyg.cn/p/stellar-comment/leancloudcreate.png">
+  
+  
+  
+  <meta name="keywords" content="Hexo,Stellar,Waline">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
+  
+
+  
+
+  
+
+
+  
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+      <link rel="stylesheet" href="/css/darkmode.css">
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+  
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/assets/website/avatar/avatar.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">BoBoBlog</div><div class="sub normal cap">我秃了头</div><div class="sub hover cap" style="opacity:0"> 可我却还不是程序员</div></a></div>
+
+<nav class="menu dis-select"><a class="nav-item active" href="/"><i class="fa-solid fa-house-chimney"></i></a><a class="nav-item" href="/wiki/"><i class="fa-solid fa-book"></i></a><a class="nav-item" href="/bookmark/"><i class="fa-solid fa-icons"></i></a><a class="nav-item" href="/friends/"><i class="fa-brands fa-squarespace"></i></a><a class="nav-item" href="/about/"><i class="fa-solid fa-plus fa-flip"></i></a></nav>
+</header>
+
+
+<div class="widgets">
+<widget class="widget-wrapper search"><div class="widget-body"><div class="search-wrapper" id="search"><form class="search-form"><input type="text" class="search-input" id="search-input" placeholder="站内搜索"><svg t="1670596976048" class="icon search-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2676" width="200" height="200"><path d="M938.2 832.6L723.8 618.1c-2.5-2.5-5.3-4.4-7.9-6.4 36.2-55.6 57.3-121.8 57.3-193.1C773.3 222.8 614.6 64 418.7 64S64 222.8 64 418.6c0 195.9 158.8 354.6 354.6 354.6 71.3 0 137.5-21.2 193.2-57.4 2 2.7 3.9 5.4 6.3 7.8L832.5 938c14.6 14.6 33.7 21.9 52.8 21.9 19.1 0 38.2-7.3 52.8-21.8 29.2-29.1 29.2-76.4 0.1-105.5M418.7 661.3C284.9 661.3 176 552.4 176 418.6 176 284.9 284.9 176 418.7 176c133.8 0 242.6 108.9 242.6 242.7 0 133.7-108.9 242.6-242.6 242.6" p-id="2677"></path></svg></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div></div></widget>
+
+
+<widget class="widget-wrapper toc single" id="data-toc"><div class="widget-header cap dis-select"><span class="name">stellar之waline评论系统的使用</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E9%80%89%E6%8B%A9"><span class="toc-text">评论系统选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#waline"><span class="toc-text">waline</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2"><span class="toc-text">服务器部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%91%E5%87%BD%E6%95%B0"><span class="toc-text">云函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%AE%A1%E7%90%86%E5%91%98"><span class="toc-text">注册管理员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stellar%E5%90%AF%E7%94%A8"><span class="toc-text">Stellar启用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%84%E8%AE%BA%E9%80%9A%E7%9F%A5"><span class="toc-text">评论通知</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%AE%E4%BB%B6%E9%80%9A%E7%9F%A5"><span class="toc-text">邮件通知</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF"><span class="toc-text">邮件模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%9A%84%E6%A8%A1%E6%9D%BF"><span class="toc-text">其他的模板</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%80%9A%E7%9F%A5%E6%96%B9%E5%BC%8F"><span class="toc-text">其他通知方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%A0%87%E7%AD%BE"><span class="toc-text">用户标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%A0%87%E7%AD%BE"><span class="toc-text">普通标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%93%E5%B1%9E%E6%A0%87%E7%AD%BE"><span class="toc-text">专属标签</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E8%A1%8C%E6%A6%9C-%E8%AF%BB%E8%80%85%E5%A2%99%E6%8C%82%E4%BB%B6"><span class="toc-text">排行榜&#x2F;读者墙挂件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89"><span class="toc-text">自定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80"><span class="toc-text">自定义语言</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%BA%94%E7%9B%B8%E5%85%B3"><span class="toc-text">反应相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE%E7%9B%B8%E5%85%B3"><span class="toc-text">标签相关</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A8%E6%83%85"><span class="toc-text">自定义表情</span></a></li></ol></li></ol></div></div></widget>
+
+<widget class="widget-wrapper markdown"><div class="widget-header cap theme dis-select"><span class="name">读者墙</span></div><div class="widget-body fs14"><div id="waline-users-wall"><i class="fa-solid fa-cog fa-spin"></i>连接waline数据中...</div>
+<script type="module">
+import { UserList } from 'https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.mjs';
+UserList({
+  el: '#waline-users-wall',
+  serverURL: 'https://comment.bxzdyg.cn', // 注意这里不能写成https://comment.bxzdyg.cn/ 
+  count: 10,
+  mode: 'wall',
+});
+</script>
+<style>
+.wl-user-item[aria-label] {
+  position: relative;
+  z-index: 9999;
+}
+</style>
+</div></widget>
+
+<widget class="widget-wrapper markdown"><div class="widget-header cap theme dis-select"><span class="name">排行榜</span></div><div class="widget-body fs14"><div id="waline-users-rank"><i class="fa-solid fa-cog fa-spin"></i>连接waline数据中...</div>
+<script type="module">
+import { UserList } from 'https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.mjs';
+UserList({
+  el: '#waline-users-rank',
+  serverURL: 'https://comment.bxzdyg.cn', // 注意这里不能写成https://comment.bxzdyg.cn/ 
+  count: 10,
+});
+</script>
+<style>
+#waline-users-rank > ul > li > a{display: flex;overflow: hidden;-webkit-box-orient: vertical;}
+#waline-users-rank > ul > li > a > div.wl-user-meta{font-size:14px;color: #999999;}
+#waline-users-rank > ul > li > a > div.wl-user-meta > div{color: var(--swiper-theme-color);}
+#waline-users-rank > ul > li > a > div.wl-user-meta > div:hover {color: #ff5724;}
+#waline-users-rank .wl-user-name {color: #999;font-weight: bold;}
+</style>
+</div></widget>
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/YGuang233" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-github"></i></a><a class="social" href="javaScript:hud.toast('你在听🎵啦啦啦~');" rel="noopener noreferrer"><i class="fa-solid fa-music"></i></a><a class="social" href="https://space.bilibili.com/65447634?spm_id_from=333.1007.0.0" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-bilibili fa-bounce"></i></a><a class="social" href="https://www.zhihu.com/people/wo-yao-ren-ren-zhen-zhen-xue-xi-liao" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-zhihu"></i></a><a class="social" href="/atom.xml" rel="noopener noreferrer"><i class="fa-solid fa-rss fa-shake"></i></a><a class="social" href="/comments/" rel="noopener noreferrer"><i class="fa-regular fa-comment-dots"></i></a><a class="social" href="javaScript:void(0);" rel="noopener noreferrer"><i class="fa-solid fa-circle-half-stroke fa-flip"></i></a></div></footer>
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
+
+  <script>
+    var mermaid_config = {
+      startOnLoad: true,
+      theme:
+        "auto" == "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "dark",
+      logLevel: 3,
+      themeVariables: {
+        darkMode: true
+      },
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: "linear"
+      },
+      gantt: {
+        axisFormat: "%Y/%m/%d"
+      },
+      sequence: {
+        actorMargin: 50
+      }
+    }
+    if (window.mermaid) {
+      mermaid.initialize(mermaid_config);
+    }
+  </script>
+
+
+
+
+<div class="bread-nav fs12"><div class="left"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E8%AE%B0%E5%BD%95/">记录</a> <span class="sep"></span> <a class="cap breadcrumb-link" href="/categories/%E8%AE%B0%E5%BD%95/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91/">博客开发</a></div><div id="post-meta">
+    <span>发布于&nbsp;<time datetime="2024-01-04T13:24:12.000Z">2024-01-04</time></span>
+    
+    <span>更新于&nbsp;<time datetime="2024-01-06T12:54:08.511Z">2024-01-06</time></span>
+    </div></div></div>
+
+<article class='md-text content post'>
+<h1 class="article-title"><span>stellar之waline评论系统的使用</span></h1>
+<p>总文章在这里</p>
+<div class="tag-plugin link dis-select"><a class="link-card plain" title="使用Hexo和Stellar部署个人博客网站" href="/p/使用Hexo和Stellar部署个人博客网站/" cardlink autofill="icon"><div class="left"><span class="title">使用Hexo和Stellar部署个人博客网站</span><span class="cap link fs12">https://bxzdyg.cn/p/%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+
+<p>本篇文章是这篇大文章的抽离，因为本篇文章代码段落较长<psw>刚好拿来凑文章节数</psw>，且具有随时更新的特性，不好固定在一个文章里，也不能写在wiki里，否则无法被推荐，故出此下策。</p>
+<h2 id="评论系统选择"><a href="#评论系统选择" class="headerlink" title="评论系统选择"></a>评论系统选择</h2><p>在搭建博客的时候必不可少的就是评论了，但是评论系统怎么选就是一个关键的问题了，要能够兼顾美观、便捷、自定义性强，轻量，完全的markdwon支持，支持登录等等功能，最好还要有一个后端（😓）。</p>
+<h3 id="waline"><a href="#waline" class="headerlink" title="waline"></a>waline</h3><p>waline作为一个极具热度，且功能强大的评论系统就如此应运而生了，</p>
+<p>本站主讲waline，不仅waline拥有着极其全面丰富强大的功能，而且本站也是使用waline这个评论系统，在阅览本文前建议前去阅读waline的官方文档。</p>
+<div class="tag-plugin link dis-select"><a class="link-card plain" title="" href="https://waline.js.org/" target="_blank" rel="external nofollow noopener noreferrer" cardlink autofill="title,icon"><div class="left"><span class="title">https://waline.js.org/</span><span class="cap link fs12">https://waline.js.org/</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+
+
+
+<h2 id="服务器部署"><a href="#服务器部署" class="headerlink" title="服务器部署"></a>服务器部署</h2><div class="tag-plugin link dis-select"><a class="link-card plain" title="Waline快速上手" href="https://waline.js.org/guide/get-started/" target="_blank" rel="external nofollow noopener noreferrer" cardlink autofill="icon"><div class="left"><span class="title">Waline快速上手</span><span class="cap link fs12">https://waline.js.org/guide/get-started/</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+
+<p>这部分官方文档其实已经写的很明白了，里面还有一些大佬录制的部署视频，可以去看看。</p>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><p>LeanCloud(国际版)</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://console.leancloud.app/login">登录</a> 或 [注册 <code>LeanCloud 国际版</code> 并进入 <a target="_blank" rel="noopener" href="https://console.leancloud.app/apps">控制台</a></p>
+</li>
+<li><p>点击左上角 [创建应用 并起一个你喜欢的名字 (请选择免费的开发版):</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="leancloudcreate.png" fancybox="true"/></div></div>
+</li>
+<li><p>进入应用，选择左下角的 <code>设置</code> &gt; <code>应用 Key</code>。你可以看到你的 <code>APP ID</code>,<code>APP Key</code> 和 <code>Master Key</code>。请记录它们，以便后续使用。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20240106185805106.png" fancybox="true"/></div></div></li>
+</ol>
+<h3 id="云函数"><a href="#云函数" class="headerlink" title="云函数"></a>云函数</h3><figure><a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwalinejs%2Fwaline%2Ftree%2Fmain%2Fexample" target="_blank" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://vercel.com/button" alt="Vercel" tabindex="0"></a><figcaption>Vercel</figcaption></figure>
+
+<ol>
+<li><p>点击上方按钮，跳转至 Vercel 进行 Server 端部署。</p>
+<blockquote>
+<p>如果你未登录的话，Vercel 会让你注册或登录，请使用 GitHub 账户进行快捷登录。</p>
+</blockquote>
+</li>
+<li><p>输入一个你喜欢的 Vercel 项目名称并点击 <code>Create</code> 继续:</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20240106190356026.png" fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20240106191006785.png" fancybox="true"/></div></div>
+</li>
+<li><p>此时 Vercel 会基于 Waline 模板帮助你新建并初始化仓库，仓库名为你之前输入的项目名。</p>
+<p>一两分钟后，满屏的烟花会庆祝你部署成功。此时点击 <code>Go to Dashboard</code> 可以跳转到应用的控制台。</p>
+</li>
+<li><p>点击顶部的 <code>Settings</code> - <code>Environment Variables</code> 进入环境变量配置页，并配置三个环境变量 <code>LEAN_ID</code>, <code>LEAN_KEY</code> 和 <code>LEAN_MASTER_KEY</code> 。它们的值分别对应上一步在 LeanCloud 中获得的 <code>APP ID</code>, <code>APP KEY</code>, <code>Master Key</code>。</p>
+</li>
+</ol>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20240106192846407.png" fancybox="true"/></div></div>
+
+<table>
+<thead>
+<tr>
+<th align="center">Environment Variable</th>
+<th align="center">Lean Cloud</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">LEAN_ID</td>
+<td align="center">AppID</td>
+</tr>
+<tr>
+<td align="center">LEAN_KEY</td>
+<td align="center">AppKey</td>
+</tr>
+<tr>
+<td align="center">LEAN_MASTER_KEY</td>
+<td align="center">MasterKey</td>
+</tr>
+<tr>
+<td align="center">LEAN_SERVER</td>
+<td align="center">已备案的域名</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><code>LEAN_SERVER</code>是国内版本必须填的，需要绑定自己的域名，国际版不需要</p>
+</blockquote>
+<p>简单启用,你可以将下面的放在你博客需要的地方</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span></span></span><br><span class="line"><span class="tag">    <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">href</span>=<span class="string">&quot;https://unpkg.com/@waline/client@v2/dist/waline.css&quot;</span></span></span><br><span class="line"><span class="tag">  /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;waline&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;module&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">import</span> &#123; init &#125; <span class="keyword">from</span> <span class="string">&#x27;https://unpkg.com/@waline/client@v2/dist/waline.mjs&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">init</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">el</span>: <span class="string">&#x27;#waline&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">serverURL</span>: <span class="string">&#x27;https://your-domain.vercel.app&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="注册管理员"><a href="#注册管理员" class="headerlink" title="注册管理员"></a>注册管理员</h2><p>Waline支持评论管理，默认第一个注册的用户为管理员（站长）,可以在<strong>DOMAINS</strong>的页面中直接进行登录操作支持使用<code>QQ</code>、<code>微博</code>、<code>GitHub</code>、<code>Twitter</code>、<code>Facebook</code>且多个类型账号进行绑定。</p>
+<h2 id="Stellar启用"><a href="#Stellar启用" class="headerlink" title="Stellar启用"></a>Stellar启用</h2><p>做好上面几步，就需要在配置文件中，增加如下配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">waline</span> </span><br><span class="line">  <span class="attr">waline:</span></span><br><span class="line">    <span class="attr">js:</span> <span class="string">https://unpkg.com/@waline/client@2.14.1/dist/waline.js</span></span><br><span class="line">    <span class="attr">css:</span> <span class="string">https://unpkg.com/@waline/client@2.14.1/dist/waline.css</span></span><br><span class="line">    <span class="comment"># Waline server address url, you should set this to your own link</span></span><br><span class="line">    <span class="attr">serverURL:</span> <span class="string">https://comment.bxzdyg.cn/</span></span><br><span class="line">    <span class="comment"># If false, comment count will only be displayed in post page, not in home page</span></span><br><span class="line">    <span class="attr">commentCount:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># Pageviews count, <span class="doctag">Note:</span> You should not enable both `waline.pageview` and `leancloud_visitors`.</span></span><br><span class="line">    <span class="attr">pageview:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>serverURL即为你之前分配个waline云函数解析的域名地址</p>
+<p>如果启用了<code>fancybox</code>插件，那么你还需要添加对应的css选择器</p>
+<figure class="highlight yaml"><figcaption><span>blog\_config.stellar.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">plugins:</span></span><br><span class="line">  <span class="attr">fancybox:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># 可以处理评论区的图片（不支持 iframe 类评论系统）例如：</span></span><br><span class="line">    <span class="comment"># 使用waline评论可以写: #waline_container .vcontent img</span></span><br><span class="line">    <span class="attr">selector:</span> <span class="string">.swiper-slide</span> <span class="string">img,</span> <span class="string">.gallery</span> <span class="string">img</span> <span class="string">,#waline_container</span> <span class="string">.vcontent</span> <span class="string">img</span> </span><br></pre></td></tr></table></figure>
+
+<p>然后启动你本地的博客项目，在你的文章末尾就能看到评论区已经被启用了。</p>
+<h2 id="评论通知"><a href="#评论通知" class="headerlink" title="评论通知"></a>评论通知</h2><h3 id="邮件通知"><a href="#邮件通知" class="headerlink" title="邮件通知"></a>邮件通知</h3><p>基本变量值</p>
+<table>
+<thead>
+<tr>
+<th>环境变量名称</th>
+<th>备注</th>
+<th>参考值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SMTP_SERVICE</code></td>
+<td>SMTP 邮件发送服务提供商,这里[查看](<a target="_blank" rel="noopener" href="https://github.com/nodemailer/nodemailer/blob/master/lib/well-known/services.json">nodemailer&#x2F;lib&#x2F;well-known&#x2F;services.json at master · nodemailer&#x2F;nodemailer (github.com)</a>)所有支持的服务商</td>
+<td>QQ</td>
+</tr>
+<tr>
+<td><code>SMTP_HOST</code></td>
+<td>SMTP 服务器地址(理论上SMTP_SERVICE正确填写，这部分可以不写)</td>
+<td>smtp.qq.com</td>
+</tr>
+<tr>
+<td><code>SMTP_PORT</code></td>
+<td>SMTP 服务器端口。（同上）</td>
+<td>465</td>
+</tr>
+<tr>
+<td><code>SMTP_SECURE</code></td>
+<td>是否使用 SSL 连接 SMTP（同上）</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>SMTP_USER</code></td>
+<td>SMTP 用户名</td>
+<td><a href="mailto:&#x35;&#120;&#120;&#120;&#120;&#x78;&#64;&#113;&#113;&#46;&#x63;&#x6f;&#x6d;">&#x35;&#120;&#120;&#120;&#120;&#x78;&#64;&#113;&#113;&#46;&#x63;&#x6f;&#x6d;</a></td>
+</tr>
+<tr>
+<td><code>SMTP_PASS</code></td>
+<td>SMTP 密码(一般不是账户密码而是需要去开通smtp服务，给的对应的密钥)</td>
+<td>密码</td>
+</tr>
+<tr>
+<td><code>SITE_URL</code></td>
+<td>网站地址，用于在消息中显示</td>
+<td><a target="_blank" rel="noopener" href="https://blog.bxzdyg.cn/">https://blog.bxzdyg.cn/</a></td>
+</tr>
+<tr>
+<td><code>SITE_URL</code></td>
+<td>网站地址，用于在消息中显示</td>
+<td>BoBoBlog</td>
+</tr>
+<tr>
+<td><code>AUTHOR_EMAIL</code></td>
+<td>博主邮箱，用来接收新评论通知。如果是博主发布的评论则不进行提醒通知.</td>
+<td><a href="mailto:&#53;&#120;&#x78;&#120;&#x78;&#x78;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;">&#53;&#120;&#x78;&#120;&#x78;&#x78;&#x40;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;</a></td>
+</tr>
+</tbody></table>
+<p>此处有个坑，不知道为什么这里的<code>AUTHOR_EMAIL</code>和我所想的有点不太一样，我以为博主发一级评论和回复对应的评论就不会收到信息，仅此而已，可实际测试的表现是，填入自己的邮箱自己的邮箱任何邮件都<strong>收不到</strong>，这明显是给<strong>发邮件的邮箱</strong>地址用。</p>
+<p>选择变量值</p>
+<table>
+<thead>
+<tr>
+<th align="center">环境变量名称</th>
+<th align="center">备注</th>
+<th align="center">参考值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>SENDER_NAME</code></td>
+<td align="center">自定义发送邮件的发件人</td>
+<td align="center"><code>BoBoBlog&lt;5xxxxx@qq.com&gt;</code></td>
+</tr>
+<tr>
+<td align="center"><code>SENDER_EMAIL</code></td>
+<td align="center">自定义发送邮件的发件地址</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>MAIL_SUBJECT</code></td>
+<td align="center">自定义评论回复邮件标题</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>MAIL_TEMPLATE</code></td>
+<td align="center">自定义评论回复邮件内容</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>MAIL_SUBJECT_ADMIN</code></td>
+<td align="center">自定义新评论通知邮件标题</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>MAIL_TEMPLATE_ADMIN</code></td>
+<td align="center">自定义新评论通知邮件内容</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<mark class="tag-plugin colorful mark" color="red">注意：任何环境变量的变动，都需要重新部署后才会生效。其次，如果设置了多种提醒方式，仅会有一种生效！</mark>
+
+<p>而且有些设置的环境变量，可能在模板上没有被用到。</p>
+<h4 id="邮件模板"><a href="#邮件模板" class="headerlink" title="邮件模板"></a>邮件模板</h4><p>waline服务器部署对应的厂库的 <code>index.js</code> 文件，如果是通过官方仓库的 <code>index.js</code>  作为 waline 的入口，那么可以通过修改  <code>index.js</code> 文件来修改邮件通知模板</p>
+<div class="tag-plugin colorful folders" ><details class="folder" index="0"><summary><span>官方默认的邮件模板示例</span></summary><div class="body"><figure class="highlight js"><figcaption><span>你waline服务器部署对应的厂库的index.js文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Application</span> = <span class="built_in">require</span>(<span class="string">&#x27;@waline/vercel&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">Application</span>(&#123;</span><br><span class="line">    <span class="attr">mailSubject</span>: <span class="string">&#x27;&#123;&#123;parent.nick | safe&#125;&#125;，您在「&#123;&#123;site.name | safe&#125;&#125;」上的评论收到了回复&#x27;</span>,</span><br><span class="line">    <span class="attr">mailTemplate</span>: <span class="string">`</span></span><br><span class="line"><span class="string">       &lt;div style=&quot;border-top:2px solid #12ADDB;box-shadow:0 1px 3px #AAAAAA;line-height:180%;padding:0 15px 12px;margin:50px auto;font-size:12px;&quot;&gt;</span></span><br><span class="line"><span class="string">         &lt;h2 style=&quot;border-bottom:1px solid #DDD;font-size:14px;font-weight:normal;padding:13px 0 10px 8px;&quot;&gt;        </span></span><br><span class="line"><span class="string">           您在博客&lt;a style=&quot;text-decoration:none;color: #12ADDB;&quot; href=&quot;&#123;&#123;site.url&#125;&#125;&quot; target=&quot;_blank&quot;&gt;&#123;&#123;site.name&#125;&#125;&lt;/a&gt;上的评论有了新的回复</span></span><br><span class="line"><span class="string">         &lt;/h2&gt;</span></span><br><span class="line"><span class="string">         &lt;div style=&quot;padding:0 12px 0 12px;margin-top:18px&quot;&gt;</span></span><br><span class="line"><span class="string">		&lt;p&gt;&#123;&#123;parent.nick&#125;&#125;，您曾发表评论：&lt;/p&gt;</span></span><br><span class="line"><span class="string">           &lt;div style=&quot;background-color: #f5f5f5;padding: 10px 15px;margin:18px 0;word-wrap:break-word;&quot;&gt;&#123;&#123;parent.comment | safe&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">           &lt;p&gt;&lt;strong&gt;&#123;&#123;self.nick&#125;&#125;&lt;/strong&gt; 回复说：&lt;/p&gt;</span></span><br><span class="line"><span class="string">           &lt;div style=&quot;background-color: #f5f5f5;padding: 10px 15px;margin:18px 0;word-wrap:break-word;&quot;&gt;&#123;&#123;self.comment | safe&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">           &lt;p&gt;您可以点击&lt;a style=&quot;text-decoration:none; color:#12addb&quot; href=&quot;&#123;&#123;site.postUrl&#125;&#125;&quot; target=&quot;_blank&quot;&gt;前往原文查看完整的回复內容&lt;/a&gt;，欢迎再次光临&lt;a style=&quot;text-decoration:none; color:#12addb&quot; href=&quot;&#123;&#123;site.url&#125;&#125;&quot; target=&quot;_blank&quot;&gt;&#123;&#123;site.name&#125;&#125;&lt;/a&gt;。&lt;/p&gt;</span></span><br><span class="line"><span class="string">           &lt;br/&gt;</span></span><br><span class="line"><span class="string">         &lt;/div&gt;</span></span><br><span class="line"><span class="string">	  &lt;div style=&quot;border-top:1px solid #DDD; padding:13px 0 0 8px;&quot;&gt;</span></span><br><span class="line"><span class="string">		该邮件为系统自动发送的邮件，请勿直接回复。</span></span><br><span class="line"><span class="string">	  &lt;/div&gt;</span></span><br><span class="line"><span class="string">	  &lt;br/&gt;</span></span><br><span class="line"><span class="string">       &lt;/div&gt;`</span>,</span><br><span class="line">    <span class="attr">mailSubjectAdmin</span>: <span class="string">&#x27;您的博客「&#123;&#123;site.name | safe&#125;&#125;」收到了新评论&#x27;</span>,</span><br><span class="line">    <span class="attr">mailTemplateAdmin</span>: <span class="string">`</span></span><br><span class="line"><span class="string">       &lt;div style=&quot;border-top:2px solid #12ADDB;box-shadow:0 1px 3px #AAAAAA;line-height:180%;padding:0 15px 12px;margin:50px auto;font-size:12px;&quot;&gt;</span></span><br><span class="line"><span class="string">         &lt;h2 style=&quot;border-bottom:1px solid #DDD;font-size:14px;font-weight:normal;padding:13px 0 10px 8px;&quot;&gt;        </span></span><br><span class="line"><span class="string">           有人在&lt;a style=&quot;text-decoration:none;color: #12ADDB;&quot; href=&quot;&#123;&#123;site.url&#125;&#125;&quot; target=&quot;_blank&quot;&gt;&#123;&#123;site.name&#125;&#125;&lt;/a&gt;发表了新的评论</span></span><br><span class="line"><span class="string">         &lt;/h2&gt;</span></span><br><span class="line"><span class="string">         &lt;div style=&quot;padding:0 12px 0 12px;margin-top:18px&quot;&gt;</span></span><br><span class="line"><span class="string">		&lt;p&gt;&lt;strong&gt;&#123;&#123;self.nick&#125;&#125;&lt;/strong&gt; 评论说：&lt;/p&gt;</span></span><br><span class="line"><span class="string">		&lt;div style=&quot;background-color: #f5f5f5;padding: 10px 15px;margin:18px 0;word-wrap:break-word;&quot;&gt;&#123;&#123;self.comment | safe&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">           &lt;p&gt;您可以点击&lt;a style=&quot;text-decoration:none; color:#12addb&quot; href=&quot;&#123;&#123;site.postUrl&#125;&#125;&quot; target=&quot;_blank&quot;&gt;前往原文查看完整的评论内容。&lt;/a&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string">           &lt;br/&gt;</span></span><br><span class="line"><span class="string">         &lt;/div&gt;</span></span><br><span class="line"><span class="string">	  &lt;div style=&quot;border-top:1px solid #DDD; padding:13px 0 0 8px;&quot;&gt;</span></span><br><span class="line"><span class="string">		该邮件为系统自动发送的邮件，请勿直接回复。</span></span><br><span class="line"><span class="string">	  &lt;/div&gt;</span></span><br><span class="line"><span class="string">	  &lt;br/&gt;</span></span><br><span class="line"><span class="string">       &lt;/div&gt;`</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure></div></details></div>
+
+<h4 id="其他的模板"><a href="#其他的模板" class="headerlink" title="其他的模板"></a>其他的模板</h4><p>我没有那么多个性化需求，如果以后有，还是自己学成后自己设计吧，我就推几个链接，大家可以去看看</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://sarakale.top/blog/posts/537344b2#%E9%82%AE%E4%BB%B6%E6%A8%A1%E6%9D%BF">waline邮件通知模板样式一览 | SaraKale’s blog</a></p>
+</blockquote>
+<p>需要注意，这个博主是采取直接写在服务器的环境变量上，看着更改即可</p>
+<p>主要为下面几个变量<code>MAIL_SUBJECT</code> 、 <code>MAIL_TEMPLATE</code> 、 <code>MAIL_SUBJECT_ADMIN</code> 、 <code>MAIL_TEMPLATE_ADMIN</code></p>
+<h3 id="其他通知方式"><a href="#其他通知方式" class="headerlink" title="其他通知方式"></a>其他通知方式</h3><p>如微信，qq机器人，微信企业号等等，这里先不论，之后有空再提</p>
+<h2 id="用户标签"><a href="#用户标签" class="headerlink" title="用户标签"></a>用户标签</h2><h3 id="普通标签"><a href="#普通标签" class="headerlink" title="普通标签"></a>普通标签</h3><p>普通标签在 Waline 服务端进行环境变量的配置,添加<a class="tag-plugin colorful hashtag" color="red"><svg t="1701408144765" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4228" width="200" height="200"><path d="M426.6 64.8c34.8 5.8 58.4 38.8 52.6 73.6l-19.6 117.6h190.2l23-138.6c5.8-34.8 38.8-58.4 73.6-52.6s58.4 38.8 52.6 73.6l-19.4 117.6H896c35.4 0 64 28.6 64 64s-28.6 64-64 64h-137.8l-42.6 256H832c35.4 0 64 28.6 64 64s-28.6 64-64 64h-137.8l-23 138.6c-5.8 34.8-38.8 58.4-73.6 52.6s-58.4-38.8-52.6-73.6l19.6-117.4h-190.4l-23 138.6c-5.8 34.8-38.8 58.4-73.6 52.6s-58.4-38.8-52.6-73.6l19.4-117.8H128c-35.4 0-64-28.6-64-64s28.6-64 64-64h137.8l42.6-256H192c-35.4 0-64-28.6-64-64s28.6-64 64-64h137.8l23-138.6c5.8-34.8 38.8-58.4 73.6-52.6z m11.6 319.2l-42.6 256h190.2l42.6-256h-190.2z" p-id="4229"></path></svg><span>LEVELS</span></a>的key即可,对应的value是划分的区间，形式为一串给定的数的逗号拼接，例如 <code>0,10,20,50,100,200</code></p>
+<table>
+<thead>
+<tr>
+<th>等级</th>
+<th>条件</th>
+<th>默认等级标签</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0 &lt;&#x3D; count &lt; 10</td>
+<td>潜水</td>
+</tr>
+<tr>
+<td>1</td>
+<td>10 &lt;&#x3D; count &lt; 20</td>
+<td>冒泡</td>
+</tr>
+<tr>
+<td>2</td>
+<td>20 &lt;&#x3D; count &lt; 50</td>
+<td>吐槽</td>
+</tr>
+<tr>
+<td>3</td>
+<td>50 &lt;&#x3D; count &lt; 100</td>
+<td>活跃</td>
+</tr>
+<tr>
+<td>4</td>
+<td>100 &lt;&#x3D; count &lt; 200</td>
+<td>话痨</td>
+</tr>
+<tr>
+<td>5</td>
+<td>200 &lt;&#x3D; count</td>
+<td>传说</td>
+</tr>
+</tbody></table>
+<p>此处为普通标签的等级划分方式，转换对应的标签名且看<a href="#%E6%A0%87%E7%AD%BE%E7%9B%B8%E5%85%B3">下面</a></p>
+<h3 id="专属标签"><a href="#专属标签" class="headerlink" title="专属标签"></a>专属标签</h3><p>专属标签通过管理端（后台）为每位登录用户设定专属标签。</p>
+<div class="tag-plugin link dis-select"><a class="link-card plain" title="官方文档（用户标签）" href="https://waline.js.org/guide/features/label.html" target="_blank" rel="external nofollow noopener noreferrer" cardlink autofill="icon"><div class="left"><span class="title">官方文档（用户标签）</span><span class="cap link fs12">https://waline.js.org/guide/features/label.html</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+
+
+
+<h2 id="排行榜-读者墙挂件"><a href="#排行榜-读者墙挂件" class="headerlink" title="排行榜&#x2F;读者墙挂件"></a>排行榜&#x2F;读者墙挂件</h2><a class="tag-plugin colorful hashtag" color="orange"><svg t="1701408144765" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4228" width="200" height="200"><path d="M426.6 64.8c34.8 5.8 58.4 38.8 52.6 73.6l-19.6 117.6h190.2l23-138.6c5.8-34.8 38.8-58.4 73.6-52.6s58.4 38.8 52.6 73.6l-19.4 117.6H896c35.4 0 64 28.6 64 64s-28.6 64-64 64h-137.8l-42.6 256H832c35.4 0 64 28.6 64 64s-28.6 64-64 64h-137.8l-23 138.6c-5.8 34.8-38.8 58.4-73.6 52.6s-58.4-38.8-52.6-73.6l19.6-117.4h-190.4l-23 138.6c-5.8 34.8-38.8 58.4-73.6 52.6s-58.4-38.8-52.6-73.6l19.4-117.8H128c-35.4 0-64-28.6-64-64s28.6-64 64-64h137.8l42.6-256H192c-35.4 0-64-28.6-64-64s28.6-64 64-64h137.8l23-138.6c5.8-34.8 38.8-58.4 73.6-52.6z m11.6 319.2l-42.6 256h190.2l42.6-256h-190.2z" p-id="4229"></path></svg><span>读者墙</span></a>就是把评论用户的头像都放在一起，鼠标停留在上面显示名字，有用到的可以考虑一下
+
+<div class="tag-plugin colorful folders" ><details class="folder" index="0"><summary><span>点开查看代码</span></summary><div class="body"><figure class="highlight yaml"><figcaption><span>blog\source\_data\widgets.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">waline_wall:</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">本站发言墙</span></span><br><span class="line">  <span class="attr">layout:</span> <span class="string">markdown</span></span><br><span class="line">  <span class="attr">content:</span> <span class="string">|</span></span><br><span class="line"><span class="string">      &lt;div id=&quot;waline-users&quot;&gt;&lt;i class=&quot;fa-solid fa-cog fa-spin&quot;&gt;&lt;/i&gt;连接waline数据中...&lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;script type=&quot;module&quot;&gt;</span></span><br><span class="line"><span class="string">      import &#123; UserList &#125; from &#x27;https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.mjs&#x27;;</span></span><br><span class="line"><span class="string">      UserList(&#123;</span></span><br><span class="line"><span class="string">        el: &#x27;#waline-users&#x27;,</span></span><br><span class="line"><span class="string">        serverURL: &#x27;https://comment.bxzdyg.cn&#x27;, // 注意这里不能写成https://comment.bxzdyg.cn/ </span></span><br><span class="line"><span class="string">        count: 10,</span></span><br><span class="line"><span class="string">      &#125;);</span></span><br><span class="line"><span class="string">      &lt;/script&gt;</span></span><br><span class="line"><span class="string">      &lt;style&gt;</span></span><br><span class="line"><span class="string">      .wl-user-item[aria-label] &#123;</span></span><br><span class="line"><span class="string">        position: relative;</span></span><br><span class="line"><span class="string">        z-index: 9999;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">      &lt;/style&gt;</span></span><br></pre></td></tr></table></figure></div></details></div>
+
+
+<a class="tag-plugin colorful hashtag" color="yellow"><svg t="1701408144765" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4228" width="200" height="200"><path d="M426.6 64.8c34.8 5.8 58.4 38.8 52.6 73.6l-19.6 117.6h190.2l23-138.6c5.8-34.8 38.8-58.4 73.6-52.6s58.4 38.8 52.6 73.6l-19.4 117.6H896c35.4 0 64 28.6 64 64s-28.6 64-64 64h-137.8l-42.6 256H832c35.4 0 64 28.6 64 64s-28.6 64-64 64h-137.8l-23 138.6c-5.8 34.8-38.8 58.4-73.6 52.6s-58.4-38.8-52.6-73.6l19.6-117.4h-190.4l-23 138.6c-5.8 34.8-38.8 58.4-73.6 52.6s-58.4-38.8-52.6-73.6l19.4-117.8H128c-35.4 0-64-28.6-64-64s28.6-64 64-64h137.8l42.6-256H192c-35.4 0-64-28.6-64-64s28.6-64 64-64h137.8l23-138.6c5.8-34.8 38.8-58.4 73.6-52.6z m11.6 319.2l-42.6 256h190.2l42.6-256h-190.2z" p-id="4229"></path></svg><span>排行榜</span></a>看起来就比较明显了,你可以看到左侧的区别，但是有可能因为网络问题，加载不出来
+
+<div class="tag-plugin colorful folders" ><details class="folder" index="0"><summary><span>点开查看代码</span></summary><div class="body"><figure class="highlight yaml"><figcaption><span>blog\source\_data\widgets.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">waline_wall:</span></span><br><span class="line">  <span class="attr">title:</span> <span class="string">本站发言榜</span></span><br><span class="line">  <span class="attr">layout:</span> <span class="string">markdown</span></span><br><span class="line">  <span class="attr">content:</span> <span class="string">|</span></span><br><span class="line"><span class="string">      &lt;div id=&quot;waline-users&quot;&gt;&lt;i class=&quot;fa-solid fa-cog fa-spin&quot;&gt;&lt;/i&gt;连接waline数据中...&lt;/div&gt;</span></span><br><span class="line"><span class="string">      &lt;script type=&quot;module&quot;&gt;</span></span><br><span class="line"><span class="string">      import &#123; UserList &#125; from &#x27;https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.mjs&#x27;;</span></span><br><span class="line"><span class="string">      UserList(&#123;</span></span><br><span class="line"><span class="string">        el: &#x27;#waline-users&#x27;,</span></span><br><span class="line"><span class="string">        serverURL: &#x27;https://comment.bxzdyg.cn&#x27;, // 注意这里不能写成https://comment.bxzdyg.cn/ </span></span><br><span class="line"><span class="string">        count: 10,</span></span><br><span class="line"><span class="string">        mode: &#x27;wall&#x27;</span></span><br><span class="line"><span class="string">      &#125;);</span></span><br><span class="line"><span class="string">      &lt;/script&gt;</span></span><br><span class="line"><span class="string">      &lt;style&gt;</span></span><br><span class="line"><span class="string">      #waline-users &gt; ul &gt; li &gt; a&#123;display: flex;overflow: hidden;-webkit-box-orient: vertical;&#125;</span></span><br><span class="line"><span class="string">      #waline-users &gt; ul &gt; li &gt; a &gt; div.wl-user-meta&#123;font-size:14px;color: #999999;&#125;</span></span><br><span class="line"><span class="string">      #waline-users &gt; ul &gt; li &gt; a &gt; div.wl-user-meta &gt; div&#123;color: var(--swiper-theme-color);&#125;</span></span><br><span class="line"><span class="string">      #waline-users &gt; ul &gt; li &gt; a &gt; div.wl-user-meta &gt; div:hover &#123;color: #ff5724;&#125;</span></span><br><span class="line"><span class="string">      .wl-user-name &#123;color: #999;font-weight: bold;&#125;</span></span><br><span class="line"><span class="string">      &lt;/style&gt;</span></span><br></pre></td></tr></table></figure></div></details></div>
+
+<mark class="tag-plugin colorful mark" color="red">排行榜的小坑</mark>
+
+<p>这里我整上去后，和大佬的比对，不断的思考：“我评论区都有等级标签，为什么排行榜没有呢？”</p>
+<p>别再瞎折腾了，以往waline的初始化没有初始化好，自己琢磨以自定义的形式输出，结果又碰到博客懒加载插件的冲突的问题，一看就不是这样，一天一夜过去了，咨询了大佬后，反复求证才知道，原来level0在排行榜上是没有标签的，起码level1才有，坑啊，我在琢磨什么啊。</p>
+<p>还需要注意，排行榜不统计登录的账号中站长发表的评论数，邮件也会自动排除站长，在你发表评论不会有消息通知，被回复会。</p>
+<h2 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h2><h3 id="自定义语言"><a href="#自定义语言" class="headerlink" title="自定义语言"></a>自定义语言</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://waline.js.org/cookbook/customize/locale.html">自定义语言 | Waline</a></p>
+</blockquote>
+<p>主要就是自己加上一些和修改一些文字描述，下面博主讲主要用到的键贴出来，你们可以去官方文档找一下看看自己需要哪种，再给他加上去，这里面写的极其详细了。</p>
+<h4 id="反应相关"><a href="#反应相关" class="headerlink" title="反应相关"></a>反应相关</h4><figure class="highlight yaml"><figcaption><span>blog\_config.stellar.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">waline</span> </span><br><span class="line">  <span class="attr">waline:</span></span><br><span class="line">    <span class="attr">locale:</span></span><br><span class="line">      <span class="attr">placeholder:</span> <span class="string">有什么想说的？大胆说出来吧(*^_^*)</span> <span class="comment"># 输入框内提示文字</span></span><br><span class="line">      <span class="attr">reactionTitle:</span> <span class="string">请给这篇文章做个评价吧</span> <span class="comment"># 反应标题</span></span><br><span class="line">      <span class="comment"># 反应表情对应的文字描述</span></span><br><span class="line">      <span class="attr">reaction0:</span> <span class="string">感兴趣</span></span><br><span class="line">      <span class="attr">reaction1:</span> <span class="string">给心心</span></span><br><span class="line">      <span class="attr">reaction2:</span> <span class="string">什么？</span></span><br><span class="line">      <span class="attr">reaction3:</span> <span class="string">心碎了</span></span><br><span class="line">      <span class="attr">reaction4:</span> <span class="string">别过来</span></span><br><span class="line">      <span class="attr">reaction5:</span> <span class="string">哎呀~</span></span><br><span class="line">      <span class="attr">reaction6:</span> <span class="string">不忍直视</span></span><br><span class="line">      <span class="attr">reaction7:</span> <span class="string">我真生气辣！</span></span><br><span class="line">      <span class="attr">reaction8:</span> <span class="string">摇晃</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="标签相关"><a href="#标签相关" class="headerlink" title="标签相关"></a>标签相关</h4><figure class="highlight yaml"><figcaption><span>blog\_config.stellar.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">waline</span> </span><br><span class="line">  <span class="attr">waline:</span></span><br><span class="line">    <span class="attr">locale:</span></span><br><span class="line">      <span class="attr">level0:</span> <span class="string">&#x27;潜水&#x27;</span></span><br><span class="line">      <span class="attr">level1:</span> <span class="string">&#x27;冒泡&#x27;</span></span><br><span class="line">      <span class="attr">level2:</span> <span class="string">&#x27;吐槽&#x27;</span></span><br><span class="line">      <span class="attr">level3:</span> <span class="string">&#x27;活跃&#x27;</span></span><br><span class="line">      <span class="attr">level4:</span> <span class="string">&#x27;话痨&#x27;</span></span><br><span class="line">      <span class="attr">level5:</span> <span class="string">&#x27;传说&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>这里为对应等级的标签称号</p>
+<h3 id="自定义表情"><a href="#自定义表情" class="headerlink" title="自定义表情"></a>自定义表情</h3><figure class="highlight yaml"><figcaption><span>blog\_config.stellar.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">comments:</span></span><br><span class="line">  <span class="attr">service:</span> <span class="string">waline</span> </span><br><span class="line">  <span class="attr">waline:</span></span><br><span class="line">    <span class="comment"># 反应表情</span></span><br><span class="line">    <span class="attr">reaction:</span> </span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatattentionreverse.png</span>  <span class="comment"># 兴奋</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatheart.png</span>  <span class="comment"># 开心</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatdoubt.png</span>  <span class="comment"># 惊讶</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatheartbroken.png</span>  <span class="comment"># 伤心</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatterrified.png</span>  <span class="comment"># 害怕</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatshy.png</span>  <span class="comment"># 害羞</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatnoface.png</span> <span class="comment"># 轻蔑</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatanger.gif</span>  <span class="comment"># 生气</span></span><br><span class="line">     <span class="bullet">-</span> <span class="string">/emojis/ablobcatrainbow.png</span>  <span class="comment"># 摇晃</span></span><br><span class="line">    <span class="comment"># Custom emoji</span></span><br><span class="line">    <span class="attr">emoji:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">https://unpkg.com/@waline/emojis@1.1.0/bilibili</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div class="article-footer reveal fs14">
+    <section id="references">
+      <div class="header"><span>参考资料</span></div>
+      <div class="body">
+        <ul>
+        <li class="post-title">
+          <p><a target="_blank" rel="noopener" href="https://skyreeves.github.io/post/69ee63d6.html">hexo博客引入Waline评论模块</a></p>
+
+        </li>
+        </ul>
+      </div>
+    </section>
+    
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://bxzdyg.cn/p/stellar-comment/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://bxzdyg.cn/p/stellar-comment/&title=stellar之waline评论系统的使用 - BoBoBlog&pics=/assets/cover_banner/stellar-comment-cover.png&summary=总文章在这里
+使用Hexo和Stellar部署个人博客网站https://bxzdyg.cn/p/%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E9%83%A8%E7%BD%B2%E4%B8%AA%E4..."><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=stellar之waline评论系统的使用 - BoBoBlog&amp;body=https://bxzdyg.cn/p/stellar-comment/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/social/8411ed322ced6.svg"/></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0">
+          <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://bxzdyg.cn/p/stellar-comment/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">较早文章</div><a href="/p/stellar-aplayer-metingjs/">stellar主题使用meetingjs接入aplayer音乐播放器</a></div></section></div>
+
+
+<div class="related-wrap reveal" id="related-posts">
+    <section class='header'>
+      <div class='title cap theme'>您可能感兴趣的文章</div>
+    </section>
+    <section class='body'>
+    <div class="related-posts"><a class="item" href="\p\stellar-dark-mode\" title="stellar主题深色模式设置"><span class="title">stellar主题深色模式设置</span></a><a class="item" href="\p\使用Hexo和Stellar部署个人博客网站\" title="使用Hexo和Stellar部署个人博客网站【超详细贴心保姆级教程💖】"><span class="title">使用Hexo和Stellar部署个人博客网站【超详细贴心保姆级教程💖】</span><span class="excerpt">我要整一个又好看又好用的博客！😀</span></a><a class="item" href="\p\hello-world\" title="Hello World"><span class="title">Hello World</span><span class="excerpt">从这里开始……</span></a><a class="item" href="\p\vercel-wall\" title="国庆Vercel小崩，小站博主何去何从"><span class="title">国庆Vercel小崩，小站博主何去何从</span><span class="excerpt">救命啊，Vercel你为什么倒下了QAQ,我的破站还没开多久啊</span></a></div></section></div>
+
+
+
+  <div class='related-wrap md-text reveal' id="comments">
+    <section class='header cmt-title cap theme'>
+      快来参与讨论吧
+    </section>
+    <section class='body cmt-body waline'>
+      
+
+<div id="waline_container" class="waline_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </section>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs14">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/comments/">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
+<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
+<!--不蒜子计数器-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--添加一个访问量-->
+<span>
+      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
+</span>
+</br>
+<span id="runtime_span"></span>
+<script type="text/javascript">
+function show_runtime() {
+    window.setTimeout("show_runtime()", 1000);
+    X = new Date("2023/09/17 17:00:00");
+    Y = new Date();
+    T = (Y.getTime() - X.getTime());
+    M = 24 * 60 * 60 * 1000;
+    a = T / M;
+    A = Math.floor(a);
+    b = (a - A) * 24;
+    B = Math.floor(b);
+    c = (b - B) * 60;
+    C = Math.floor((b - B) * 60);
+    D = Math.floor((c - C) * 60);
+    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
+}
+show_runtime();
+</script>
+</center>
+<div style="display: flex;justify-content: center;align-items: center;margin: 10px;">
+<a target="_blank" rel="noopener" href="https://notbyai.fyi/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/Written-By-Human-white.png" alt='全部都是博主用心学编写的啊！不是ai啊' style="width:140px;height:50px;margin-right: 10px " id='notbyai'></a>
+<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/by-nc-sa.eu.png" alt="只要保留原作者姓名并在基于原作创作的新作品适用同类型的许可协议，即可基于非商业目的对原作重新编排、改编或者再创作。" style="width:140px;height:50px"></a>
+</div>
+ 
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.22.1';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.22.1';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://gcore.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
+  }
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://gcore.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://gcore.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://gcore.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://gcore.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img, .gallery img ,#waline_container .vcontent img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function load_comment(){
+    if(!document.getElementById("waline_container"))return;
+    stellar.loadCSS('https://unpkg.com/@waline/client@2.14.1/dist/waline.css');
+    stellar.loadScript('https://unpkg.com/@waline/client@2.14.1/dist/waline.js', {defer:true}).then(function () {
+      const el = document.getElementById("waline_container");
+      var path = el.getAttribute('comment_id');
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      Waline.init(Object.assign({"js":"https://unpkg.com/@waline/client@2.14.1/dist/waline.js","css":"https://unpkg.com/@waline/client@2.14.1/dist/waline.css","serverURL":"https://comment.bxzdyg.cn/","commentCount":true,"pageview":false,"meta":["nick","mail","link"],"locale":{"placeholder":"有什么想说的？大胆说出来吧(*^_^*)","reactionTitle":"请给这篇文章做个评价吧","reaction0":"感兴趣","reaction1":"给心心","reaction2":"什么？","reaction3":"心碎了","reaction4":"别过来","reaction5":"矮油~","reaction6":"不忍直视","reaction7":"我真生气辣！","reaction8":"摇晃","level0":"潜水","level1":"冒泡","level2":"吐槽","level3":"活跃","level4":"话痨","level5":"传说"},"reaction":["/emojis/ablobcatattentionreverse.png","/emojis/ablobcatheart.png","/emojis/ablobcatdoubt.png","/emojis/ablobcatheartbroken.png","/emojis/ablobcatterrified.png","/emojis/ablobcatshy.png","/emojis/ablobcatnoface.png","/emojis/ablobcatanger.gif","/emojis/ablobcatrainbow.png"],"emoji":["https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs"]}, {
+        el: '#waline_container',
+        path: path,
+        
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script type="text/javascript" src="/js/darkmode.js"></script>
+  
+
+
+  </div>
+</body>
+</html>
