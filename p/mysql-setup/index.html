@@ -1,62 +1,959 @@
-.l_body {
-  display: flex;
-  margin: auto;
-  padding: 0 var(--gap-l);
-  justify-content: center;
-  font-size: var(--fsp);
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.8" theme-name="Stellar" theme-version="1.26.8">
+  
+  <meta name="generator" content="Hexo 7.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>超详细MySql的安装✨，包含各种安装问题及解决方法🎯 - BoBoBlog</title>
+
+  
+    <meta name="description" content="很久之前写的估计有很多纰漏，各位少侠麻烦纠错辣(*^_^*)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超详细MySql的安装✨，包含各种安装问题及解决方法🎯">
+<meta property="og:url" content="https://bxzdyg.cn/p/mysql-setup/index.html">
+<meta property="og:site_name" content="BoBoBlog">
+<meta property="og:description" content="很久之前写的估计有很多纰漏，各位少侠麻烦纠错辣(*^_^*)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230505141807188.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506142841841.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506165531300.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506174312996.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506180828533.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506181708022.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506182437961.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506182408137.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506183114470.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506184037449.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506185723749.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506221129044.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506221627958.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506121318140.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506122846647.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506123357708.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506124112022.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506124417093.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506124920087.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506124950513.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506125034922.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506125154037.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506125307549.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506125349612.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506130010616.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506130224733.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506130423530.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506130643843.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506130946158.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506131036186.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506131223681.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506131248615.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506131342448.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506133005617.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506133656239.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506185158691.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506144851202.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506144617166.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506145216736.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506134954438.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506145447745.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506164351010.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506223935085.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506224135650.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506224354373.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506224659445.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230506225703087.png">
+<meta property="article:published_time" content="2023-05-30T11:57:09.000Z">
+<meta property="article:modified_time" content="2024-01-03T09:45:01.373Z">
+<meta property="article:author" content="BXZDYG">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bxzdyg.cn/p/mysql-setup/image-20230505141807188.png">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.26.8">
+
+  
+    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
+  
+
+  
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="/css/darkmode.css"><link rel="stylesheet" href="/css/newYear.css">
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/assets/website/avatar/avatar.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">BoBoBlog</div><div class="sub normal cap">我秃了头</div><div class="sub hover cap" style="opacity:0"> 可我却还不是程序员</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="文档" href="/wiki/" style="color:#3DC550"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="探索" href="/notes/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg></a><a class="nav-item" title="社交" href="/friends/" style="color:#F44336"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg></a><a class="nav-item" title="更多" href="/about/" style="color:#d55afa"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10" opacity=".5"/><path fill="currentColor" d="M12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25z"/></svg></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A"><span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zip%E5%8C%85%E7%89%88"><span class="toc-text">zip包版</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC1%E6%AD%A5%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="toc-text">第1步下载安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC2%E6%AD%A5%EF%BC%9A%E8%A7%A3%E5%8E%8B%E5%88%B0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%A4%B9%E5%B9%B6%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">第2步：解压到任意文件夹并创建配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC3%E6%AD%A5-%E5%90%AF%E5%8A%A8MySQL"><span class="toc-text">第3步 启动MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC4%E6%AD%A5-%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">第4步 设置环境变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#msi%E7%A8%8B%E5%BA%8F"><span class="toc-text">msi程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E8%AE%BE%E7%BD%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">选择设置类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%87%E4%BB%B6%E5%AE%89%E8%A3%85%E4%BD%8D%E7%BD%AE"><span class="toc-text">设置文件安装位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%90%8D%E7%A7%B0"><span class="toc-text">服务名称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E4%BD%8D%E7%BD%AE"><span class="toc-text">日志位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE"><span class="toc-text">基础配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">配置配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">启动服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E6%9C%AC%E5%9C%B0%E5%A4%9A%E4%B8%AAMySQL"><span class="toc-text">区分本地多个MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81"><span class="toc-text">忘记密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL8-0%E4%BB%A5%E4%B8%8A"><span class="toc-text">MySQL8.0以上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL5-7"><span class="toc-text">MySQL5.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL%E8%AF%AD%E5%8F%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%B3%A8%E9%87%8A"><span class="toc-text">SQL语句的三种注释</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86"><span class="toc-text">数据库管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%93%8D%E4%BD%9C"><span class="toc-text">内置客户端操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E6%93%8D%E4%BD%9C"><span class="toc-text">python操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%BE%E8%A8%80"><span class="toc-text">尾言</span></a></li></ol></div></div></widget>
+
+
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span><a class="cap-action" id="rss" title="Subscribe" href="/atom.xml"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19q0-.825.588-1.412T5 17q.825 0 1.413.588T7 19q0 .825-.587 1.413T5 21m13.5 0q-.65 0-1.088-.475T16.9 19.4q-.275-2.425-1.312-4.537T12.9 11.1q-1.65-1.65-3.762-2.687T4.6 7.1q-.65-.075-1.125-.512T3 5.5q0-.65.45-1.062t1.075-.363q3.075.275 5.763 1.563t4.737 3.337q2.05 2.05 3.338 4.738t1.562 5.762q.05.625-.363 1.075T18.5 21m-6 0q-.625 0-1.075-.437T10.85 19.5q-.225-1.225-.787-2.262T8.65 15.35q-.85-.85-1.888-1.412T4.5 13.15q-.625-.125-1.062-.575T3 11.5q0-.65.45-1.075t1.075-.325q1.825.25 3.413 1.063t2.837 2.062q1.25 1.25 2.063 2.838t1.062 3.412q.1.625-.325 1.075T12.5 21"/></svg></a></div><div class="widget-body fs14"><a class="item title" href="/p/stellar%E4%BB%8E1.23.0%E5%88%B01.26.8/"><span class="title">stellar从1.23.0到1.26.8</span></a><a class="item title" href="/p/%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"><span class="title">使用Hexo和Stellar搭建个人博客网站【超详细贴心保姆级教程💖】</span></a><a class="item title" href="/p/stellar-comment/"><span class="title">stellar之waline评论系统的使用</span></a><a class="item title" href="/p/vercel-wall/"><span class="title">国庆Vercel小崩，小站博主何去何从</span></a><a class="item title" href="/p/stellar-dark-mode/"><span class="title">stellar主题深色模式设置</span></a></div></widget>
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/YGuang233" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-github"></i></a><a class="social" href="javaScript:hud.toast('你在听🎵啦啦啦~');" rel="noopener noreferrer"><i class="fa-solid fa-music"></i></a><a class="social" href="https://space.bilibili.com/65447634?spm_id_from=333.1007.0.0" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-bilibili fa-bounce"></i></a><a class="social" href="https://www.zhihu.com/people/wo-yao-ren-ren-zhen-zhen-xue-xi-liao" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-zhihu"></i></a><a class="social" href="/atom.xml" rel="noopener noreferrer"><i class="fa-solid fa-rss fa-shake"></i></a><a class="social" href="/comments/" rel="noopener noreferrer"><i class="fa-regular fa-comment-dots"></i></a><a class="social" href="javaScript:void(0);" rel="noopener noreferrer"><i class="fa-solid fa-circle-half-stroke fa-flip"></i></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top"><img class="bg lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/wiki/mysql/mysql.svg">
+  <div class="content">
+    
+<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a></div>
+<div class="flex-row" id="post-meta"><a class="author" href="/author/BXZDYG/index.html">半醒着的阳光</a><span class="sep"></span><span class="text created"><time datetime="2023-05-30T11:57:09.000Z">2023-05-30</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-01-03T09:45:01.373Z">2024-01-03</time></span></div></div>
+</div>
+
+    
+    <div class="bottom">
+      <div class="text-area">
+        <h1 class="text title"><span>超详细MySql的安装✨，包含各种安装问题及解决方法🎯</span></h1>
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>本文主要讲的是MySQL本地部署即安装与配置</p>
+<p>zip 和 msi</p>
+<p>这两种版本大致就是更详细的安装和更粗暴的安装罢了，没有什么太大区别，除了mysql的版本外，能正常使用就行</p>
+<h2 id="zip包版"><a href="#zip包版" class="headerlink" title="zip包版"></a>zip包版</h2><h3 id="第1步下载安装"><a href="#第1步下载安装" class="headerlink" title="第1步下载安装"></a><strong>第1步下载安装</strong></h3><p>官网下载地址:</p>
+<div class="tag-plugin link dis-select"><a class="link-card plain" title="MySQL Community Downloads" href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="external nofollow noopener noreferrer" cardlink autofill="icon"><div class="left"><span class="title">MySQL Community Downloads</span><span class="cap link footnote">https://dev.mysql.com/downloads/mysql/</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230505141807188.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506142841841.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>点击下载后有人可能很懵逼，啥？居然还要登录。其实下面有一个直接开始下载的按钮。点一下直接下载就行</p>
+<h3 id="第2步：解压到任意文件夹并创建配置文件"><a href="#第2步：解压到任意文件夹并创建配置文件" class="headerlink" title="第2步：解压到任意文件夹并创建配置文件"></a>第2步：解压到任意文件夹并创建配置文件</h3><p><strong>建议解压至软件安装目录</strong></p>
+<p>并在安装目录下创建my.ini的文件，作为MySQL的配置文件</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506165531300.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506174312996.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>配置内容如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">[mysql]</span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">port=3306</span><br><span class="line">#basedir=C:/Program Files/mysql-5.7.26-winx64</span><br><span class="line">#datadir=C:/Program Files/mysql-5.7.26-winx64/data/</span><br><span class="line">basedir=C:\Program Files\MySQL\mysql-8.0.33-winx64</span><br><span class="line">datadir=C:\Program Files\MySQL\mysql-8.0.33-winx64\data\</span><br><span class="line">character-set-server=utf8</span><br><span class="line">default-storage-engine=MyIsam</span><br><span class="line">max_connections=100</span><br><span class="line">collation-server=utf8_unicode_ci</span><br><span class="line">init_connect=&#x27;SET NAMES utf8&#x27;</span><br><span class="line">innodb_buffer_pool_size=64M</span><br><span class="line">innodb_flush_log_at_trx_commit=1</span><br><span class="line">innodb_lock_wait_timeout=120</span><br><span class="line">innodb_log_buffer_size=4M</span><br><span class="line">innodb_log_file_size=256M</span><br><span class="line">interactive_timeout=120</span><br><span class="line">join_buffer_size=2M</span><br><span class="line">key_buffer_size=32M</span><br><span class="line">log_error_verbosity=1</span><br><span class="line">max_allowed_packet=16M</span><br><span class="line">max_heap_table_size=64M</span><br><span class="line">myisam_max_sort_file_size=64G</span><br><span class="line">myisam_sort_buffer_size=32M</span><br><span class="line">read_buffer_size=512kb</span><br><span class="line">read_rnd_buffer_size=4M</span><br><span class="line">server_id=1</span><br><span class="line">skip-external-locking=on</span><br><span class="line">sort_buffer_size=256kb</span><br><span class="line">table_open_cache=256</span><br><span class="line">thread_cache_size=16</span><br><span class="line">tmp_table_size=64M</span><br><span class="line">wait_timeout=120</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line">port=3306</span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure>
+
+<p><strong>关于配置文件，如果不进行配置的话，MySQL则自动使用默认值</strong></p>
+<p><strong>注意键入配置操作命令须在管理员权限下</strong></p>
+<p><strong>配置优先级</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;&quot;C:\Program Files\MySQL\mysql-8.0.33-winx64\bin\mysqld.exe&quot; --help --verbose</span><br></pre></td></tr></table></figure>
+
+<p>输入后会有很多信息，这里主要看前面几条，直接ctrl+c停止命令</p>
+<ul>
+<li>初始化目录，自动生成data目录，用于存放数据库数据和日志文件之类的</li>
+<li>同时创建建必备一些的数据，例如默认账户root（无密码），用于登录MySQL并通过指令操作MySQL</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;&quot;C:\Program Files\MySQL\mysql-8.0.33-winx64\bin\mysqld.exe&quot; --initialize-insecure</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506180828533.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506181708022.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>在windowns安装过程中如果有报错(msvcr120.dll不存在)，请下载并安装下面的两个补丁：（主要是mysql环境没有搭建好，后面msi可对照）</p>
+<blockquote>
+<p> vcredist(主要): <a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/download/confirmation.aspx?id=40784">Download Visual C++ Redistributable Packages for Visual Studio 2013 from Official Microsoft Download Center</a></p>
+</blockquote>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506182437961.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+<p>进去就会自动下载</p>
+<blockquote>
+<p> dirctx:   <a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-CN/download/details.aspx?id=35">https://www.microsoft.com/zh-CN/download/details.aspx?id=35</a></p>
+</blockquote>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506182408137.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>基础安装到这里就结束了</p>
+<p><strong>设置密码(也可以用作登录后修改成新的密码)</strong></p>
+<p>在mysql中查看是不是明文密码:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">use mysql</span><br><span class="line">SELECT user, authentication_string FROM user;</span><br><span class="line">mysql&gt; use mysql</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; SELECT user, authentication_string FROM user;</span><br><span class="line">+------------------+------------------------------------------------------------------------+</span><br><span class="line">| user             | authentication_string                                                  |</span><br><span class="line">+------------------+------------------------------------------------------------------------+</span><br><span class="line">| mysql.infoschema | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |</span><br><span class="line">| mysql.session    | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |</span><br><span class="line">| mysql.sys        | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |</span><br><span class="line">| root             | $A$005$@Pbut&#123;B (nV&gt;L4;T</span><br><span class="line">%0A.80wi0m8X9xvwz5Gsu3oo1qNr3FN4Zb6PtR/pHHD6 |</span><br><span class="line">+------------------+------------------------------------------------------------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt;  UPDATE user SET authentication_string=&quot;123&quot; WHERE user=&quot;root&quot;;#这种方式写的密码是有问题的，导致不能够登录</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT user, authentication_string FROM user;</span><br><span class="line">+------------------+------------------------------------------------------------------------+</span><br><span class="line">| user             | authentication_string                                                  |</span><br><span class="line">+------------------+------------------------------------------------------------------------+</span><br><span class="line">| mysql.infoschema | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |</span><br><span class="line">| mysql.session    | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |</span><br><span class="line">| mysql.sys        | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |</span><br><span class="line">| root             | 123                                                                    |</span><br><span class="line">+------------------+------------------------------------------------------------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 一步到位：查看密码库。不是设置密码。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select authentication_string from mysql.user where User=&#x27;root&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>方法一(通用)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified by &#x27;password&#x27;;</span><br><span class="line">mysql -u root -p </span><br><span class="line">#登录后</span><br><span class="line">mysql&gt; alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified by &#x27;root&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">mysql&gt; exit</span><br><span class="line">Bye</span><br><span class="line"></span><br><span class="line">C:\Windows\system32&gt;mysql -u root -P 3307  -p</span><br><span class="line">Enter password: **** #root</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 17</span><br><span class="line">Server version: 8.0.33 MySQL Community Server - GPL</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2021, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+
+<p>方法二（5.7~5.7.9 其他版本没试过但是mysql8已经将SET PASSWORD语句废弃）：使用mysql提供的密码修改命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">SET PASSWORD FOR &#x27;user&#x27;@&#x27;host&#x27; = PASSWORD(&#x27;newpassword&#x27;);</span><br><span class="line">                    用户  ip  </span><br><span class="line">SET PASSWORD FOR &#x27;root&#x27;@&#x27;localhost&#x27; = PASSWORD(&#x27;newpassword&#x27;);</span><br><span class="line">C:\Users\14763&gt;mysql -uroot -p</span><br><span class="line">Enter password: ****</span><br><span class="line">#登录后</span><br><span class="line"></span><br><span class="line">mysql&gt; SET PASSWORD FOR &#x27;root&#x27;@&#x27;localhost&#x27; = PASSWORD(&#x27;root123&#x27;);</span><br><span class="line">Query OK, 0 rows affected, 1 warning (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; exit;</span><br><span class="line">Bye</span><br><span class="line"></span><br><span class="line">C:\Users\14763&gt;mysql -uroot -p</span><br><span class="line">Enter password: ****** #root123</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 16</span><br><span class="line">Server version: 5.7.36-log MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2021, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第3步-启动MySQL"><a href="#第3步-启动MySQL" class="headerlink" title="第3步 启动MySQL"></a>第3步 启动MySQL</h3><p>启动MySQL有两种模式：</p>
+<ul>
+<li>临时启动</li>
+</ul>
+<p>cmd   C:\Windows\system32&gt;”C:\Program Files\MySQL\mysql-8.0.33-winx64\bin\mysqld.exe”</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506183114470.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>此时还会弹出一个防火墙权限通知，允许即可。（没有也正常）</p>
+<p>注意：此时程序会挂起，内部就是可以接收客户端发来的MySQL指令，关闭窗口或Ct+c就可以停止运行。    这种启动方式每次开机或想要开启都需要手动执行一遍命令比较麻烦。</p>
+<ul>
+<li>制作windows服务,基于windows服务管理。</li>
+</ul>
+<p>cmd   C:\Windows\system32&gt;”C:\Program Files\MySQL\mysql-8.0.33-winx64\bin\mysqld.exe” –install mysql80</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506184037449.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#卸载服务 除了</span><br><span class="line">sc delete mysql80</span><br><span class="line">#还有一种方法</span><br><span class="line">C:\Windows\system32&gt;&quot;C:\Program Files\MySQL\mysql-8.0.33-winx64\bin\mysqld.exe&quot; --remove mysql80</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506185723749.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<h3 id="第4步-设置环境变量"><a href="#第4步-设置环境变量" class="headerlink" title="第4步 设置环境变量"></a>第4步 设置环境变量</h3><p>使用配置环境相当于定于了全局变量，不用我们先转到mysql的安装目录或者敲入文件目录（详细情况见msi版本讲解），直接敲入 mysql -u root -p就可以登录了。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506221129044.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506221627958.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>鬼画神涂的配置环境</p>
+<h2 id="msi程序"><a href="#msi程序" class="headerlink" title="msi程序"></a>msi程序</h2><blockquote>
+<p> <a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/windows/installer/">https://dev.mysql.com/downloads/windows/installer/</a></p>
+</blockquote>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506121318140.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>不用登录账号直接跳过。参考zip包版。</p>
+<p>下载下来运行msi程序，可能提醒你有新的版本现在可以更新，选择no</p>
+<h3 id="选择设置类型"><a href="#选择设置类型" class="headerlink" title="选择设置类型"></a><strong>选择设置类型</strong></h3><p><strong>双击运行mysql-installer-community-5.7.31.0.msi，这里选择是自定义安装，所以直接选择“Custom”，点击“Next”</strong></p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506122846647.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>“Developer Default”是开发者模式：包含mysql server,mysql connectors,mysql workbench,文档和示例</p>
+<p>“Server only”仅作为服务器安装：  仅仅安装mysql server</p>
+<p>“Client only”仅作为客户端安装:      仅仅安装mysql client</p>
+<p>“Full”是完整安装：                             安装所有模块</p>
+<p>“Custom”是自定义安装：              自定义选择需要的模块</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506123357708.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<h3 id="设置文件安装位置"><a href="#设置文件安装位置" class="headerlink" title="设置文件安装位置"></a>设置文件安装位置</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506124112022.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506124417093.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506124920087.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506124950513.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506125034922.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506125154037.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506125307549.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506125349612.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506130010616.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506130224733.png" data-fancybox="true"/></div></div>
+
+
+
+
+<p><strong>可以不用勾选，直接next</strong></p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506130423530.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+<h3 id="服务名称"><a href="#服务名称" class="headerlink" title="服务名称"></a>服务名称</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506130643843.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<h3 id="日志位置"><a href="#日志位置" class="headerlink" title="日志位置"></a>日志位置</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506130946158.png" data-fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506131036186.png" data-fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506131223681.png" data-fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506131248615.png" data-fancybox="true"/></div></div>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506131342448.png" data-fancybox="true"/></div></div>
+
+
+<p>此时已经完成安装了</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506133005617.png" data-fancybox="true"/></div></div>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506133656239.png" data-fancybox="true"/></div></div>
+<p>安装mysql后,注意区分如下几个目录的作用</p>
+<blockquote>
+<ol>
+<li>数据库管理系统软件安装目录(DBMS安装目录)<br>  “database manage server”</li>
+<li>数据存放的目录<br>  “Data目录”(这里存放的是我们创建的库，创建的表的信息)</li>
+<li>数据库连接目录(其他编程语言连接数据库jar包信息)”connector&#x2F;J”(这个是  java连接mysql需要的安装包)</li>
+<li>客户端工具的目录<br>  “workhench”(这个是mysq1自带的mysq1客户端管理工具)<br> 需要注意的是：1、2这两个目录，是在安装的时候，必须有的。后面的3、4这两个目录，当我们选择安装”connector&#x2F;J”和”workhench”的时候，才会生成。</li>
+</ol>
+</blockquote>
+<h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>接上面，为什么需要配置环境呢？（可跳过）</p>
+<p>因为不配置环境变量的话在cmd里必须切换到C:\Program Files (x86)\MySQL\MySQL Server 5.7\bin下运行</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506185158691.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>在cmd中运行指的是   在cmd窗口下键入如下。（打开cmd窗口直接拖进去就行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;&quot;C:\Program Files (x86)\MySQL\MySQL Server 5.7\bin\mysql.exe&quot;</span><br><span class="line"></span><br><span class="line">#结果</span><br><span class="line">ERROR 1045 (28000): Access denied for user &#x27;ODBC&#x27;@&#x27;localhost&#x27; (using password: NO)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">C:\&gt;&quot;C:\Program Files (x86)\MySQL\MySQL Server 5.7\bin\mysqld.exe&quot;</span><br><span class="line"></span><br><span class="line">#结果</span><br><span class="line">mysqld: Can&#x27;t change dir to &#x27;C:\Program Files (x86)\MySQL\MySQL Server 5.7\data\&#x27; (Errcode: 2 - No such file or directory)</span><br><span class="line">2023-05-06T06:19:24.084707Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).</span><br><span class="line">2023-05-06T06:19:24.084790Z 0 [Note] --secure-file-priv is set to NULL. Operations related to importing and exporting data are disabled</span><br><span class="line">2023-05-06T06:19:24.085328Z 0 [Note] C:\Program Files (x86)\MySQL\MySQL Server 5.7\bin\mysqld.exe (mysqld 5.7.36) starting as process 7424 ...</span><br><span class="line">2023-05-06T06:19:24.089909Z 0 [Warning] Can&#x27;t create test file C:\Program Files (x86)\MySQL\MySQL Server 5.7\data\DESKTOP-ECFIPC8.lower-test</span><br><span class="line">2023-05-06T06:19:24.090171Z 0 [Warning] Can&#x27;t create test file C:\Program Files (x86)\MySQL\MySQL Server 5.7\data\DESKTOP-ECFIPC8.lower-test</span><br><span class="line">2023-05-06T06:19:24.091955Z 0 [ERROR] failed to set datadir to C:\Program Files (x86)\MySQL\MySQL Server 5.7\data\</span><br><span class="line">2023-05-06T06:19:24.092541Z 0 [ERROR] Aborting</span><br><span class="line"></span><br><span class="line">2023-05-06T06:19:24.093154Z 0 [Note] Binlog end</span><br><span class="line">2023-05-06T06:19:24.094298Z 0 [Note] C:\Program Files (x86)\MySQL\MySQL Server 5.7\bin\mysqld.exe: Shutdown complete</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 手动输入</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files (x86)\MySQL\MySQL Server 5.7\bin&gt;mysql -u root -p</span><br><span class="line">Enter password: ****</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 13</span><br><span class="line">Server version: 5.7.36-log MySQL Community Server (GPL)</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2021, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; exit</span><br><span class="line">Bye</span><br><span class="line">————————————————————————————————</span><br><span class="line">C:\&gt;mysql -u root -p</span><br><span class="line">&#x27;mysql&#x27; 不是内部或外部命令，也不是可运行的程序</span><br><span class="line">或批处理文件。</span><br><span class="line"></span><br><span class="line">C:\&gt;mysql server</span><br><span class="line">&#x27;mysql&#x27; 不是内部或外部命令，也不是可运行的程序</span><br><span class="line">或批处理文件。</span><br><span class="line"></span><br><span class="line">C:\&gt;mysql</span><br><span class="line">&#x27;mysql&#x27; 不是内部或外部命令，也不是可运行的程序</span><br><span class="line">或批处理文件。。</span><br></pre></td></tr></table></figure>
+
+<p><strong>配置环境变量</strong></p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506144851202.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<blockquote>
+<p> 将安装目录的bin目录路径复制到其中</p>
+</blockquote>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506144617166.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>一并确定后</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506145216736.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<h3 id="配置配置文件"><a href="#配置配置文件" class="headerlink" title="配置配置文件"></a>配置配置文件</h3><p>由于我没有将数据目录和安装目录放在同一目录下，所以主要配置文件my.ini在数据文件下。</p>
+<p>C:\ProgramData\MySQL\MySQL Server 5.7。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506134954438.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>主要有两个东西需要注意：一个重要目录data,一个重要配置文件my.ini</p>
+<p>关于my.ini的配置，详细介绍</p>
+<blockquote>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/hanwuqia0370/article/details/85680775">https://blog.csdn.net/hanwuqia0370/article/details/85680775</a></p>
+</blockquote>
+<p>关于data文件</p>
+<blockquote>
+<p> 这个data目录中，存放着一些错误日志文件和三个目录（如下图）。 这三个目录是不是有一种很熟悉的感觉，没错，就是我们第一次登陆mysql 后输入”show databases”后，显示的系统默认的数据库。 因此，你可以知道，我们每创建一个数据库，就会在这个data目录下，生成 一个目录。同时，进入每一个数据库目录下，又有很多各种各样的文件，其中我们 需要注意的是：”.Frm后缀”和”.MYD后缀”的文件。”.Frm后缀”文件中存放的是表 的结构信息；”.MD后缀”文件中存放的是数据信息。 知乎@黑里怕</p>
+</blockquote>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506145447745.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">启动：net start MySQL</span><br><span class="line">停止：net stop MySQL</span><br><span class="line">卸载：sc delete MySQL</span><br></pre></td></tr></table></figure>
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506164351010.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<h2 id="区分本地多个MySQL"><a href="#区分本地多个MySQL" class="headerlink" title="区分本地多个MySQL"></a>区分本地多个MySQL</h2><p>如何区别一个电脑上多个mysql版本，并进行丝滑登录操作呢？</p>
+<ul>
+<li>其一 将端口区分</li>
+</ul>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506223935085.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>主要配置文件下的客户端端口也记得更改，虽然在cmd上登录mysql用的端口是mysqld下面写的端口（即不改也不影响）</p>
+<ul>
+<li>其二 服务名称设置为不同的名称</li>
+</ul>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506224135650.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<p>​       在注册表目录也是有所对应的</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506224354373.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+
+<p>使用命令启动服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\system32&gt;net start mysql80</span><br><span class="line">mysql80 服务正在启动 .</span><br><span class="line">mysql80 服务已经启动成功。</span><br><span class="line">C:\Windows\system32&gt;net start mysql57</span><br><span class="line">mysql57 服务正在启动 .</span><br><span class="line">mysql57 服务已经启动成功。</span><br></pre></td></tr></table></figure>
+
+<p>但是不指定mysql端口，直接登录默认是环境中靠上面的那一个变量</p>
+<p>因为我mysql80并没有设置密码所以尝试（即mysql57设置了密码），但不输入密码直接进入也失败(表面直接输入mysql选择的是mysql57)</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506224659445.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u 用户 -h IP地址(因为是本机部署的mysql默认可以不写) -P 端口 -p 密码</span><br></pre></td></tr></table></figure>
+
+<p>通过上述命令，可知只要多加入一个-P 端口就能够区分开来</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230506225703087.png" data-fancybox="true"/></div></div>
+
+
+
+
+
+
+
+<h2 id="忘记密码"><a href="#忘记密码" class="headerlink" title="忘记密码"></a>忘记密码</h2><h3 id="MySQL8-0以上"><a href="#MySQL8-0以上" class="headerlink" title="MySQL8.0以上"></a>MySQL8.0以上</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/linmengmeng_1314/article/details/109484951">MYSQL8.0以上版本忘记ROOT密码_alter user ‘root‘@’localhost’ identified by ‘root’_linmengmeng_1314的博客-CSDN博客</a></p>
+</blockquote>
+<ol>
+<li>以超级管理员打开cmd，关闭mysql服务</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net stop mysql </span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>跳过权限验证登录mysql</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --shared-memory --skip-grant-tables </span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在新的窗口中登录mysql</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p </span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>切换到mysql，将密码置空</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use mysql;    update user <span class="built_in">set</span> authentication_string=<span class="string">&#x27;&#x27;</span> <span class="built_in">where</span> user=<span class="string">&#x27;root&#x27;</span>;    flush privileges;<span class="comment">#刷新权限</span></span><br></pre></td></tr></table></figure>
+
+<p>5.设置加密规则并更新新密码，授权(直接复制这些SQL语句你的密码会更新为123456</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;123456&#x27;</span> PASSWORD EXPIRE NEVER; </span><br><span class="line">alter user <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified by <span class="string">&#x27;123456&#x27;</span>;    </span><br><span class="line">grant all privileges  on *.*  to <span class="string">&quot;root&quot;</span>@<span class="string">&#x27;localhost&#x27;</span>;    </span><br><span class="line">flush privileges;<span class="comment">#刷新权限 </span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>关闭第一个窗口，启动mysql服务用新密码登录</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\system32&gt;mysql -uroot -P 3307 -p</span><br><span class="line">Enter password:         <span class="comment">#回车进入即可</span></span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection <span class="built_in">id</span> is 7</span><br><span class="line">Server version: 8.0.33 MySQL Community Server - GPL</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2021, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; update user <span class="built_in">set</span> authentication_string=<span class="string">&#x27;&#x27;</span> <span class="built_in">where</span> user=<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">Query OK, 1 row affected (0.02 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.05 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; ALTER USER <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="string">&#x27;123456&#x27;</span> PASSWORD EXPIRE NEVER;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; alter user <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified by <span class="string">&#x27;123456&#x27;</span>;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; grant all privileges  on *.*  to <span class="string">&quot;root&quot;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="built_in">exit</span>；    <span class="comment">#此处可能会卡住</span></span><br><span class="line">                <span class="comment">#mysql&gt; eixt;</span></span><br><span class="line">                <span class="comment">#^C -- Sorry, cannot connect to the server to kill query, giving up ...</span></span><br><span class="line">                <span class="comment">#不理会，关闭窗口就行，重新开一个cmd</span></span><br><span class="line">Bye</span><br><span class="line"></span><br><span class="line">C:\Windows\system32&gt;mysql -uroot -P 3307 -p</span><br><span class="line">Enter password: ******          <span class="comment">#123456</span></span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection <span class="built_in">id</span> is 9</span><br><span class="line">Server version: 8.0.33 MySQL Community Server - GPL</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2021, Oracle and/or its affiliates.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> <span class="built_in">help</span>. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL5-7"><a href="#MySQL5-7" class="headerlink" title="MySQL5.7"></a>MySQL5.7</h3><ol>
+<li>暂停服务(以管理员运行cmd)</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net stop mysql57</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>修改my.ini配置文件，在[mysqld]下面加上这样的一句话</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>重启服务(以管理员运行cmd)</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start mysql57</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>登录mysql</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>置空密码</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update user <span class="built_in">set</span> authentication_string=<span class="string">&#x27;&#x27;</span> <span class="built_in">where</span> user=<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line">flush privileges;<span class="comment">#刷新权限</span></span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>修改密码</li>
+</ol>
+<p>建议将配置文件该回去并且重启服务，使用set password语句，详细参考上文</p>
+<h3 id="SQL语句的三种注释"><a href="#SQL语句的三种注释" class="headerlink" title="SQL语句的三种注释"></a>SQL语句的三种注释</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#单行注释</span><br><span class="line">/*多</span><br><span class="line">行</span><br><span class="line">注释*/</span><br><span class="line">-- 单行注释（注意前面必须有空格）</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> MySQL中的标识符（如表名、列名、变量名等）和字符串常量是区分大小写的，但是关键字和函数名不区分大小写。例如，SELECT和select是等效的，但是myTable和mytable是不同的标识符。  在默认情况下，MySQL的表名和列名是大小写不敏感的，但是可以通过设置lower_case_table_names参数来改变这个行为。如果lower_case_table_names设置为0，则表名和列名是大小写敏感的；如果设置为1，则表名和列名是大小写不敏感的，但是区分大小写；如果设置为2，则表名和列名是大小写不敏感的，并且不区分大小写。  总之，MySQL中的大小写敏感性取决于标识符、字符串常量和lower_case_table_names参数的设置。</p>
+</blockquote>
+<h2 id="数据库管理"><a href="#数据库管理" class="headerlink" title="数据库管理"></a>数据库管理</h2><h3 id="内置客户端操作"><a href="#内置客户端操作" class="headerlink" title="内置客户端操作"></a>内置客户端操作</h3><p>当连接上MySQL之后,执行如下指令(一般称为SQL语句)，就可以对MySQL的数据进行操作。</p>
+<ul>
+<li>查看当前所有的数据库：show databases;</li>
+<li>创建数据库：create database 数据库名 DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</li>
+<li>删除数据库:drop databases 数据库名;</li>
+<li>进入数据(进入文件):use 数据库;</li>
+</ul>
+<p>示例:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.登录MySQL</span></span><br><span class="line">mysql -u root -p</span><br><span class="line">Enter password: **** <span class="comment">#输入密码</span></span><br><span class="line"><span class="comment"># 2.查看当前数据库</span></span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.创建数据库: create database 数据库名 default charser 编码 collate 排序规则;</span></span><br><span class="line">mysql&gt; create database shujuku</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| shujuku            |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line">5 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line">或者输入</span><br><span class="line">mysql&gt; create database shujuku1 DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</span><br><span class="line">create database shujuku1 DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| shujuku            |</span><br><span class="line">| shujuku1           |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line">6 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.删除数据库</span></span><br><span class="line">mysql&gt; drop database shujuku1;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| shujuku            |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line">5 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.查看当前数据库</span></span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| shujuku            |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line">5 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.进入数据库</span></span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line">Database changed</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7.进入mysql数据库(文件夹),查看此数据库下的所有表。</span></span><br><span class="line">mysql&gt; show tables;</span><br><span class="line">+---------------------------+</span><br><span class="line">| Tables_in_mysql           |</span><br><span class="line">+---------------------------+</span><br><span class="line">| columns_priv              |</span><br><span class="line">| db                        |</span><br><span class="line">| engine_cost               |</span><br><span class="line">| event                     |</span><br><span class="line">| func                      |</span><br><span class="line">| general_log               |</span><br><span class="line">| gtid_executed             |</span><br><span class="line">| help_category             |</span><br><span class="line">| help_keyword              |</span><br><span class="line">| help_relation             |</span><br><span class="line">| help_topic                |</span><br><span class="line">| innodb_index_stats        |</span><br><span class="line">| innodb_table_stats        |</span><br><span class="line">| ndb_binlog_index          |</span><br><span class="line">| plugin                    |</span><br><span class="line">| proc                      |</span><br><span class="line">| procs_priv                |</span><br><span class="line">| proxies_priv              |</span><br><span class="line">| server_cost               |</span><br><span class="line">| servers                   |</span><br><span class="line">| slave_master_info         |</span><br><span class="line">| slave_relay_log_info      |</span><br><span class="line">| slave_worker_info         |</span><br><span class="line">| slow_log                  |</span><br><span class="line">| tables_priv               |</span><br><span class="line">| time_zone                 |</span><br><span class="line">| time_zone_leap_second     |</span><br><span class="line">| time_zone_name            |</span><br><span class="line">| time_zone_transition      |</span><br><span class="line">| time_zone_transition_type |</span><br><span class="line">| user                      |</span><br><span class="line">+---------------------------+</span><br><span class="line">31 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 8.退出</span></span><br><span class="line">mysql&gt; <span class="built_in">exit</span></span><br><span class="line">Bye</span><br></pre></td></tr></table></figure>
+
+<h3 id="python操作"><a href="#python操作" class="headerlink" title="python操作"></a>python操作</h3><p>无论通过何种方式去连接MySQL,本质上发送到指令都是相同的，只是连接方式和操作形式不同而已</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="comment">#链接mysql</span></span><br><span class="line">conn=pymysql.connect(host=<span class="string">&#x27;127.0.0.1&#x27;</span>,port=<span class="number">3306</span>,user=<span class="string">&#x27;root&#x27;</span>,password=<span class="string">&#x27;123456&#x27;</span>,charset=<span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">cursor=conn.cursor()<span class="comment">#创建游标</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 查看数据库</span></span><br><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;show databases&quot;</span>)</span><br><span class="line"><span class="comment"># 获取指令的结果</span></span><br><span class="line">result=cursor.fetchall()</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment">#((&#x27;information_schema&#x27;,), (&#x27;mysql&#x27;,), (&#x27;performance_schema&#x27;,), (&#x27;shujuku&#x27;,), (&#x27;sys&#x27;,))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 创建数据库</span></span><br><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;create database shujuku1&quot;</span>)</span><br><span class="line"><span class="comment"># 也可以写成下面的方式</span></span><br><span class="line">cursor.execute(<span class="string">&quot;create database shujuku2 default charset utf8 collate utf8_general_ci&quot;</span>)</span><br><span class="line">conn.commit()</span><br><span class="line">cursor.execute(<span class="string">&quot;show databases&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 查看数据库</span></span><br><span class="line">result=cursor.fetchall()</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment">#((&#x27;information_schema&#x27;,), (&#x27;mysql&#x27;,), (&#x27;performance_schema&#x27;,), (&#x27;shujuku1&#x27;,), (&#x27;shujuku2&#x27;,), (&#x27;sys&#x27;,))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 删除数据库</span></span><br><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line"><span class="comment"># cursor.execute(&#x27;call drop_databases(&quot;shujuku&quot;)&#x27;)</span></span><br><span class="line">cursor.execute(<span class="string">&quot;drop database shujuku1&quot;</span>)</span><br><span class="line">cursor.execute(<span class="string">&quot;drop database shujuku2&quot;</span>)</span><br><span class="line">conn.commit()</span><br><span class="line">cursor.execute(<span class="string">&quot;show databases&quot;</span>)</span><br><span class="line">result=cursor.fetchall()</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment">#((&#x27;information_schema&#x27;,), (&#x27;mysql&#x27;,), (&#x27;performance_schema&#x27;,), (&#x27;sys&#x27;,))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.进入数据 查看表</span></span><br><span class="line"><span class="comment"># 发送指令</span></span><br><span class="line">cursor.execute(<span class="string">&quot;use mysql&quot;</span>)</span><br><span class="line">cursor.execute(<span class="string">&quot;show tables&quot;</span>)</span><br><span class="line">result=cursor.fetchall()</span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"><span class="comment">#((&#x27;columns_priv&#x27;,), (&#x27;db&#x27;,), (&#x27;engine_cost&#x27;,), (&#x27;event&#x27;,), (&#x27;func&#x27;,), (&#x27;general_log&#x27;,), (&#x27;gtid_executed&#x27;,), (&#x27;help_category&#x27;,), (&#x27;help_keyword&#x27;,), (&#x27;help_relation&#x27;,), (&#x27;help_topic&#x27;,), (&#x27;innodb_index_stats&#x27;,), (&#x27;innodb_table_stats&#x27;,), (&#x27;ndb_binlog_index&#x27;,), (&#x27;plugin&#x27;,), (&#x27;proc&#x27;,), (&#x27;procs_priv&#x27;,), (&#x27;proxies_priv&#x27;,), (&#x27;server_cost&#x27;,), (&#x27;servers&#x27;,), (&#x27;slave_master_info&#x27;,), (&#x27;slave_relay_log_info&#x27;,), (&#x27;slave_worker_info&#x27;,), (&#x27;slow_log&#x27;,), (&#x27;tables_priv&#x27;,), (&#x27;time_zone&#x27;,), (&#x27;time_zone_leap_second&#x27;,), (&#x27;time_zone_name&#x27;,), (&#x27;time_zone_transition&#x27;,), (&#x27;time_zone_transition_type&#x27;,), (&#x27;user&#x27;,))</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="尾言"><a href="#尾言" class="headerlink" title="尾言"></a>尾言</h2><p>至于MySQL的其他操作和知识，以后有缘补上</p>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://bxzdyg.cn/p/mysql-setup/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://bxzdyg.cn/p/mysql-setup/&title=超详细MySql的安装✨，包含各种安装问题及解决方法🎯 - BoBoBlog&pics=/assets/wiki/mysql/mysql.svg&summary=很久之前写的估计有很多纰漏，各位少侠麻烦纠错辣(*^_^*)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=超详细MySql的安装✨，包含各种安装问题及解决方法🎯 - BoBoBlog&amp;body=https://bxzdyg.cn/p/mysql-setup/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
+          <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://bxzdyg.cn/p/mysql-setup/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/p/django-cropper/">Django呐！🤣 图片🖼（含GIF)上传和剪切✂</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/p/disk-update/">超级小白纯纯入门，论什么都不懂如何自装笔记本固态硬盘【超详细贴心保姆级教程】</a></div></section></div>
+
+<div class="related-wrap" id="related-posts">
+    <section class='header'>
+      <div class='title cap theme'>您可能感兴趣的文章</div>
+    </section>
+    <section class='body'>
+    <div class="related-posts"><a class="item" href="\p\django-cropper\" title="Django呐！🤣 图片🖼（含GIF)上传和剪切✂"><span class="title">Django呐！🤣 图片🖼（含GIF)上传和剪切✂</span><span class="excerpt">前后端不分离的项目中使用Pillow等库地图片进行简单的剪切</span></a></div></section></div>
+
+
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      快来参与讨论吧
+    </section>
+    <section class='body cmt-body waline'>
+      
+
+<div id="waline_container" class="waline_thread"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </section>
+  </div>
+
+
+
+<footer class="page-footer footnote"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs15">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs15">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs15">社交</span><a href="/friends/">友链</a><a href="/comments/">留言板</a></div><div class="sitemap-group"><span class="fs15">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
+<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
+<!--不蒜子计数器-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--添加一个访问量-->
+<span>
+      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
+</span>
+</br>
+<span id="runtime_span"></span>
+<script type="text/javascript">
+function show_runtime() {
+    window.setTimeout("show_runtime()", 1000);
+    X = new Date("2023/09/17 17:00:00");
+    Y = new Date();
+    T = (Y.getTime() - X.getTime());
+    M = 24 * 60 * 60 * 1000;
+    a = T / M;
+    A = Math.floor(a);
+    b = (a - A) * 24;
+    B = Math.floor(b);
+    c = (b - B) * 60;
+    C = Math.floor((b - B) * 60);
+    D = Math.floor((c - C) * 60);
+    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
 }
-.l_body .l_left {
-  z-index: 8;
-  width: var(--width-left);
-  flex-shrink: 0;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 8px;
-}
-.l_body .l_main {
-  flex-shrink: 1;
-  flex-grow: 1;
-  width: 320px;
-  max-width: var(--width-main);
-}
-.main-mask {
-  position: fixed;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.2);
-  z-index: 9;
-  opacity: 0;
-  trans1: opacity;
-}
-@media screen and (max-width: $device-mobile-max) {
-  .mobile-only {
-    display: block !important;
+show_runtime();
+</script>
+</center>
+<div style="display: flex;justify-content: center;align-items: center;margin: 10px;">
+<a target="_blank" rel="noopener" href="https://notbyai.fyi/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/Written-By-Human-white.png" alt='全部都是博主用心学编写的啊！不是ai啊' style="width:140px;height:50px;margin-right: 10px " id='notbyai'></a>
+<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/by-nc-sa.eu.png" alt="只要保留原作者姓名并在基于原作创作的新作品适用同类型的许可协议，即可基于非商业目的对原作重新编排、改编或者再创作。" style="width:140px;height:50px"></a>
+</div>
+<div class="NewYear"></div>
+</div></footer>
+<div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
+<script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.26.8';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.8';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
   }
-  .l_body {
-    padding: 0;
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
   }
-  .l_body .l_left {
-    position: fixed;
-    transform: translateX(-320px);
-    margin: 0;
-    left: 8px;
-    box-shadow: $boxshadow-card-float;
-    z-index: 10;
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
   }
-  .l_body .l_main {
-    max-width: 100%;
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
   }
-  .l_body.mobile .l_left {
-    transition: transform 0.38s ease-out;
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
   }
-  .l_body.mobile.sidebar .l_left {
-    transform: translateX(0px);
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":".swiper-slide img, .gallery img ,#waline_container .vcontent img"});
   }
-  .l_body.mobile.sidebar .main-mask {
-    opacity: 1;
-    pointer-events: inherit;
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
   }
-}
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.26.8" async></script>
+
+<!-- optional -->
+
+  <script>
+  function load_comment(){
+    if(!document.getElementById("waline_container"))return;
+    stellar.loadCSS('https://unpkg.com/@waline/client@2.14.1/dist/waline.css');
+    stellar.loadScript('https://unpkg.com/@waline/client@2.14.1/dist/waline.js', {defer:true}).then(function () {
+      const el = document.getElementById("waline_container");
+      var path = el.getAttribute('comment_id');
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      Waline.init(Object.assign({"js":"https://unpkg.com/@waline/client@2.14.1/dist/waline.js","css":"https://unpkg.com/@waline/client@2.14.1/dist/waline.css","serverURL":"https://comment.bxzdyg.cn/","commentCount":true,"pageview":false,"meta":["nick","mail","link"],"locale":{"placeholder":"有什么想说的？大胆说出来吧(*^_^*)","reactionTitle":"请给这篇文章做个评价吧","reaction0":"感兴趣","reaction1":"给心心","reaction2":"什么？","reaction3":"心碎了","reaction4":"别过来","reaction5":"矮油~","reaction6":"不忍直视","reaction7":"我真生气辣！","reaction8":"摇晃","level0":"潜水","level1":"冒泡","level2":"吐槽","level3":"活跃","level4":"话痨","level5":"传说"},"reaction":["/emojis/ablobcatattentionreverse.png","/emojis/ablobcatheart.png","/emojis/ablobcatdoubt.png","/emojis/ablobcatheartbroken.png","/emojis/ablobcatterrified.png","/emojis/ablobcatshy.png","/emojis/ablobcatnoface.png","/emojis/ablobcatanger.gif","/emojis/ablobcatrainbow.png"],"emoji":["https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs"]}, {
+        el: '#waline_container',
+        path: path,
+        
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+
+
+
+<!-- inject -->
+<script type="text/javascript" src="/js/darkmode.js"></script>
+</div></body></html>

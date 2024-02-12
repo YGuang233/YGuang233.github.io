@@ -1,62 +1,500 @@
-.l_body {
-  display: flex;
-  margin: auto;
-  padding: 0 var(--gap-l);
-  justify-content: center;
-  font-size: var(--fsp);
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.8" theme-name="Stellar" theme-version="1.26.8">
+  
+  <meta name="generator" content="Hexo 7.0.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  
+  <title>Django呐！🤣 图片🖼（含GIF)上传和剪切✂ - BoBoBlog</title>
+
+  
+    <meta name="description" content="前后端不分离的项目中使用Pillow等库地图片进行简单的剪切">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django呐！🤣 图片🖼（含GIF)上传和剪切✂">
+<meta property="og:url" content="https://bxzdyg.cn/p/django-cropper/index.html">
+<meta property="og:site_name" content="BoBoBlog">
+<meta property="og:description" content="前后端不分离的项目中使用Pillow等库地图片进行简单的剪切">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bxzdyg.cn/p/django-cropper/image-20230805085423585.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/django-cropper/image-20230805103944306.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/django-cropper/image-20230805104223047.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/django-cropper/image-20230805104752054.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/django-cropper/image-20230805110952558.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/django-cropper/image-20230805111222984.png">
+<meta property="og:image" content="https://bxzdyg.cn/p/django-cropper/%E9%9D%99%E5%9B%BE%E5%89%AA%E5%88%87%E5%8A%A8%E7%94%BB.gif">
+<meta property="og:image" content="https://bxzdyg.cn/p/django-cropper/gif%E5%8A%A8%E5%9B%BE%E5%89%AA%E5%88%87.gif">
+<meta property="article:published_time" content="2023-08-05T08:32:00.000Z">
+<meta property="article:modified_time" content="2024-01-03T09:08:24.363Z">
+<meta property="article:author" content="BXZDYG">
+<meta property="article:tag" content="Django">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Pillow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bxzdyg.cn/p/django-cropper/image-20230805085423585.png">
+  
+  
+  
+  <meta name="keywords" content="Django,Python,Pillow">
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.26.8">
+
+  
+    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
+  
+
+  
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="/css/darkmode.css"><link rel="stylesheet" href="/css/newYear.css">
+</head>
+<body>
+
+<div class="l_body content tech" id="start" layout="post" ><aside class="l_left"><div class="sidebar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/assets/website/avatar/avatar.png" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">BoBoBlog</div><div class="sub normal cap">我秃了头</div><div class="sub hover cap" style="opacity:0"> 可我却还不是程序员</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+<nav class="menu dis-select"><a class="nav-item active" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item" title="文档" href="/wiki/" style="color:#3DC550"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="探索" href="/notes/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg></a><a class="nav-item" title="社交" href="/friends/" style="color:#F44336"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg></a><a class="nav-item" title="更多" href="/about/" style="color:#d55afa"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10" opacity=".5"/><path fill="currentColor" d="M12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25z"/></svg></a></nav>
+</div>
+<div class="widgets">
+
+<widget class="widget-wrapper toc single" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E5%89%AA%E5%88%87"><span class="toc-text">Python 实现图片剪切</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%A4GIF%E7%9A%84%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text">除GIF的图片文件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GIF%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text">GIF图片文件处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-text">Django 文件上传</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E7%94%A8-media"><span class="toc-text">启用 media</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Django-%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E5%89%AA%E5%88%87%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0"><span class="toc-text">Django 图片上传剪切综合案例实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E8%8E%B7%E5%8F%96%E6%89%80%E9%9C%80%E7%9A%84%E5%9D%90%E6%A0%87%E6%95%B0%E6%8D%AE"><span class="toc-text">前端获取所需的坐标数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E7%AB%AF%E6%A0%B9%E6%8D%AE%E5%9D%90%E6%A0%87%E5%AF%B9%E5%9B%BE%E7%89%87%E8%BF%9B%E8%A1%8C%E5%89%AA%E5%88%87"><span class="toc-text">后端根据坐标对图片进行剪切</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="toc-text">总结：</span></a></li></ol></div></div></widget>
+
+
+
+
+
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">最近更新</span><a class="cap-action" id="rss" title="Subscribe" href="/atom.xml"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19q0-.825.588-1.412T5 17q.825 0 1.413.588T7 19q0 .825-.587 1.413T5 21m13.5 0q-.65 0-1.088-.475T16.9 19.4q-.275-2.425-1.312-4.537T12.9 11.1q-1.65-1.65-3.762-2.687T4.6 7.1q-.65-.075-1.125-.512T3 5.5q0-.65.45-1.062t1.075-.363q3.075.275 5.763 1.563t4.737 3.337q2.05 2.05 3.338 4.738t1.562 5.762q.05.625-.363 1.075T18.5 21m-6 0q-.625 0-1.075-.437T10.85 19.5q-.225-1.225-.787-2.262T8.65 15.35q-.85-.85-1.888-1.412T4.5 13.15q-.625-.125-1.062-.575T3 11.5q0-.65.45-1.075t1.075-.325q1.825.25 3.413 1.063t2.837 2.062q1.25 1.25 2.063 2.838t1.062 3.412q.1.625-.325 1.075T12.5 21"/></svg></a></div><div class="widget-body fs14"><a class="item title" href="/p/stellar%E4%BB%8E1.23.0%E5%88%B01.26.8/"><span class="title">stellar从1.23.0到1.26.8</span></a><a class="item title" href="/p/%E4%BD%BF%E7%94%A8Hexo%E5%92%8CStellar%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"><span class="title">使用Hexo和Stellar搭建个人博客网站【超详细贴心保姆级教程💖】</span></a><a class="item title" href="/p/stellar-comment/"><span class="title">stellar之waline评论系统的使用</span></a><a class="item title" href="/p/vercel-wall/"><span class="title">国庆Vercel小崩，小站博主何去何从</span></a><a class="item title" href="/p/stellar-dark-mode/"><span class="title">stellar主题深色模式设置</span></a></div></widget>
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/YGuang233" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-github"></i></a><a class="social" href="javaScript:hud.toast('你在听🎵啦啦啦~');" rel="noopener noreferrer"><i class="fa-solid fa-music"></i></a><a class="social" href="https://space.bilibili.com/65447634?spm_id_from=333.1007.0.0" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-bilibili fa-bounce"></i></a><a class="social" href="https://www.zhihu.com/people/wo-yao-ren-ren-zhen-zhen-xue-xi-liao" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-zhihu"></i></a><a class="social" href="/atom.xml" rel="noopener noreferrer"><i class="fa-solid fa-rss fa-shake"></i></a><a class="social" href="/comments/" rel="noopener noreferrer"><i class="fa-regular fa-comment-dots"></i></a><a class="social" href="javaScript:void(0);" rel="noopener noreferrer"><i class="fa-solid fa-circle-half-stroke fa-flip"></i></a></div></footer>
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top"><img class="bg lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/cover_banner/image-20230804203548003.png">
+  <div class="content">
+    
+<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a></div>
+<div class="flex-row" id="post-meta"><a class="author" href="/author/BXZDYG/index.html">半醒着的阳光</a><span class="sep"></span><span class="text created"><time datetime="2023-08-05T08:32:00.000Z">2023-08-05</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2024-01-03T09:08:24.363Z">2024-01-03</time></span></div></div>
+</div>
+
+    
+    <div class="bottom">
+      <div class="text-area">
+        <h1 class="text title"><span>Django呐！🤣 图片🖼（含GIF)上传和剪切✂</span></h1>
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="Python-实现图片剪切"><a href="#Python-实现图片剪切" class="headerlink" title="Python 实现图片剪切"></a>Python 实现图片剪切</h2><p>Python对图片处理的库是非常丰富的，所以有很多库能实现这一目标的方法如Pillow,OpenCV,moviepy等等，而这里给的gif处理方法主要使用的是Pillow,moviepy库的</p>
+<p>安装Pillow,moviepy</p>
+<figure class="highlight bash"><figcaption><span>终端上</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install Pillow</span><br><span class="line">pip install moviepy</span><br></pre></td></tr></table></figure>
+
+<p>对于图片的剪切主要是通过坐标进行判断，需要提供一个矩形坐标，即四个坐标点进行定位，然后对原图进行剪切处理。</p>
+<p>那么其他废话不多说，直接上代码。(学别人讲的话，直接上代码确实很爽)</p>
+<h3 id="除GIF的图片文件处理"><a href="#除GIF的图片文件处理" class="headerlink" title="除GIF的图片文件处理"></a>除GIF的图片文件处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">U_x = <span class="number">144.73429951690818</span>		    <span class="comment"># x轴坐标</span></span><br><span class="line">U_y = <span class="number">76.13526570048306</span>			<span class="comment"># y轴坐标</span></span><br><span class="line">U_width = <span class="number">640.0000000000001</span>		<span class="comment"># 剪切大小</span></span><br><span class="line">U_height = <span class="number">640.0000000000001</span></span><br><span class="line">u_rotate = <span class="number">90</span>					<span class="comment"># 旋转角度</span></span><br><span class="line"></span><br><span class="line">img = Image.<span class="built_in">open</span>(<span class="string">&#x27;input.img&#x27;</span>)</span><br><span class="line">    crop_im = img.crop((U_x, U_y, U_x + U_width, U_y + U_height)).resize((<span class="number">400</span>, <span class="number">400</span>),Image.LANCZOS).rotate(u_rotate)</span><br><span class="line">    <span class="comment"># 注意这里的Image.LANCZOS，如果你的Pillow是10.0直接CV那么啥事情，但是其他的版本可能是Image.ANTIALIAS如9.5</span></span><br></pre></td></tr></table></figure>
+
+<p>备注：LANCZOS实际上和ANTIALIAS指向的是同一种图像插值模式算法</p>
+<h3 id="GIF图片文件处理"><a href="#GIF图片文件处理" class="headerlink" title="GIF图片文件处理"></a>GIF图片文件处理</h3><p>#用Pillow处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time    : 2023/8/3 11:25</span></span><br><span class="line"><span class="comment"># @Author  : BXZDYG</span></span><br><span class="line"><span class="comment"># @Software: PyCharm</span></span><br><span class="line"><span class="comment"># @File    : Pillow_crop_gif.py</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageSequence</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    first_time = time.time()    	  <span class="comment"># 时间戳检验剪切速度</span></span><br><span class="line">    start=time.perf_counter()         <span class="comment"># 计算机时间检验剪切速度</span></span><br><span class="line">    U_x = <span class="number">144.73429951690818</span>		 <span class="comment">#  x轴坐标</span></span><br><span class="line">    U_y = <span class="number">76.13526570048306</span>			 <span class="comment"># y轴坐标</span></span><br><span class="line">    U_width = <span class="number">640.0000000000001</span>		<span class="comment"># 剪切大小</span></span><br><span class="line">    U_height = <span class="number">640.0000000000001</span></span><br><span class="line">    u_rotate = <span class="number">90</span>					<span class="comment"># 旋转角度</span></span><br><span class="line">    frames = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> Image.<span class="built_in">open</span>(<span class="string">&#x27;input.gif&#x27;</span>) <span class="keyword">as</span> im:</span><br><span class="line">        idx = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> frame <span class="keyword">in</span> ImageSequence.Iterator(im):</span><br><span class="line">            frame = frame.crop((U_x, U_y, U_x + U_width, U_y + U_height)).resize((<span class="number">400</span>, <span class="number">400</span>)).rotate(u_rotate)</span><br><span class="line">            frame.info[<span class="string">&#x27;duration&#x27;</span>] = im.info[<span class="string">&#x27;duration&#x27;</span>]</span><br><span class="line">            frames.append(frame)</span><br><span class="line">            idx += <span class="number">1</span></span><br><span class="line">    frames[<span class="number">0</span>].save(<span class="string">&#x27;out.gif&#x27;</span>,</span><br><span class="line">                   save_all=<span class="literal">True</span>, append_images=frames[<span class="number">1</span>:], loop=<span class="number">0</span>, duration=im.info[<span class="string">&#x27;duration&#x27;</span>], quality=<span class="number">80</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;时间戳说——总共用时:&#x27;</span>,time.time()-first_time,<span class="string">&#x27;秒&#x27;</span>)   <span class="comment"># 总共用时: 4-5 秒</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;计算机说——总共用时:&#x27;</span>,time.perf_counter()-start,<span class="string">&#x27;秒&#x27;</span>)   <span class="comment"># 总共用时: 4-5 秒</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>#用moviepy进行图片剪切</p>
+<p>备注：如果你要求对分辨率的在处理的话，那么需要Pillow的版本为9.5，10.0和其底层的resize中设置的<strong>图像插值模式</strong>冲突，是Image.ANTIALIAS，手动打上去还改不了，而且速度极慢，是用Pillow和结合Pillow库的两倍。而且在movie官方文档也不建议在大型框架和web上使用moviepy.editor子模块</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230805085423585.png" data-fancybox="true"/></div></div>
+
+<div class="tag-plugin link dis-select"><a class="link-card plain" title="moviepy-cn 文档" href="http://doc.moviepy.com.cn/index.html#document-2_MoviePy入门/index" target="_blank" rel="external nofollow noopener noreferrer" cardlink autofill="icon"><div class="left"><span class="title">moviepy-cn 文档</span><span class="cap link footnote">http://doc.moviepy.com.cn/index.html#document-2_MoviePy入门/index</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># @Time    : 2023/8/3 11:26</span></span><br><span class="line"><span class="comment"># @Author  : BXZDYG</span></span><br><span class="line"><span class="comment"># @Software: PyCharm</span></span><br><span class="line"><span class="keyword">from</span> moviepy.editor <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    first_time = time.time()  <span class="comment"># 时间戳检验剪切速度</span></span><br><span class="line">    start = time.perf_counter()  <span class="comment"># CPU时间检验剪切速度</span></span><br><span class="line">    x = <span class="number">144.73429951690818</span></span><br><span class="line">    y = <span class="number">76.13526570048306</span></span><br><span class="line">    width = <span class="number">640.0000000000001</span></span><br><span class="line">    height = <span class="number">640.0000000000001</span></span><br><span class="line">    t_rotate = <span class="number">90</span></span><br><span class="line">    gif = VideoFileClip(<span class="string">&#x27;head_cap.gif&#x27;</span>)</span><br><span class="line">    <span class="comment"># 获取帧数</span></span><br><span class="line">    nframes = gif.reader.nframes</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置每帧duration</span></span><br><span class="line">    durations = [<span class="number">0.1</span>] * nframes</span><br><span class="line"></span><br><span class="line">    images = [gif.get_frame(t) <span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(nframes)]</span><br><span class="line"></span><br><span class="line">    clip = ImageSequenceClip(images, durations=durations)</span><br><span class="line"></span><br><span class="line">    rotated = clip.crop(x1=x, y1=y, x2=x + width, y2=y + height).resize((<span class="number">400</span>, <span class="number">400</span>)).rotate(t_rotate)</span><br><span class="line">    <span class="comment"># resized = rotated.resize((400, 400)) # 调整分辨率</span></span><br><span class="line">    <span class="comment"># resized.write_gif(&#x27;23.gif&#x27;, fps=20)</span></span><br><span class="line">    rotated.write_gif(<span class="string">&#x27;23.gif&#x27;</span>, fps=<span class="number">20</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;时间戳说——总共用时:&#x27;</span>, time.time() - first_time, <span class="string">&#x27;秒&#x27;</span>)  <span class="comment"># 总共用时: 10+ 秒</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;CPU说——总共用时:&#x27;</span>, time.perf_counter() - start, <span class="string">&#x27;秒&#x27;</span>)  <span class="comment"># 总共用时: 10+ 秒</span></span><br></pre></td></tr></table></figure>
+
+<p>#用Pillow对每一帧图片进行剪切，moviepy生成gif文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time    : 2023/8/3 11:26</span></span><br><span class="line"><span class="comment"># @Author  : BXZDYG</span></span><br><span class="line"><span class="comment"># @Software: PyCharm</span></span><br><span class="line"><span class="comment"># @File	   : Movie_Pillow_crop_gif.py</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">from</span> moviepy.editor <span class="keyword">import</span> VideoFileClip</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pillow_movie_crop</span>(<span class="params">img</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    :param img:</span></span><br><span class="line"><span class="string">    :return: 存在缺点帧数丢失，图片变大</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    im = Image.fromarray(img)</span><br><span class="line">    cropped = im.crop((x, y, x+width, y+height)).resize((<span class="number">400</span>,<span class="number">400</span>)).rotate(t_rotate)</span><br><span class="line">    <span class="keyword">return</span> np.array(cropped)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    first_time=time.time()</span><br><span class="line">    x = <span class="number">144.73429951690818</span></span><br><span class="line">    y = <span class="number">76.13526570048306</span></span><br><span class="line">    width = <span class="number">640.0000000000001</span></span><br><span class="line">    height = <span class="number">640.0000000000001</span></span><br><span class="line">    t_rotate = <span class="number">90</span></span><br><span class="line">    clip = VideoFileClip(<span class="string">&quot;head_cap.gif&quot;</span>, has_mask=<span class="literal">False</span>)  <span class="comment"># 在加载GIF时指定保留所有帧</span></span><br><span class="line">    cropped_clip = clip.fl_image(pillow_movie_crop)</span><br><span class="line">    cropped_clip.write_gif(<span class="string">&quot;21.gif&quot;</span>, fuzz=<span class="number">10</span>, opt=<span class="string">&#x27;nq&#x27;</span>)  <span class="comment"># 在写出GIF时指定优化参数,减少质量损</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;总共用时:&#x27;</span>,time.time()-first_time,<span class="string">&#x27;秒&#x27;</span>)         <span class="comment"># 4.687000274658203 秒 基本上4-5s左右</span></span><br></pre></td></tr></table></figure>
+
+<p>所以其实使用Pillow库是一个优选</p>
+<h2 id="Django-文件上传"><a href="#Django-文件上传" class="headerlink" title="Django 文件上传"></a>Django 文件上传</h2><h3 id="启用-media"><a href="#启用-media" class="headerlink" title="启用 media"></a>启用 media</h3><figure class="highlight python"><figcaption><span>settings.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在末尾加入</span></span><br><span class="line">MEDIA_ROOT = os.path.join(BASE_DIR, <span class="string">&#x27;media&#x27;</span>)</span><br><span class="line">MEDIA_URL = <span class="string">&#x27;/media/&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><figcaption><span>utils.py 自主封装的自定义文件字段,对上传文件进行限制</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RestrictedFileField</span>(<span class="title class_ inherited__">FileField</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; max_upload_size:</span></span><br><span class="line"><span class="string">            2.5MB - 2621440</span></span><br><span class="line"><span class="string">            5MB - 5242880</span></span><br><span class="line"><span class="string">            10MB - 10485760</span></span><br><span class="line"><span class="string">            20MB - 20971520</span></span><br><span class="line"><span class="string">            50MB - 5242880</span></span><br><span class="line"><span class="string">            100MB 104857600</span></span><br><span class="line"><span class="string">            250MB - 214958080</span></span><br><span class="line"><span class="string">            500MB - 429916160</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        self.content_types = kwargs.pop(<span class="string">&quot;content_types&quot;</span>, [])</span><br><span class="line">        self.max_upload_size = kwargs.pop(<span class="string">&quot;max_upload_size&quot;</span>, [])</span><br><span class="line">        <span class="built_in">super</span>().__init__(*args, **kwargs)</span><br><span class="line">     <span class="keyword">def</span> <span class="title function_">clean</span>(<span class="params">self, *args, **kwargs</span>):</span><br><span class="line">        data = <span class="built_in">super</span>().clean(*args, **kwargs)  <span class="comment"># clean()方法来自于FileField的父类Field, 用于验证</span></span><br><span class="line"></span><br><span class="line">        file = data.file</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">        	content_type = file.content_type</span><br><span class="line">            <span class="comment"># 自定义验证</span></span><br><span class="line">            <span class="keyword">if</span> content_type <span class="keyword">in</span> self.content_types:</span><br><span class="line">                <span class="keyword">if</span> file.size &gt; self.max_upload_size:</span><br><span class="line">                   <span class="keyword">raise</span> forms.ValidationError(<span class="string">&#x27;文件大小要求为&#123;&#125;. 当前文件大小为 &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(filesizeformat(self.max_upload_size), filesizeformat(file.size)))	 </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">raise</span> forms.ValidationError(<span class="string">&#x27;当前文件格式不被运行,仅支持&#123;&#125;.&#x27;</span>.<span class="built_in">format</span>(self.content_types))</span><br><span class="line">        <span class="keyword">except</span> AttributeError:</span><br><span class="line">             <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><figcaption><span>models.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> utils <span class="keyword">import</span> RestrictedFileField</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserInfo</span>(models.Model)</span><br><span class="line">	avatar = RestrictedFileField(verbose_name=<span class="string">u&#x27;头像&#x27;</span>, max_length=<span class="number">50</span>, default=<span class="string">&#x27;avatar/用户.png&#x27;</span>,</span><br><span class="line">                             upload_to=<span class="string">&#x27;avatar/&#x27;</span>,</span><br><span class="line">                             content_types=[<span class="string">&#x27;image/jpeg&#x27;</span>, <span class="string">&#x27;image/png&#x27;</span>, <span class="string">&#x27;image/gif&#x27;</span>, <span class="string">&#x27;image/bmp&#x27;</span>,</span><br><span class="line">                                            <span class="string">&#x27;image/tiff&#x27;</span>],max_upload_size=<span class="number">5242880</span>)</span><br><span class="line">	<span class="built_in">id</span> = models.BigAutoField(verbose_name=<span class="string">&#x27;UID&#x27;</span>, primary_key=<span class="literal">True</span>)</span><br><span class="line">……</span><br></pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight python"><figcaption><span>urls.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path, include, re_path</span><br><span class="line"><span class="keyword">from</span> django.views.static <span class="keyword">import</span> serve</span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># 上传文件位置</span></span><br><span class="line">    re_path(<span class="string">r&#x27;^media/(?P&lt;path&gt;.*)$&#x27;</span>, serve, &#123;<span class="string">&#x27;document_root&#x27;</span>: settings.MEDIA_ROOT&#125;, name=<span class="string">&#x27;media&#x27;</span>),</span><br><span class="line">    ……</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><figcaption><span>views.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django <span class="keyword">import</span> forms</span><br><span class="line"><span class="keyword">from</span> app.error <span class="keyword">import</span> errorResponse</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserInfoForm</span>(forms.ModelForm):</span><br><span class="line">    <span class="comment"># avatar = forms.FileField(label=&#x27;头像&#x27;)</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Meta</span>:</span><br><span class="line">        model = UserInfo</span><br><span class="line">        fields = <span class="string">&#x27;__all__&#x27;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">edit_info</span>(<span class="params">request</span>):</span><br><span class="line">    uid = request.session[<span class="string">&#x27;uid&#x27;</span>] <span class="comment"># 用户登录存储在session中的信息</span></span><br><span class="line">    userinfo = UserInfo.objects.<span class="built_in">filter</span>(<span class="built_in">id</span>=uid).get()</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;GET&#x27;</span>:</span><br><span class="line">        form = UserInfoForm(instance=userinfo)</span><br><span class="line">        <span class="keyword">return</span> render(request, <span class="string">&#x27;space_edit_info.html&#x27;</span>, &#123;</span><br><span class="line">            <span class="string">&#x27;userinfo&#x27;</span>: userinfo,</span><br><span class="line">            <span class="string">&#x27;form&#x27;</span>: form,</span><br><span class="line">            <span class="string">&#x27;title&#x27;</span>: <span class="string">&#x27;个人中心-编辑个人信息&#x27;</span></span><br><span class="line">        &#125;)</span><br><span class="line">    form = UserInfoForm(instance=userinfo, data=request.POST)</span><br><span class="line">    <span class="keyword">if</span> form.is_valid():</span><br><span class="line">        form.save()</span><br><span class="line">        <span class="keyword">return</span> redirect(<span class="string">&#x27;/space/edit_info/&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> errorResponse(request, errMsg=form[<span class="string">&#x27;avatar&#x27;</span>].errors[<span class="number">0</span>] )</span><br></pre></td></tr></table></figure>
+
+<p>此处的errorResponse是自己封装的处理错误页函数,这样可以在前端显示自定义头像组件的错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def errorResponse(request, errMsg):</span><br><span class="line">    &#x27;&#x27;&#x27;</span><br><span class="line">    :param request:</span><br><span class="line">    :param errMsg:返回错误信息到前端页面</span><br><span class="line">    :return:</span><br><span class="line">    &#x27;&#x27;&#x27;</span><br><span class="line">    return render(request, &#x27;error.html&#x27;, &#123;&#x27;errMsg&#x27;: errMsg&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Django-图片上传剪切综合案例实现"><a href="#Django-图片上传剪切综合案例实现" class="headerlink" title="Django 图片上传剪切综合案例实现"></a>Django 图片上传剪切综合案例实现</h2><h3 id="前端获取所需的坐标数据"><a href="#前端获取所需的坐标数据" class="headerlink" title="前端获取所需的坐标数据"></a>前端获取所需的坐标数据</h3><p>使用基于JQuery的cropper和Bootstrap,可以更方便的实现获取用户对图片剪切的操作(缩放，旋转等)后的数据和坐标。</p>
+<blockquote>
+<p>jQuery cropper是一款使用简单且功能强大的图片剪裁jquery插件。该插件支持图片放大，缩小，旋转，裁剪和预览等功能。</p>
+</blockquote>
+<p>素材来源17素材，不用登录另存为网页就行。</p>
+<div class="tag-plugin link dis-select"><a class="link-card plain" title="html5头像图片上传截图保存修改代码(17sucai.com)" href="https://www.17sucai.com/pins/27291.html" target="_blank" rel="external nofollow noopener noreferrer" cardlink autofill="icon"><div class="left"><span class="title">html5头像图片上传截图保存修改代码(17sucai.com)</span><span class="cap link footnote">https://www.17sucai.com/pins/27291.html</span></div><div class="right"><div class="lazy img" data-bg="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/link/8f277b4ee0ecd.svg"></div></div></a></div>
+
+
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230805103944306.png" data-fancybox="true"/></div></div>
+
+<p>注意演示里的最右上角x最好点一下，因为我们要的里面的<code>&lt;iframe&gt;</code>标签的html文档，然后保存下来的就是我们需要的素材，然后自己处理一下。文件主要如下</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230805104223047.png" data-fancybox="true"/></div></div>
+
+<p>sitelogo.js是利用cropper获取坐标等数据,然后携带数据向处理的url放送请求</p>
+<p>目标的url又写在了签单的html文件里 from的action,修改这个即可。</p>
+<p>这里我使用的是Django的url反向解析,更便利一些，有着不少好处。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230805104752054.png" data-fancybox="true"/></div></div>
+
+<p>而在sitelogo.js中，主要要去关注两部分</p>
+<p>这部分是序列化坐标和旋转角度数据，这里的x,y是左上的坐标，根据height和width可以计算出选中的矩形整个坐标。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230805110952558.png" data-fancybox="true"/></div></div>
+
+<p>发送ajax请求</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="image-20230805111222984.png" data-fancybox="true"/></div></div>
+
+<p>前端的文件主要知道这些就可以了，自己不喜欢这些样式，想再多添加些功能可以自己改。</p>
+<p>而前端重中之重就是记得Django有一个csrf安全验证机制，如果没有在中间件关闭它，就需要在前端添提交表单添加一个<code>&#123;% csrf_token%&#125;</code>或者在对应函数前面标记注释。再或者直接根据上面这张ajax提交代码的图片，在你自己写的js代码中添加在headers中.</p>
+<p>@csrf_exempt</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.views.decorators.csrf <span class="keyword">import</span> csrf_exempt</span><br><span class="line"><span class="comment">#在对应函数前面标记注释</span></span><br><span class="line"><span class="meta">@csrf_exempt</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="后端根据坐标对图片进行剪切"><a href="#后端根据坐标对图片进行剪切" class="headerlink" title="后端根据坐标对图片进行剪切"></a>后端根据坐标对图片进行剪切</h3><p>#models.py 继承上面</p>
+<figure class="highlight python"><figcaption><span>urls.py继承上面且扩充</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;upload_avatar/&#x27;</span>, views.upload_avatar, name=<span class="string">&#x27;upload_avatar&#x27;</span>),</span><br><span class="line">path(<span class="string">&#x27;ajax_avatar_upload/&#x27;</span>, views.ajax_avatar_upload, name=<span class="string">&#x27;ajax_avatar_upload&#x27;</span>),</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><figcaption><span>views.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> uuid</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render, redirect, get_object_or_404</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> reverse</span><br><span class="line"><span class="keyword">from</span> django.views.decorators.csrf <span class="keyword">import</span> csrf_exempt</span><br><span class="line"><span class="keyword">from</span> django <span class="keyword">import</span> forms</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageSequence</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> UserInfo</span><br><span class="line"><span class="comment"># 这里使用的是Form而不是ModelForm,你可以直接引用上面写的UserInfo,用其自定义的头像字段，当然这里只是为了讲解和展示，你自己可以试试我说的</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AvatarUploadForm</span>(forms.Form):</span><br><span class="line">    avatar_file = forms.ImageField()</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">upload_avatar</span>(<span class="params">request</span>):</span><br><span class="line">	uid = request.session[<span class="string">&#x27;uid&#x27;</span>]</span><br><span class="line">    userinfo = UserInfo.objects.<span class="built_in">filter</span>(<span class="built_in">id</span>=uid).get()</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">&#x27;Document.html&#x27;</span>, &#123;</span><br><span class="line">        <span class="string">&#x27;userinfo&#x27;</span>: userinfo</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ajax_avatar_upload</span>(<span class="params">request</span>):</span><br><span class="line">	uid = request.session[<span class="string">&#x27;uid&#x27;</span>]</span><br><span class="line">    userinfo = get_object_or_404(UserInfo, userName=username)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&quot;POST&quot;</span>:</span><br><span class="line">        form = AvatarUploadForm(request.POST, request.FILES)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">            img = request.FILES[<span class="string">&#x27;avatar_file&#x27;</span>]  <span class="comment"># 获取上传图片</span></span><br><span class="line">            data = request.POST[<span class="string">&#x27;avatar_data&#x27;</span>]  <span class="comment"># 获取ajax返回图片坐标</span></span><br><span class="line">            <span class="comment"># print(img.size)  # 图片大小</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> img.size &gt; <span class="number">5242880</span>:</span><br><span class="line">              	<span class="comment"># 相当于if img.size / 1024 / 1024 &gt; 5:</span></span><br><span class="line">                <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;上传图片大小应小于5MB, 请重新上传。&quot;</span>, &#125;)</span><br><span class="line"></span><br><span class="line">            current_avatar = userinfo.avatar</span><br><span class="line">            cropped_avatar = crop_image(current_avatar, img, data, userinfo.<span class="built_in">id</span>)</span><br><span class="line">            userinfo.avatar = cropped_avatar  <span class="comment"># 将图片路径修改到当前会员数据库</span></span><br><span class="line">            userinfo.save()</span><br><span class="line">            <span class="comment"># 向前台返回一个json，result值是图片路径</span></span><br><span class="line">            data = &#123;<span class="string">&quot;result&quot;</span>: userinfo.avatar.url, &#125;</span><br><span class="line">            <span class="keyword">return</span> JsonResponse(data)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;message&quot;</span>: <span class="string">&quot;请重新上传。只能上传图片&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> HttpResponseRedirect(reverse(<span class="string">&#x27;upload_avatar&#x27;</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">crop_image</span>(<span class="params">current_avatar, file, data, uid</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    :param current_avatar:  当前头像</span></span><br><span class="line"><span class="string">    :param file:            上传文件</span></span><br><span class="line"><span class="string">    :param data:            坐标</span></span><br><span class="line"><span class="string">    :param uid:             用户id</span></span><br><span class="line"><span class="string">    :return:                保存的图片路径名</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="comment"># 随机生成新的图片名，自定义路径。</span></span><br><span class="line">    ext = file.name.split(<span class="string">&#x27;.&#x27;</span>)[-<span class="number">1</span>]</span><br><span class="line">    file_name = <span class="string">&#x27;&#123;&#125;.&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(uuid.uuid4().<span class="built_in">hex</span>[:<span class="number">10</span>], ext)</span><br><span class="line">    cropped_avatar = os.path.join(<span class="built_in">str</span>(uid), <span class="string">&quot;avatar&quot;</span>, file_name)</span><br><span class="line">    <span class="comment"># 相对根目录路径</span></span><br><span class="line">    file_path = os.path.join(<span class="string">&quot;media&quot;</span>, <span class="built_in">str</span>(uid), <span class="string">&quot;avatar&quot;</span>, file_name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取Ajax发送的裁剪参数data，先用json解析。</span></span><br><span class="line">    coords = json.loads(data)</span><br><span class="line">    t_x = <span class="built_in">int</span>(coords[<span class="string">&#x27;x&#x27;</span>])</span><br><span class="line">    t_y = <span class="built_in">int</span>(coords[<span class="string">&#x27;y&#x27;</span>])</span><br><span class="line">    t_width = t_x + <span class="built_in">int</span>(coords[<span class="string">&#x27;width&#x27;</span>])</span><br><span class="line">    t_height = t_y + <span class="built_in">int</span>(coords[<span class="string">&#x27;height&#x27;</span>])</span><br><span class="line">    t_rotate = coords[<span class="string">&#x27;rotate&#x27;</span>]</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">abs</span>(t_rotate)&lt;=<span class="number">90</span>:		<span class="comment">#这里旋转小于等于90度居然是相反方向</span></span><br><span class="line">        t_rotate=-t_rotate</span><br><span class="line">    <span class="comment"># 通过文件名判断是否为gif</span></span><br><span class="line">    <span class="keyword">if</span> file_name.endswith(<span class="string">&#x27;.gif&#x27;</span>):</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;成功了就是保存的文件会变大，还有保存速度太慢了4~5s,前台应该做个动画&#x27;&#x27;&#x27;</span></span><br><span class="line">        frames = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">with</span> Image.<span class="built_in">open</span>(file) <span class="keyword">as</span> im:</span><br><span class="line">            idx = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> frame <span class="keyword">in</span> ImageSequence.Iterator(im):</span><br><span class="line">                frame = frame.crop((t_x, t_y, t_width, t_height)).resize((<span class="number">400</span>, <span class="number">400</span>)).rotate(t_rotate)</span><br><span class="line">                frame.info[<span class="string">&#x27;duration&#x27;</span>] = im.info[<span class="string">&#x27;duration&#x27;</span>]</span><br><span class="line">                frames.append(frame)</span><br><span class="line">                idx += <span class="number">1</span></span><br><span class="line">        frames[<span class="number">0</span>].save(file_path,</span><br><span class="line">                       save_all=<span class="literal">True</span>, append_images=frames[<span class="number">1</span>:], loop=<span class="number">0</span>, duration=im.info[<span class="string">&#x27;duration&#x27;</span>], quality=<span class="number">80</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 裁剪图片,压缩尺寸为400*400。</span></span><br><span class="line">        img = Image.<span class="built_in">open</span>(file)</span><br><span class="line">        <span class="comment"># 由于我的Pillow版本是     10.0 Image.ANTIALIAS 被弃用</span></span><br><span class="line">        crop_im = img.crop((t_x, t_y, t_width, t_height)).resize((<span class="number">400</span>, <span class="number">400</span>), Image.LANCZOS).rotate(t_rotate)</span><br><span class="line"></span><br><span class="line">        directory = os.path.dirname(file_path)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(directory):</span><br><span class="line">            os.makedirs(directory)</span><br><span class="line">        crop_im.save(file_path)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果头像不是默认头像，删除老头像图片, 节省空间</span></span><br><span class="line">    <span class="comment"># 这部分可以删去，或者限制用户可以查看最近10张头像历史</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> current_avatar == os.path.join(<span class="string">&quot;media&quot;</span>, <span class="string">&quot;avatar&quot;</span>, <span class="string">&quot;用户.png&quot;</span>):</span><br><span class="line">        current_avatar_path = os.path.join(<span class="string">&quot;media&quot;</span>, <span class="built_in">str</span>(uid), <span class="string">&quot;avatar&quot;</span>,os.path.basename(current_avatar.url))</span><br><span class="line">        os.remove(current_avatar_path)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cropped_avatar</span><br></pre></td></tr></table></figure>
+
+<p>效果展示</p>
+<p>#静图剪切</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="%E9%9D%99%E5%9B%BE%E5%89%AA%E5%88%87%E5%8A%A8%E7%94%BB.gif" alt="静图剪切动画" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">静图剪切动画</span></div></div>
+
+<p>#动图剪切（这一步其实挺慢的，中间等待的部分剪去了）</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="gif%E5%8A%A8%E5%9B%BE%E5%89%AA%E5%88%87.gif" alt="gif动图剪切" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">gif动图剪切</span></div></div>
+
+
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>当初自己整这个可是整了挺久的，很难找到直接拿来用的，很多都是前端VUE处理的，没有直接是Html或是Html+JQuery,而且那些头像处理没有对GiF处理的步骤，就观在那些大型网站来看，现在好像确实没有多少支持用gif动图为头像的。</p>
+<psw>而且这个前端处理的js文件坐标点好像有点偏移……</psw>
+
+<p>虽然历经不少，也找到了解决办法，但是还是那么难找，整了挺久的。找到了还是要自己理解和运用，就这样吧，希望我的文章能给你提供帮助。</p>
+<p>希望能够我一个赞同&#x2F;赞&#x2F;收藏辣(‾◡◝)</p>
+<p>大家有什么问题可以在评论区大胆留盐（不用加密（bushi</p>
+<blockquote>
+<p>与CSDN同步发布，我应该在博客园也发一份~</p>
+</blockquote>
+
+<div class="article-footer fs14">
+    <section id="references">
+      <div class="header"><span>参考资料</span></div>
+      <div class="body">
+        <ul>
+        <li class="post-title">
+          <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/41181618">Django+cropper实现用户头像裁剪, 预览和上传 - 大江狗的文章 - 知乎</a></p>
+
+        </li>
+        
+        <li class="post-title">
+          <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51523373/article/details/117562387">在Django中如何限制上传文件的类型与大小_Sc.Crist的博客-CSDN博客</a></p>
+
+        </li>
+        </ul>
+      </div>
+    </section>
+    
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+    <section id="share">
+      <div class="header"><span>分享文章</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://bxzdyg.cn/p/django-cropper/" /></div>
+        <div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/b32ef3da1162a.svg" /></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://bxzdyg.cn/p/django-cropper/&title=Django呐！🤣 图片🖼（含GIF)上传和剪切✂ - BoBoBlog&pics=/assets/cover_banner/image-20230804203548003.png&summary=前后端不分离的项目中使用Pillow等库地图片进行简单的剪切"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/80c07e4dbb303.svg" /></a><a class="social share-item email" href="mailto:?subject=Django呐！🤣 图片🖼（含GIF)上传和剪切✂ - BoBoBlog&amp;body=https://bxzdyg.cn/p/django-cropper/"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/a1b00e20f425d.svg" /></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
+        
+        <div class="qrcode" id="qrcode-wechat" style="opacity:0;height:0">
+          <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://bxzdyg.cn/p/django-cropper/"/>
+        </div>
+        
+      </div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/p/MySQL%E5%BF%85%E5%A4%87%E8%AF%AD%E5%8F%A5%E5%92%8C%E6%8E%88%E6%9D%83-%E5%9B%9B%E5%8D%81%E9%81%93%E7%BB%83%E4%B9%A0%E9%A2%98/">MySQL必备语句和授权🧠&四十道练习题📜</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/p/mysql-setup/">超详细MySql的安装✨，包含各种安装问题及解决方法🎯</a></div></section></div>
+
+<div class="related-wrap" id="related-posts"></div>
+
+
+  <div class="related-wrap md-text" id="comments">
+    <section class='header cmt-title cap theme'>
+      快来参与讨论吧
+    </section>
+    <section class='body cmt-body waline'>
+      
+
+<div id="waline_container" class="waline_thread"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </section>
+  </div>
+
+
+
+<footer class="page-footer footnote"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs15">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs15">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs15">社交</span><a href="/friends/">友链</a><a href="/comments/">留言板</a></div><div class="sitemap-group"><span class="fs15">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
+<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
+<!--不蒜子计数器-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!--添加一个访问量-->
+<span>
+      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
+</span>
+</br>
+<span id="runtime_span"></span>
+<script type="text/javascript">
+function show_runtime() {
+    window.setTimeout("show_runtime()", 1000);
+    X = new Date("2023/09/17 17:00:00");
+    Y = new Date();
+    T = (Y.getTime() - X.getTime());
+    M = 24 * 60 * 60 * 1000;
+    a = T / M;
+    A = Math.floor(a);
+    b = (a - A) * 24;
+    B = Math.floor(b);
+    c = (b - B) * 60;
+    C = Math.floor((b - B) * 60);
+    D = Math.floor((c - C) * 60);
+    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
 }
-.l_body .l_left {
-  z-index: 8;
-  width: var(--width-left);
-  flex-shrink: 0;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 8px;
-}
-.l_body .l_main {
-  flex-shrink: 1;
-  flex-grow: 1;
-  width: 320px;
-  max-width: var(--width-main);
-}
-.main-mask {
-  position: fixed;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.2);
-  z-index: 9;
-  opacity: 0;
-  trans1: opacity;
-}
-@media screen and (max-width: $device-mobile-max) {
-  .mobile-only {
-    display: block !important;
+show_runtime();
+</script>
+</center>
+<div style="display: flex;justify-content: center;align-items: center;margin: 10px;">
+<a target="_blank" rel="noopener" href="https://notbyai.fyi/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/Written-By-Human-white.png" alt='全部都是博主用心学编写的啊！不是ai啊' style="width:140px;height:50px;margin-right: 10px " id='notbyai'></a>
+<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/by-nc-sa.eu.png" alt="只要保留原作者姓名并在基于原作创作的新作品适用同类型的许可协议，即可基于非商业目的对原作重新编排、改编或者再创作。" style="width:140px;height:50px"></a>
+</div>
+<div class="NewYear"></div>
+</div></footer>
+<div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
+<script type="text/javascript">
+  const stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')){
+        src = stellar.config.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.version = '1.26.8';
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.8';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+    root : '/',
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
+  };
+
+  if ('local_search') {
+    stellar.search = {};
+    stellar.search.service = 'local_search';
+    if (stellar.search.service == 'local_search') {
+      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
+      stellar.search[stellar.search.service] = service_obj;
+    }
   }
-  .l_body {
-    padding: 0;
+
+  // stellar js
+  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
+
+  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
   }
-  .l_body .l_left {
-    position: fixed;
-    transform: translateX(-320px);
-    margin: 0;
-    left: 8px;
-    box-shadow: $boxshadow-card-float;
-    z-index: 10;
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
   }
-  .l_body .l_main {
-    max-width: 100%;
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
   }
-  .l_body.mobile .l_left {
-    transition: transform 0.38s ease-out;
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
   }
-  .l_body.mobile.sidebar .l_left {
-    transform: translateX(0px);
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":".swiper-slide img, .gallery img ,#waline_container .vcontent img"});
   }
-  .l_body.mobile.sidebar .main-mask {
-    opacity: 1;
-    pointer-events: inherit;
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
   }
-}
+  if ('true' == 'true') {
+    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
+  }
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.26.8" async></script>
+
+<!-- optional -->
+
+  <script>
+  function load_comment(){
+    if(!document.getElementById("waline_container"))return;
+    stellar.loadCSS('https://unpkg.com/@waline/client@2.14.1/dist/waline.css');
+    stellar.loadScript('https://unpkg.com/@waline/client@2.14.1/dist/waline.js', {defer:true}).then(function () {
+      const el = document.getElementById("waline_container");
+      var path = el.getAttribute('comment_id');
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      Waline.init(Object.assign({"js":"https://unpkg.com/@waline/client@2.14.1/dist/waline.js","css":"https://unpkg.com/@waline/client@2.14.1/dist/waline.css","serverURL":"https://comment.bxzdyg.cn/","commentCount":true,"pageview":false,"meta":["nick","mail","link"],"locale":{"placeholder":"有什么想说的？大胆说出来吧(*^_^*)","reactionTitle":"请给这篇文章做个评价吧","reaction0":"感兴趣","reaction1":"给心心","reaction2":"什么？","reaction3":"心碎了","reaction4":"别过来","reaction5":"矮油~","reaction6":"不忍直视","reaction7":"我真生气辣！","reaction8":"摇晃","level0":"潜水","level1":"冒泡","level2":"吐槽","level3":"活跃","level4":"话痨","level5":"传说"},"reaction":["/emojis/ablobcatattentionreverse.png","/emojis/ablobcatheart.png","/emojis/ablobcatdoubt.png","/emojis/ablobcatheartbroken.png","/emojis/ablobcatterrified.png","/emojis/ablobcatshy.png","/emojis/ablobcatnoface.png","/emojis/ablobcatanger.gif","/emojis/ablobcatrainbow.png"],"emoji":["https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs"]}, {
+        el: '#waline_container',
+        path: path,
+        
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+
+
+
+<!-- inject -->
+<script type="text/javascript" src="/js/darkmode.js"></script>
+</div></body></html>
