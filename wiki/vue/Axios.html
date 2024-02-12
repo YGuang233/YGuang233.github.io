@@ -1,485 +1,62 @@
-
-<!DOCTYPE html><html lang="zh-CN">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.8" theme-name="Stellar" theme-version="1.26.8">
-  
-  <meta name="generator" content="Hexo 7.0.0">
-  <meta http-equiv='x-dns-prefetch-control' content='on' />
-  
-  <meta name="renderer" content="webkit">
-  <meta name="force-rendering" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="HandheldFriendly" content="True" >
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="theme-color" content="#f8f8f8">
-  
-  <title>Vue：Axios - BoBoBlog</title>
-
-  
-    <meta name="description" content="axiso 怎么读？  [æk’siəʊ:s]  Chinglish:艾克瑟斯&#x2F;艾克丝伊欧姿 释义 abbr. axiology 价值论; axiom 公理; axiological 价值论的（地）; axiologist 价值论者 axio是什么意思_axio的翻译_音标_读音_用法_例句_爱词霸在线词典 (iciba.com)    默认情况下，我们项目中并没有对axios包的支持，">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Axios">
-<meta property="og:url" content="https://bxzdyg.cn/wiki/vue/Axios.html">
-<meta property="og:site_name" content="BoBoBlog">
-<meta property="og:description" content="axiso 怎么读？  [æk’siəʊ:s]  Chinglish:艾克瑟斯&#x2F;艾克丝伊欧姿 释义 abbr. axiology 价值论; axiom 公理; axiological 价值论的（地）; axiologist 价值论者 axio是什么意思_axio的翻译_音标_读音_用法_例句_爱词霸在线词典 (iciba.com)    默认情况下，我们项目中并没有对axios包的支持，">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814085838139.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814103603319.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814104426491.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814110239114.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814110920058.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814110256495.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814105246430.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814113648237.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814134156525.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814135123847.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814141845932.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814155005451.png">
-<meta property="og:image" content="https://bu.dusays.com/2022/10/24/63567d3e07da3.png">
-<meta property="article:published_time" content="2024-01-01T07:30:09.340Z">
-<meta property="article:modified_time" content="2024-01-01T07:30:09.340Z">
-<meta property="article:author" content="BXZDYG">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://bxzdyg.cn/wiki/vue/Axios/image-20230814085838139.png">
-  
-  
-  
-  
-
-  <!-- feed -->
-  
-    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
-  
-
-  <link rel="stylesheet" href="/css/main.css?v=1.26.8">
-
-  
-    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
-  
-
-  
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="/css/darkmode.css"><link rel="stylesheet" href="/css/newYear.css">
-</head>
-<body>
-
-
-
-<div class="l_body content tech" id="start" layout="wiki" ><aside class="l_left"><div class="sidebar-container">
-
-
-<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/assets/wiki/vue/vue-js.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/image/2659360.svg';"></div><a class="title" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html"><div class="main" ff="title">Vue</div><div class="sub normal cap">很开心的学了</div><div class="sub hover cap" style="opacity:0"> 结果又多了一个学过而不会的技术</div></a></div></header>
-
-<div class="nav-area">
-<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/vue/" placeholder="在 Vue笔记 中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
-
-
-<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#3DC550"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="探索" href="/notes/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg></a><a class="nav-item" title="社交" href="/friends/" style="color:#F44336"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg></a><a class="nav-item" title="更多" href="/about/" style="color:#d55afa"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10" opacity=".5"/><path fill="currentColor" d="M12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25z"/></svg></a></nav>
-</div>
-<div class="widgets">
-
-<widget class="widget-wrapper toc multi" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start"><span class="toc-text">Vue快速入门</span></a></div></div><div class="widget-header dis-select"><span class="name">基本使用</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.html"><span class="toc-text">Vue常用指令</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD.html"><span class="toc-text">Vue对象提供的属性功能</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html"><span class="toc-text">Vue对象的生命周期</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E5%92%8C%E6%B5%85%E5%85%A5.html"><span class="toc-text">Vue组件化开发基础和浅入</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">项目构建工具</span></a></div></div><div class="widget-header dis-select"><span class="name">深入组件</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.html"><span class="toc-text">单文件组件的使用</span></a></div></div><div class="widget-header dis-select"><span class="name">应用规模化</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E8%B7%AF%E7%94%B1.html"><span class="toc-text">Vue路由</span></a></div></div><div class="widget-header dis-select"><span class="name">跨域问题</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/vue/Axios.html"><span class="toc-text">Axios</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E4%BD%BF%E7%94%A8axios%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">在组件中使用axios获取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="toc-text">解决跨域问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%90%8E%E7%AB%AF"><span class="toc-text">一、后端</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85"><span class="toc-text">1.安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E6%B3%A8%E5%86%8Capp"><span class="toc-text">2.注册app</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%B1%BB%E6%9D%A5%E4%BE%A6%E5%90%AC%E5%93%8D%E5%BA%94%EF%BC%9A"><span class="toc-text">3.添加一个中间件类来侦听响应：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AECORS-ALLOWED-ORIGINS%EF%BC%9A"><span class="toc-text">4.配置CORS_ALLOWED_ORIGINS：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E9%85%8D%E7%BD%AECORS-ALLOW-HEADERS"><span class="toc-text">5.配置CORS_ALLOW_HEADERS</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84axios%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95"><span class="toc-text">常用的axios请求方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">同源策略以及解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#axios%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="toc-text">axios拦截器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%80%E8%88%AC%E7%9A%84http%E8%AF%B7%E6%B1%82%E5%A4%B4"><span class="toc-text">设置一般的http请求头</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#auth%E7%9A%84token%E5%B0%81%E8%A3%85%E5%A6%82%E4%BD%95%E5%B0%81%E8%A3%85"><span class="toc-text">auth的token封装如何封装?</span></a></li></ol></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Proxy.html"><span class="toc-text">Proxy</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/WebSocket.html"><span class="toc-text">WebSocket</span></a></div></div><div class="widget-header dis-select"><span class="name">进阶主题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E7%BB%84%E5%90%88API.html"><span class="toc-text">组合API</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">Vite项目构建工具</span></a></div></div></widget>
-
-
-</div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/YGuang233" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-github"></i></a><a class="social" href="javaScript:hud.toast('你在听🎵啦啦啦~');" rel="noopener noreferrer"><i class="fa-solid fa-music"></i></a><a class="social" href="https://space.bilibili.com/65447634?spm_id_from=333.1007.0.0" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-bilibili fa-bounce"></i></a><a class="social" href="https://www.zhihu.com/people/wo-yao-ren-ren-zhen-zhen-xue-xi-liao" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-zhihu"></i></a><a class="social" href="/atom.xml" rel="noopener noreferrer"><i class="fa-solid fa-rss fa-shake"></i></a><a class="social" href="/comments/" rel="noopener noreferrer"><i class="fa-regular fa-comment-dots"></i></a><a class="social" href="javaScript:void(0);" rel="noopener noreferrer"><i class="fa-solid fa-circle-half-stroke fa-flip"></i></a></div></footer>
-</div></aside><div class="l_main" id="main">
-
-
-
-
-
-<div class="article banner top">
-  <div class="content">
-    
-<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">Vue</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2024-01-01T07:30:09.340Z">2024-01-01</time></span></div></div>
-</div>
-
-    
-    <div class="bottom">
-      <div class="text-area">
-        <h1 class="text title"><span>Axios</span></h1>
-      </div>
-    </div>
-    
-  </div>
-  </div><article class="md-text content"><p>axiso 怎么读？</p>
-<blockquote>
-<p>[æk’siəʊ:s]  Chinglish:艾克瑟斯&#x2F;艾克丝伊欧姿</p>
-<h6 id="释义"><a href="#释义" class="headerlink" title="释义"></a>释义</h6><ul>
-<li><p>abbr.</p>
-<p>axiology 价值论; axiom 公理; axiological 价值论的（地）; axiologist 价值论者</p>
-<p><a target="_blank" rel="noopener" href="https://www.iciba.com/word?w=axio">axio是什么意思_axio的翻译_音标_读音_用法_例句_爱词霸在线词典 (iciba.com)</a></p>
-</li>
-</ul>
-</blockquote>
-<p>默认情况下，我们项目中并没有对axios包的支持，所以我们需要下载安装。</p>
-<p>在项目根目录中使用npm安装包</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install axios</span><br><span class="line">yarn add axios</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/axios/axios">axios&#x2F;axios: Promise based HTTP client for the browser and node.js (github.com)</a></p>
-</blockquote>
-<p>也可以直接下载min.js版本通过script标签导入</p>
-<p>接着在main.js文件中，导入axios并把axios对象挂载到vue属性中多为一个子对象，这样我们才能在组件中使用。</p>
-<p>而vue3好像还需要下载一个vue-axios包。</p>
-<psw>为什么我这么讲呢？因为我并不全局使用啊,封装成一个js文件，每次使用时引用即可。额，我也没有使用过。不过在网上冲浪看到我也提一句吧~</psw>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i axios vue-axios --save</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">VueAxios</span> <span class="keyword">from</span> <span class="string">&#x27;vue-axios&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="title class_">VueAxios</span>, axios).<span class="title function_">use</span>(router) </span><br><span class="line"><span class="comment">//然而只是这样全局并不能用;</span></span><br><span class="line">app.<span class="title function_">provide</span>(<span class="string">&#x27;axios&#x27;</span>, app.<span class="property">config</span>.<span class="property">globalProperties</span>.<span class="property">axios</span>) </span><br><span class="line"><span class="comment">//这句不写, 组件里无法注入全局axios, 也就无法使用</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_52697994/article/details/120210534">Vue3 中使用 “vue-axios“_vue-axios vue3_白瑕的博客-CSDN博客</a></p>
-</blockquote>
-<p>或者把axios分装成一个单独的js文件，调用时导入即可</p>
-<p>我们在<code>src</code>目录下新建一个http.js 导入axios并通过create方法实例化一个http请求对象，这样我们才能在组件中使用</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;  <span class="comment">//要导入安装的包，则直接填写包名即可</span></span><br><span class="line"><span class="comment">//创建实例</span></span><br><span class="line"><span class="keyword">const</span> httptool = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&#x27;http://127.0.0.1:8000/&#x27;</span>,<span class="comment">//请求的公共路径，一般填写服务器api地址</span></span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">1000</span>,                          <span class="comment">//最大请求超时时间，请求超过这个时间就报错</span></span><br><span class="line">    <span class="attr">headers</span>: &#123;<span class="string">&#x27;X-Custom-Header&#x27;</span>: <span class="string">&#x27;foobar&#x27;</span>&#125;  <span class="comment">//预设的请求头，一般工作当中这里填写隐藏了客户端身份字段</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> httptool;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="在组件中使用axios获取数据"><a href="#在组件中使用axios获取数据" class="headerlink" title="在组件中使用axios获取数据"></a>在组件中使用axios获取数据</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import Menu from &quot;@/components/Menu.vue&quot;;</span><br><span class="line">import httptool from &quot;@/http&quot;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;Register_page&quot;//不能使用Register</span><br><span class="line">  ,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    send() &#123;</span><br><span class="line">      // httptool.get(&quot;请求地址&quot;,)</span><br><span class="line">      // http://127.0.0.1:8000/sers/gensetview/?id=1</span><br><span class="line">      // http://127.0.0.1:8000/填写在http.js中的BaseURL</span><br><span class="line">      // sers/gensetview/ 填写在axios的http请求方法的第一个参数里面，与BaseURL拼接成一个完整的URL</span><br><span class="line">      httptool.get(&quot;sers/gensetview/1&quot;, &#123;</span><br><span class="line">        params: &#123;</span><br><span class="line">          id: &#x27;1&#x27;,</span><br><span class="line">        &#125;, //查询字符串</span><br><span class="line">        headers: &#123;&quot;Company&quot;: &quot;Vue Company&quot;&#125;,//自定义请求头</span><br><span class="line">      &#125;).then(response =&gt; &#123;//回调函数</span><br><span class="line">            console.log(response);</span><br><span class="line">            console.log(response.data);//http响应的请求体数据</span><br><span class="line">            console.log(response.data.data);//http响应的请求体数据[.data.data是表示对分提供的data还有一层data,这个data是服务端定义的不是每次都有]</span><br><span class="line">          &#125;</span><br><span class="line">      ).catch(error=&gt;&#123;//捕获并打印异常</span><br><span class="line">        console.log(error)            //可以是本地的错误信息也可以是服务端的错误信息</span><br><span class="line">        console.log(error.response)  //接收来自服务端的响应错误，如果服务端没有错误，则没有response属性</span><br><span class="line">    &#125;)</span><br><span class="line">      // const &#123; data: res &#125; = this.http.get(&#x27;/sers/gensetview/1&#x27;)</span><br><span class="line">      // console.log(res)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    Menu</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;h1&gt;这是Register3页面&lt;/h1&gt;</span><br><span class="line">  &lt;Menu&gt;&lt;/Menu&gt;</span><br><span class="line">  &lt;button @click=&quot;send&quot;&gt;点击发送请求&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814085838139.png" data-fancybox="true"/></div></div>
-
-<p>使用的时候，因为本质上来说，我们使用axios发起http请求，本质上是javascript提供的ajax,所以也会收到和普通的javascript同源策略的影响。</p>
-<h3 id="解决跨域问题"><a href="#解决跨域问题" class="headerlink" title="解决跨域问题"></a>解决跨域问题</h3><h4 id="一、后端"><a href="#一、后端" class="headerlink" title="一、后端"></a>一、后端</h4><blockquote>
-<p>官方文档（超详细）：<a target="_blank" rel="noopener" href="https://pypi.org/project/django-cors-headers/">Django-cors-headers ·皮皮 (pypi.org)</a></p>
-</blockquote>
-<h5 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h5><p>在后端Django项目中安装django-cors-headers</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install django-cors-headers</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-注册app"><a href="#2-注册app" class="headerlink" title="2.注册app"></a>2.注册app</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">&quot;corsheaders&quot;</span>,</span><br><span class="line">    ...,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-添加一个中间件类来侦听响应："><a href="#3-添加一个中间件类来侦听响应：" class="headerlink" title="3.添加一个中间件类来侦听响应："></a>3.添加一个中间件类来侦听响应：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MIDDLEWARE = [</span><br><span class="line">    ...,</span><br><span class="line">    <span class="string">&quot;corsheaders.middleware.CorsMiddleware&quot;</span>,</span><br><span class="line">    <span class="string">&quot;django.middleware.common.CommonMiddleware&quot;</span>,</span><br><span class="line">    ...,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-配置CORS-ALLOWED-ORIGINS："><a href="#4-配置CORS-ALLOWED-ORIGINS：" class="headerlink" title="4.配置CORS_ALLOWED_ORIGINS："></a>4.配置CORS_ALLOWED_ORIGINS：</h5><p>指的是允许访问的客户端</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CORS_ALLOWED_ORIGINS = [</span><br><span class="line">    <span class="string">&quot;https://example.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://sub.example.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;http://localhost:8080&quot;</span>,</span><br><span class="line">    <span class="string">&quot;http://127.0.0.1:9000&quot;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>可以是本地也可以是其他的url</p>
-<p>甚至可以使用通配符*表示同意任何客户端访问，在这里写作<code>&quot;*&quot;</code></p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814103603319.png" data-fancybox="true"/></div></div>
-
-<h5 id="5-配置CORS-ALLOW-HEADERS"><a href="#5-配置CORS-ALLOW-HEADERS" class="headerlink" title="5.配置CORS_ALLOW_HEADERS"></a>5.配置CORS_ALLOW_HEADERS</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CORS_ALLOW_HEADERS =[</span><br><span class="line">    <span class="string">&quot;*&quot;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814104426491.png" data-fancybox="true"/></div></div>
-
-<p>这里的Post请求的data参数写错了多了一个{}，</p>
-<p>其他配置</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">CORS_ALLOW_HEADERS = [</span><br><span class="line">    <span class="string">&quot;Accept&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Accept-Encoding&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Authorization&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Cookie&quot;</span>,</span><br><span class="line">    <span class="string">&quot;DNT&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-CustomHeader&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Keep-Alive&quot;</span>,</span><br><span class="line">    <span class="string">&quot;User-Agent&quot;</span>,</span><br><span class="line">    <span class="string">&quot;X-Requested-With&quot;</span>,</span><br><span class="line">]</span><br><span class="line">CORS_ALLOW_METHODS = [</span><br><span class="line">    <span class="string">&#x27;DELETE&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;OPTIONS&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;PATCH&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;PUT&#x27;</span>,</span><br><span class="line">]</span><br><span class="line">CORS_ORIGIN_ALLOW_ALL = <span class="literal">True</span></span><br><span class="line">CORS_ORIGIN_WHITELIST = [</span><br><span class="line">    <span class="string">&quot;http://127.0.0.1:5173&quot;</span>,  </span><br><span class="line">    <span class="string">&quot;http://localhost:5173&quot;</span>,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>##<code>src/View/Robot.vue</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import httptool from &quot;@/http&quot;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;chatRobot&quot;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      message: &#x27;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    send() &#123;</span><br><span class="line">      //发起请求</span><br><span class="line">      const data = &#123;</span><br><span class="line">        &quot;name&quot;: this.message,</span><br><span class="line">        &quot;age&quot;: &#x27;18&#x27;</span><br><span class="line">      &#125;</span><br><span class="line">      httptool.post(&#x27;sers/gensetview/&#x27;, data).then(res =&gt; &#123;</span><br><span class="line">        console.log(res.data);</span><br><span class="line">        console.log(res);</span><br><span class="line">      &#125;).catch(error =&gt; &#123;</span><br><span class="line">        console.log(error);</span><br><span class="line">        console.log((error.response));</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot; v-model=&quot;message&quot;&gt;</span><br><span class="line">  &lt;button @click=&quot;send&quot;&gt;发送请求&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814110239114.png" data-fancybox="true"/></div></div>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814110920058.png" data-fancybox="true"/></div></div>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814110256495.png" data-fancybox="true"/></div></div>
-
-<p>数据库中被添加了对应的值</p>
-<p>Get请求也没有问题了</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814105246430.png" data-fancybox="true"/></div></div>
-
-
-
-<h2 id="常用的axios请求方法"><a href="#常用的axios请求方法" class="headerlink" title="常用的axios请求方法"></a>常用的axios请求方法</h2><p>在工作中，我们基本都是通过axios来发起http请求来读取或者上传数据到服务端的。</p>
-<p>axios针对http即请求提供了多个不同的请求方法。根据是否有请求体，写法上可以分2类：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get、delete、head、options	用法参数一致</span></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;url地址&#x27;</span>,&#123;		<span class="comment">//url地址如果没有加上协议，则axios会自动根据实例化的baseURL参数自动拼接。</span></span><br><span class="line">    <span class="attr">parms</span>:&#123;</span><br><span class="line">    	<span class="string">&quot;&quot;</span>:<span class="string">&quot;&quot;</span>,	<span class="comment">//键值对，查询字符串 地址栏?号后面信息</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">header</span>:&#123;</span><br><span class="line">    	<span class="string">&quot;&quot;</span>:<span class="string">&quot;&quot;</span>,	<span class="comment">//键值对，自定义请求头	</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;).<span class="title function_">then</span>(&#123;<span class="function"><span class="params">response</span>=&gt;</span>&#123;</span><br><span class="line">         <span class="comment">//请求成功时，可以通过response.data来获取服务端的请求体数据</span></span><br><span class="line">        &#125;&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//异常发生时会自动调用这里的代码，同时第一个参数表示异常对象</span></span><br><span class="line">	<span class="comment">//error.response;/获取来自服务端的异常信息，如果服务端没有异常，则response的值为undefind</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//post,put,patch	用法参数一致</span></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;url地址&#x27;</span>,&#123;</span><br><span class="line"> 		<span class="string">&quot;&quot;</span>:<span class="string">&quot;&quot;</span>,	<span class="comment">//键值对，请求体数据</span></span><br><span class="line">    &#125;,&#123; </span><br><span class="line">    <span class="attr">header</span>:&#123;</span><br><span class="line">    	<span class="string">&quot;&quot;</span>:<span class="string">&quot;&quot;</span>,	<span class="comment">//键值对，自定义请求头	</span></span><br><span class="line">    &#125;&#125;</span><br><span class="line">   </span><br><span class="line">).<span class="title function_">then</span>(&#123;<span class="function"><span class="params">response</span>=&gt;</span>&#123;</span><br><span class="line">         <span class="comment">//请求成功时，可以通过response.data来获取服务端的请求体数据</span></span><br><span class="line">        &#125;&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//异常发生时会自动调用这里的代码，同时第一个参数表示异常对象</span></span><br><span class="line">	<span class="comment">//error.response;/获取来自服务端的异常信息，如果服务端没有异常，则response的值为undefind</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//实例方法</span><br><span class="line">axios##request（config）</span><br><span class="line">axios##get（url[， config]）</span><br><span class="line">axios##delete（url[， config]）</span><br><span class="line">axios##head（url[， config]）</span><br><span class="line">axios##options（url[， config]）</span><br><span class="line">axios##post（url[， data[， config]]）</span><br><span class="line">axios##put（url[， data[， config]]）</span><br><span class="line">axios##patch（url[， data[， config]]）</span><br><span class="line">axios##getUri（[config]）</span><br></pre></td></tr></table></figure>
-
-<h2 id="同源策略以及解决方案"><a href="#同源策略以及解决方案" class="headerlink" title="同源策略以及解决方案"></a>同源策略以及解决方案</h2><p>所谓的同源策略，实际上是浏览器内部提供的一个为了保护用户在服务端的数据而提供的一种安全机制。同源策略的作用主要是为了限制javascript在非法的客户端下执行的一种安全策略。</p>
-<p>所谓的同源，实际上就是把客户端的请求u地址与服务端的请求u地址进行协议，域名P),端口三者的比较，如果三者一致，则表示双方同源，否则任意一个位置不一致则表示不同源。</p>
-<p>因为同源策略的问题，所以我们一般情况下只要使用了ajax进行服务端的数据的操作都会面临着同源策略的拦截和影响。一般在开发中这个问题，我们也叫ajax的跨域（跨源）问题。</p>
-<p>所谓的跨域实际是就是让我们的javascript在基于与服务端不同源的客户端下正常运行。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>/:<span class="number">1</span>  <span class="title class_">Access</span> to <span class="title class_">XMLHttpRequest</span> at <span class="string">&#x27;http://127.0.0.1:8000/sers/gensetview/&#x27;</span> <span class="keyword">from</span> origin <span class="string">&#x27;http://127.0.0.1:8080&#x27;</span> has been blocked by <span class="variable constant_">CORS</span> <span class="attr">policy</span>: <span class="title class_">Request</span> header field x-custom-header is not allowed by <span class="title class_">Access</span>-<span class="title class_">Control</span>-<span class="title class_">Allow</span>-<span class="title class_">Headers</span> <span class="keyword">in</span> preflight response.</span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814113648237.png" data-fancybox="true"/></div></div>
-
-
-
-<p>在工作中，跨域的解决方案一般无非以下三种：</p>
-<ol>
-<li><p>cors方案		,W3C维护的一个跨资源共享的协议。这个协议要求服务端通过响应头的方式高数服务端是否允许访问</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814134156525.png" data-fancybox="true"/></div></div>
-</li>
-<li><p>服务端代理（Proxy Server），自己搭建一个可控的代理服务端（自己的服务端项目），因为同源策略只存在于览器，所以我们让客户端直接请求代理服务器，然后代理服务器接收客户端请求以后，执行代码请求目标服务端边获取到客户端需要的数据</p>
-</li>
-</ol>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814135123847.png" data-fancybox="true"/></div></div>
-
-<ol start="3">
-<li><p>jsonp方案，原则上来说是利用HTML中的某些默认能跨域的标签来实现。script,link,src,iframe,…</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814141845932.png" data-fancybox="true"/></div></div></li>
-</ol>
-<h2 id="axios拦截器"><a href="#axios拦截器" class="headerlink" title="axios拦截器"></a>axios拦截器</h2><p>类似中间件或钩子的一个代码段。<br>栏截器的作用：在使用axiosi进行htp请求和响应处理过程中，编写一些公共代码的，公共的代码提示，公共的错误处理<br>甚至包括，页面跳转(动画)，权限判断…</p>
-<p>官方示例代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Add a request interceptor</span></span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="keyword">function</span> (<span class="params">config</span>) &#123;</span><br><span class="line">    <span class="comment">// Do something before request is sent</span></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="comment">// Do something with request error</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add a response interceptor</span></span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="comment">// Any status code that lie within the range of 2xx cause this function to trigger</span></span><br><span class="line">    <span class="comment">// Do something with response data</span></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">  &#125;, <span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="comment">// Any status codes that falls outside the range of 2xx cause this function to trigger</span></span><br><span class="line">    <span class="comment">// Do something with response error</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
-
-<p>在我们封装的http组件中继续添加拦截器的部分</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;  <span class="comment">//要导入安装的包，则直接填写包名即可</span></span><br><span class="line"><span class="comment">//创建实例</span></span><br><span class="line"><span class="keyword">const</span> httptool = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&#x27;http://127.0.0.1:8000/&#x27;</span>,<span class="comment">//请求的公共路径，一般填写服务器api地址</span></span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">1000</span>,                          <span class="comment">//最大请求超时时间，请求超过这个时间就报错</span></span><br><span class="line">    <span class="attr">headers</span>: &#123;<span class="string">&#x27;X-Custom-Header&#x27;</span>: <span class="string">&#x27;foobar&#x27;</span>&#125;  <span class="comment">//预设的请求头，一般工作当中这里填写隐藏了客户端身份字段</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 添加请求拦截器</span></span><br><span class="line">httptool.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="keyword">function</span> (<span class="params">config</span>) &#123;</span><br><span class="line">    <span class="comment">// Do something before request is sent</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;config&#x27;</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(config)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Http请求之前&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">&#125;, <span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="comment">// Do something with request error</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Http请求错误&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加响应拦截器</span></span><br><span class="line">httptool.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="comment">// Any status code that lie within the range of 2xx cause this function to trigger</span></span><br><span class="line">    <span class="comment">// Do something with response data</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;response&#x27;</span>) </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Http响应之前&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">&#125;, <span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="comment">// Any status codes that falls outside the range of 2xx cause this function to trigger</span></span><br><span class="line">    <span class="comment">// Do something with response error</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Http响应错误&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> httptool;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>Register.vue</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import Menu from &quot;@/components/Menu.vue&quot;;</span><br><span class="line">import httptool from &quot;@/http&quot;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;Register_page&quot;,//不能使用Register</span><br><span class="line">  methods: &#123;</span><br><span class="line">    send() &#123;</span><br><span class="line">      httptool.get(&quot;sers/gensetview/1&quot;, &#123;</span><br><span class="line">        params: &#123;</span><br><span class="line">          id: &#x27;1&#x27;,</span><br><span class="line">        &#125;, //查询字符串</span><br><span class="line">        headers: &#123;&quot;Company&quot;: &quot;Vue Company&quot;&#125;,//自定义请求头</span><br><span class="line">      &#125;).then(response =&gt; &#123;//回调函数</span><br><span class="line">            console.log(&quot;返回数据response&quot;);</span><br><span class="line">            console.log(response);</span><br><span class="line">            console.log(&quot;返回数据response.data&quot;);</span><br><span class="line">            console.log(response.data);//http响应的请求体数据</span><br><span class="line">            console.log(&quot;返回数据response.data.data&quot;);</span><br><span class="line">            console.log(response.data.data);//http响应的请求体数据[.data.data是表示对分提供的data还有一层data,这个data是服务端定义的不是每次都有]</span><br><span class="line">          &#125;</span><br><span class="line">      ).catch(error=&gt;&#123;//捕获并打印异常</span><br><span class="line">        console.log(error)            //可以是本地的错误信息也可以是服务端的错误信息</span><br><span class="line">        console.log(error.response)  //接收来自服务端的响应错误，如果服务端没有错误，则没有response属性</span><br><span class="line">    &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    Menu</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;h1&gt;这是Register3页面&lt;/h1&gt;</span><br><span class="line">  &lt;Menu&gt;&lt;/Menu&gt;</span><br><span class="line">  &lt;button @click=&quot;send&quot;&gt;点击发送GET/1请求&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="Axios/image-20230814155005451.png" data-fancybox="true"/></div></div>
-<div class="tag-plugin quot"><h2 class="content" id="设置一般的http请求头" type="icon"><a href="#设置一般的http请求头" class="headerlink" title="设置一般的http请求头"></a><img class="icon prefix lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://bu.dusays.com/2022/10/24/63567d3e07da3.png" /><span class="text">设置一般的http请求头</span><span class="empty"></span></h2></div>
-
-<h3 id="auth的token封装如何封装"><a href="#auth的token封装如何封装" class="headerlink" title="auth的token封装如何封装?"></a>auth的token封装如何封装?</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">service.interceptors.request.use(</span><br><span class="line">  (config) =&gt; &#123;</span><br><span class="line">    const token = useAuthStore().token</span><br><span class="line">    if (token)</span><br><span class="line">      config.headers.Authorization = `Bearer $&#123;token&#125;`</span><br><span class="line">    return config</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) =&gt; &#123;</span><br><span class="line">    return Promise.reject(error.response)</span><br><span class="line">  &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>这里的service就是创建的axios实例</p>
-</article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/vue/Vue%E8%B7%AF%E7%94%B1.html">Vue路由</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/vue/Proxy.html">Proxy</a></div></section></div>
-
-
-  <div class="related-wrap md-text" id="comments">
-    <section class='header cmt-title cap theme'>
-      快来参与讨论吧
-    </section>
-    <section class='body cmt-body waline'>
-      
-
-<div id="waline_container" class="waline_thread"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
-
-    </section>
-  </div>
-
-
-
-<footer class="page-footer footnote"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs15">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs15">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs15">社交</span><a href="/friends/">友链</a><a href="/comments/">留言板</a></div><div class="sitemap-group"><span class="fs15">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
-<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
-<!--不蒜子计数器-->
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<!--添加一个访问量-->
-<span>
-      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
-</span>
-</br>
-<span id="runtime_span"></span>
-<script type="text/javascript">
-function show_runtime() {
-    window.setTimeout("show_runtime()", 1000);
-    X = new Date("2023/09/17 17:00:00");
-    Y = new Date();
-    T = (Y.getTime() - X.getTime());
-    M = 24 * 60 * 60 * 1000;
-    a = T / M;
-    A = Math.floor(a);
-    b = (a - A) * 24;
-    B = Math.floor(b);
-    c = (b - B) * 60;
-    C = Math.floor((b - B) * 60);
-    D = Math.floor((c - C) * 60);
-    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
+.l_body {
+  display: flex;
+  margin: auto;
+  padding: 0 var(--gap-l);
+  justify-content: center;
+  font-size: var(--fsp);
 }
-show_runtime();
-</script>
-</center>
-<div style="display: flex;justify-content: center;align-items: center;margin: 10px;">
-<a target="_blank" rel="noopener" href="https://notbyai.fyi/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/Written-By-Human-white.png" alt='全部都是博主用心学编写的啊！不是ai啊' style="width:140px;height:50px;margin-right: 10px " id='notbyai'></a>
-<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/by-nc-sa.eu.png" alt="只要保留原作者姓名并在基于原作创作的新作品适用同类型的许可协议，即可基于非商业目的对原作重新编排、改编或者再创作。" style="width:140px;height:50px"></a>
-</div>
-<div class="NewYear"></div>
-</div></footer>
-<div class='float-panel mobile-only blur' style='display:none'>
-  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
-  </button>
-</div>
-<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
-<script type="text/javascript">
-  const stellar = {
-    // 懒加载 css https://github.com/filamentgroup/loadCSS
-    loadCSS: (href, before, media, attributes) => {
-      var doc = window.document;
-      var ss = doc.createElement("link");
-      var ref;
-      if (before) {
-        ref = before;
-      } else {
-        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
-        ref = refs[refs.length - 1];
-      }
-      var sheets = doc.styleSheets;
-      if (attributes) {
-        for (var attributeName in attributes) {
-          if (attributes.hasOwnProperty(attributeName)) {
-            ss.setAttribute(attributeName, attributes[attributeName]);
-          }
-        }
-      }
-      ss.rel = "stylesheet";
-      ss.href = href;
-      ss.media = "only x";
-      function ready(cb) {
-        if (doc.body) {
-          return cb();
-        }
-        setTimeout(function () {
-          ready(cb);
-        });
-      }
-      ready(function () {
-        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
-      });
-      var onloadcssdefined = function (cb) {
-        var resolvedHref = ss.href;
-        var i = sheets.length;
-        while (i--) {
-          if (sheets[i].href === resolvedHref) {
-            return cb();
-          }
-        }
-        setTimeout(function () {
-          onloadcssdefined(cb);
-        });
-      };
-      function loadCB() {
-        if (ss.addEventListener) {
-          ss.removeEventListener("load", loadCB);
-        }
-        ss.media = media || "all";
-      }
-      if (ss.addEventListener) {
-        ss.addEventListener("load", loadCB);
-      }
-      ss.onloadcssdefined = onloadcssdefined;
-      onloadcssdefined(loadCB);
-      return ss;
-    },
-
-    // 从 butterfly 和 volantis 获得灵感
-    loadScript: (src, opt) => new Promise((resolve, reject) => {
-      var script = document.createElement('script');
-      if (src.startsWith('/')){
-        src = stellar.config.root + src.substring(1);
-      }
-      script.src = src;
-      if (opt) {
-        for (let key of Object.keys(opt)) {
-          script[key] = opt[key]
-        }
-      } else {
-        // 默认异步，如果需要同步，第二个参数传入 {} 即可
-        script.async = true
-      }
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    }),
-
-    // https://github.com/jerryc127/hexo-theme-butterfly
-    jQuery: (fn) => {
-      if (typeof jQuery === 'undefined') {
-        stellar.loadScript(stellar.plugins.jQuery).then(fn)
-      } else {
-        fn()
-      }
-    }
-  };
-  stellar.version = '1.26.8';
-  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.8';
-  stellar.config = {
-    date_suffix: {
-      just: '刚刚',
-      min: '分钟前',
-      hour: '小时前',
-      day: '天前',
-      month: '个月前',
-    },
-    root : '/',
-  };
-
-  // required plugins (only load if needs)
-  stellar.plugins = {
-    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
-  };
-
-  if ('local_search') {
-    stellar.search = {};
-    stellar.search.service = 'local_search';
-    if (stellar.search.service == 'local_search') {
-      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
-      stellar.search[stellar.search.service] = service_obj;
-    }
+.l_body .l_left {
+  z-index: 8;
+  width: var(--width-left);
+  flex-shrink: 0;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 8px;
+}
+.l_body .l_main {
+  flex-shrink: 1;
+  flex-grow: 1;
+  width: 320px;
+  max-width: var(--width-main);
+}
+.main-mask {
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.2);
+  z-index: 9;
+  opacity: 0;
+  trans1: opacity;
+}
+@media screen and (max-width: $device-mobile-max) {
+  .mobile-only {
+    display: block !important;
   }
-
-  // stellar js
-  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
-
-  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
-  // optional plugins
-  if ('true' == 'true') {
-    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
+  .l_body {
+    padding: 0;
   }
-  if ('true' == 'true') {
-    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  .l_body .l_left {
+    position: fixed;
+    transform: translateX(-320px);
+    margin: 0;
+    left: 8px;
+    box-shadow: $boxshadow-card-float;
+    z-index: 10;
   }
-  if ('' == 'true') {
-    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
+  .l_body .l_main {
+    max-width: 100%;
   }
-  if ('true' == 'true') {
-    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
+  .l_body.mobile .l_left {
+    transition: transform 0.38s ease-out;
   }
-  if ('true' == 'true') {
-    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":".swiper-slide img, .gallery img ,#waline_container .vcontent img"});
+  .l_body.mobile.sidebar .l_left {
+    transform: translateX(0px);
   }
-  if ('false' == 'true') {
-    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  .l_body.mobile.sidebar .main-mask {
+    opacity: 1;
+    pointer-events: inherit;
   }
-  if ('true' == 'true') {
-    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
-  }
-</script>
-
-<!-- required -->
-<script src="/js/main.js?v=1.26.8" async></script>
-
-<!-- optional -->
-
-  <script>
-  function load_comment(){
-    if(!document.getElementById("waline_container"))return;
-    stellar.loadCSS('https://unpkg.com/@waline/client@2.14.1/dist/waline.css');
-    stellar.loadScript('https://unpkg.com/@waline/client@2.14.1/dist/waline.js', {defer:true}).then(function () {
-      const el = document.getElementById("waline_container");
-      var path = el.getAttribute('comment_id');
-      if (!path) {
-        path = decodeURI(window.location.pathname);
-      }
-      Waline.init(Object.assign({"js":"https://unpkg.com/@waline/client@2.14.1/dist/waline.js","css":"https://unpkg.com/@waline/client@2.14.1/dist/waline.css","serverURL":"https://comment.bxzdyg.cn/","commentCount":true,"pageview":false,"meta":["nick","mail","link"],"locale":{"placeholder":"有什么想说的？大胆说出来吧(*^_^*)","reactionTitle":"请给这篇文章做个评价吧","reaction0":"感兴趣","reaction1":"给心心","reaction2":"什么？","reaction3":"心碎了","reaction4":"别过来","reaction5":"矮油~","reaction6":"不忍直视","reaction7":"我真生气辣！","reaction8":"摇晃","level0":"潜水","level1":"冒泡","level2":"吐槽","level3":"活跃","level4":"话痨","level5":"传说"},"reaction":["/emojis/ablobcatattentionreverse.png","/emojis/ablobcatheart.png","/emojis/ablobcatdoubt.png","/emojis/ablobcatheartbroken.png","/emojis/ablobcatterrified.png","/emojis/ablobcatshy.png","/emojis/ablobcatnoface.png","/emojis/ablobcatanger.gif","/emojis/ablobcatrainbow.png"],"emoji":["https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs"]}, {
-        el: '#waline_container',
-        path: path,
-        
-      }));
-    });
-  }
-  window.addEventListener('DOMContentLoaded', (event) => {
-    console.log('DOM fully loaded and parsed');
-    load_comment();
-  });
-
-</script>
-
-
-
-
-
-
-
-<!-- inject -->
-<script type="text/javascript" src="/js/darkmode.js"></script>
-</div></body></html>
+}

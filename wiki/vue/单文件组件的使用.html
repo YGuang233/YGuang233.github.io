@@ -1,499 +1,62 @@
-
-<!DOCTYPE html><html lang="zh-CN">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.8" theme-name="Stellar" theme-version="1.26.8">
-  
-  <meta name="generator" content="Hexo 7.0.0">
-  <meta http-equiv='x-dns-prefetch-control' content='on' />
-  
-  <meta name="renderer" content="webkit">
-  <meta name="force-rendering" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="HandheldFriendly" content="True" >
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="theme-color" content="#f8f8f8">
-  
-  <title>Vue：单文件组件的使用 - BoBoBlog</title>
-
-  
-    <meta name="description" content="vue组件有两种：脚本化组件，单文件组件 脚本化组件的缺点：1.htm代码是作为js的字符串进行编写，所以组装和开发的时候不易理解，而且没有高亮效果2.普通组件用在小项目中非常合适，但是复杂的大项目中，如果把更多的组件放在html文件中，那么维护成本就会变得非常昂贵。3.脚本化组件只是整合了js和html,但是css代码被剥离出去了。使用的时候的时候不好处理，既要引入js组件又要保存css代码一起">
-<meta property="og:type" content="website">
-<meta property="og:title" content="单文件组件的使用">
-<meta property="og:url" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.html">
-<meta property="og:site_name" content="BoBoBlog">
-<meta property="og:description" content="vue组件有两种：脚本化组件，单文件组件 脚本化组件的缺点：1.htm代码是作为js的字符串进行编写，所以组装和开发的时候不易理解，而且没有高亮效果2.普通组件用在小项目中非常合适，但是复杂的大项目中，如果把更多的组件放在html文件中，那么维护成本就会变得非常昂贵。3.脚本化组件只是整合了js和html,但是css代码被剥离出去了。使用的时候的时候不好处理，既要引入js组件又要保存css代码一起">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813164548861.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813174149772.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813174300587.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813174748404.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813175248733.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813200625908.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813214052955.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813214150080.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813222128058.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813222609903.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813220113664.png">
-<meta property="og:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813224024761.png">
-<meta property="article:published_time" content="2024-02-05T06:36:11.356Z">
-<meta property="article:modified_time" content="2024-02-05T06:36:11.356Z">
-<meta property="article:author" content="BXZDYG">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://bxzdyg.cn/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/image-20230813164548861.png">
-  
-  
-  
-  
-
-  <!-- feed -->
-  
-    <link rel="alternate" href="/atom.xml" title="BoBoBlog" type="application/atom+xml">
-  
-
-  <link rel="stylesheet" href="/css/main.css?v=1.26.8">
-
-  
-    <link rel="shortcut icon" href="/assets/website/avatar/favicon.png">
-  
-
-  
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="/css/darkmode.css"><link rel="stylesheet" href="/css/newYear.css">
-</head>
-<body>
-
-
-
-<div class="l_body content tech" id="start" layout="wiki" ><aside class="l_left"><div class="sidebar-container">
-
-
-<header class="header"><div class="logo-wrap"><div class="icon"><img no-lazy class="icon" src="/assets/wiki/vue/vue-js.svg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.9/image/2659360.svg';"></div><a class="title" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html"><div class="main" ff="title">Vue</div><div class="sub normal cap">很开心的学了</div><div class="sub hover cap" style="opacity:0"> 结果又多了一个学过而不会的技术</div></a></div></header>
-
-<div class="nav-area">
-<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" data-filter="/wiki/vue/" placeholder="在 Vue笔记 中搜索..."></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
-
-
-<nav class="menu dis-select"><a class="nav-item" title="博客" href="/" style="color:#1BCDFC"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5.879 2.879C5 3.757 5 5.172 5 8v8c0 2.828 0 4.243.879 5.121C6.757 22 8.172 22 11 22h2c2.828 0 4.243 0 5.121-.879C19 20.243 19 18.828 19 16V8c0-2.828 0-4.243-.879-5.121C17.243 2 15.828 2 13 2h-2c-2.828 0-4.243 0-5.121.879M8.25 17a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75M9 12.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5zM8.25 9A.75.75 0 0 1 9 8.25h6a.75.75 0 0 1 0 1.5H9A.75.75 0 0 1 8.25 9" clip-rule="evenodd"/><path fill="currentColor" d="M5.235 4.058C5 4.941 5 6.177 5 8v8c0 1.823 0 3.058.235 3.942L5 19.924c-.975-.096-1.631-.313-2.121-.803C2 18.243 2 16.828 2 14v-4c0-2.829 0-4.243.879-5.121c.49-.49 1.146-.707 2.121-.803zm13.53 15.884C19 19.058 19 17.822 19 16V8c0-1.823 0-3.059-.235-3.942l.235.018c.975.096 1.631.313 2.121.803C22 5.757 22 7.17 22 9.999v4c0 2.83 0 4.243-.879 5.122c-.49.49-1.146.707-2.121.803z" opacity=".5"/></svg></a><a class="nav-item active" title="文档" href="/wiki/" style="color:#3DC550"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M14.25 4.48v3.057c0 .111 0 .27.02.406a.936.936 0 0 0 .445.683a.96.96 0 0 0 .783.072c.13-.04.272-.108.378-.159L17 8.005l1.124.534c.106.05.248.119.378.16a.958.958 0 0 0 .783-.073a.936.936 0 0 0 .444-.683c.021-.136.021-.295.021-.406V3.031c.113-.005.224-.01.332-.013C21.154 2.98 22 3.86 22 4.933v11.21c0 1.112-.906 2.01-2.015 2.08c-.97.06-2.108.179-2.985.41c-1.082.286-1.99 1.068-3.373 1.436c-.626.167-1.324.257-1.627.323V5.174c.32-.079 1.382-.203 1.674-.371c.184-.107.377-.216.576-.323m5.478 8.338a.75.75 0 0 1-.546.91l-4 1a.75.75 0 0 1-.364-1.456l4-1a.75.75 0 0 1 .91.546" clip-rule="evenodd"/><path fill="currentColor" d="M18.25 3.151c-.62.073-1.23.18-1.75.336a8.2 8.2 0 0 0-.75.27v3.182l.75-.356l.008-.005a1.13 1.13 0 0 1 .492-.13c.047 0 .094.004.138.01c.175.029.315.1.354.12l.009.005l.749.356V3.647z"/><path fill="currentColor" d="M12 5.214c-.334-.064-1.057-.161-1.718-.339C8.938 4.515 8.05 3.765 7 3.487c-.887-.234-2.041-.352-3.018-.412C2.886 3.007 2 3.9 2 4.998v11.146c0 1.11.906 2.01 2.015 2.079c.97.06 2.108.179 2.985.41c.486.129 1.216.431 1.873.726c1.005.451 2.052.797 3.127 1.034z" opacity=".5"/><path fill="currentColor" d="M4.273 12.818a.75.75 0 0 1 .91-.545l4 1a.75.75 0 1 1-.365 1.455l-4-1a.75.75 0 0 1-.545-.91m.909-4.545a.75.75 0 1 0-.364 1.455l4 1a.75.75 0 0 0 .364-1.455z"/></svg></a><a class="nav-item" title="探索" href="/notes/" style="color:#FA6400"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M20 12a8 8 0 1 1-16 0a8 8 0 0 1 16 0" opacity=".5"/><path fill="currentColor" d="M17.712 5.453c1.047-.193 2.006-.259 2.797-.152c.77.103 1.536.393 1.956 1.064c.446.714.312 1.542-.012 2.258c-.33.728-.918 1.499-1.672 2.268c-1.516 1.547-3.836 3.226-6.597 4.697c-2.763 1.472-5.495 2.484-7.694 2.92c-1.095.217-2.098.299-2.923.201c-.8-.095-1.6-.383-2.032-1.075c-.47-.752-.296-1.63.07-2.379c.375-.768 1.032-1.586 1.872-2.403L4 12.416c0 .219.083.71.168 1.146c.045.23.09.444.123.596c-.652.666-1.098 1.263-1.339 1.756c-.277.567-.208.825-.145.925c.072.116.305.305.937.38c.609.073 1.44.018 2.455-.183c2.02-.4 4.613-1.351 7.28-2.772c2.667-1.42 4.85-3.015 6.23-4.423c.694-.707 1.15-1.334 1.377-1.836c.233-.515.167-.75.107-.844c-.07-.112-.289-.294-.883-.374c-.542-.072-1.272-.041-2.163.112L16.87 5.656c.338-.101.658-.17.842-.203"/></svg></a><a class="nav-item" title="社交" href="/friends/" style="color:#F44336"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m13.629 20.472l-.542.916c-.483.816-1.69.816-2.174 0l-.542-.916c-.42-.71-.63-1.066-.968-1.262c-.338-.197-.763-.204-1.613-.219c-1.256-.021-2.043-.098-2.703-.372a5 5 0 0 1-2.706-2.706C2 14.995 2 13.83 2 11.5v-1c0-3.273 0-4.91.737-6.112a5 5 0 0 1 1.65-1.651C5.59 2 7.228 2 10.5 2h3c3.273 0 4.91 0 6.113.737a5 5 0 0 1 1.65 1.65C22 5.59 22 7.228 22 10.5v1c0 2.33 0 3.495-.38 4.413a5 5 0 0 1-2.707 2.706c-.66.274-1.447.35-2.703.372c-.85.015-1.275.022-1.613.219c-.338.196-.548.551-.968 1.262" opacity=".5"/><path fill="currentColor" d="M10.99 14.308c-1.327-.978-3.49-2.84-3.49-4.593c0-2.677 2.475-3.677 4.5-1.609c2.025-2.068 4.5-1.068 4.5 1.609c0 1.752-2.163 3.615-3.49 4.593c-.454.335-.681.502-1.01.502c-.329 0-.556-.167-1.01-.502"/></svg></a><a class="nav-item" title="更多" href="/about/" style="color:#d55afa"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10" opacity=".5"/><path fill="currentColor" d="M12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25z"/></svg></a></nav>
-</div>
-<div class="widgets">
-
-<widget class="widget-wrapper toc multi" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">快速开始</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start"><span class="toc-text">Vue快速入门</span></a></div></div><div class="widget-header dis-select"><span class="name">基本使用</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4.html"><span class="toc-text">Vue常用指令</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD.html"><span class="toc-text">Vue对象提供的属性功能</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.html"><span class="toc-text">Vue对象的生命周期</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80%E5%92%8C%E6%B5%85%E5%85%A5.html"><span class="toc-text">Vue组件化开发基础和浅入</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">项目构建工具</span></a></div></div><div class="widget-header dis-select"><span class="name">深入组件</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/vue/%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8.html"><span class="toc-text">单文件组件的使用</span><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M21 11.098v4.993c0 3.096 0 4.645-.734 5.321c-.35.323-.792.526-1.263.58c-.987.113-2.14-.907-4.445-2.946c-1.02-.901-1.529-1.352-2.118-1.47a2.225 2.225 0 0 0-.88 0c-.59.118-1.099.569-2.118 1.47c-2.305 2.039-3.458 3.059-4.445 2.945a2.238 2.238 0 0 1-1.263-.579C3 20.736 3 19.188 3 16.091v-4.994C3 6.81 3 4.666 4.318 3.333C5.636 2 7.758 2 12 2c4.243 0 6.364 0 7.682 1.332C21 4.665 21 6.81 21 11.098" opacity=".5"/><path fill="currentColor" d="M9 5.25a.75.75 0 0 0 0 1.5h6a.75.75 0 0 0 0-1.5z"/></svg></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E6%B3%A8%E5%86%8C%E7%BB%84%E4%BB%B6"><span class="toc-text">创建并注册组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%86%85%E5%AE%B9%E7%BC%96%E5%86%99"><span class="toc-text">组件内容编写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A1%88%E4%BE%8B-%E7%82%B9%E5%87%BB%E5%8A%A0%E5%87%8F%E6%95%B0%E5%AD%97"><span class="toc-text">完成案例-点击加减数字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8webstorm%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE"><span class="toc-text">在webstorm启动项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B5%8C%E5%A5%97"><span class="toc-text">组件的嵌套</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%B5%8C%E5%A5%97%E7%9A%84style%E5%BD%B1%E5%93%8D"><span class="toc-text">组件嵌套的style影响</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E4%B9%8B%E9%97%B4%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE"><span class="toc-text">组件之间传递数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%B6%E7%BB%84%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92%E7%BB%99%E5%AD%90%E7%BB%84%E4%BB%B6"><span class="toc-text">父组件的数据传递给子组件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-text">单向数据流</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE%E7%BB%99%E7%88%B6%E7%BB%84%E4%BB%B6"><span class="toc-text">子组件传递数据给父组件</span></a></li></ol></li></ol></div></div><div class="widget-header dis-select"><span class="name">应用规模化</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vue%E8%B7%AF%E7%94%B1.html"><span class="toc-text">Vue路由</span></a></div></div><div class="widget-header dis-select"><span class="name">跨域问题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Axios.html"><span class="toc-text">Axios</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Proxy.html"><span class="toc-text">Proxy</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/WebSocket.html"><span class="toc-text">WebSocket</span></a></div></div><div class="widget-header dis-select"><span class="name">进阶主题</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/%E7%BB%84%E5%90%88API.html"><span class="toc-text">组合API</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/vue/Vite%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html"><span class="toc-text">Vite项目构建工具</span></a></div></div></widget>
-
-
-</div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/YGuang233" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-github"></i></a><a class="social" href="javaScript:hud.toast('你在听🎵啦啦啦~');" rel="noopener noreferrer"><i class="fa-solid fa-music"></i></a><a class="social" href="https://space.bilibili.com/65447634?spm_id_from=333.1007.0.0" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-bilibili fa-bounce"></i></a><a class="social" href="https://www.zhihu.com/people/wo-yao-ren-ren-zhen-zhen-xue-xi-liao" target="_blank" rel="external nofollow noopener noreferrer"><i class="fa-brands fa-zhihu"></i></a><a class="social" href="/atom.xml" rel="noopener noreferrer"><i class="fa-solid fa-rss fa-shake"></i></a><a class="social" href="/comments/" rel="noopener noreferrer"><i class="fa-regular fa-comment-dots"></i></a><a class="social" href="javaScript:void(0);" rel="noopener noreferrer"><i class="fa-solid fa-circle-half-stroke fa-flip"></i></a></div></footer>
-</div></aside><div class="l_main" id="main">
-
-
-
-
-
-<div class="article banner top">
-  <div class="content">
-    
-<div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
-<span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki">文档</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">Vue</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">更新于：<time datetime="2024-02-05T06:36:11.356Z">2024-02-05</time></span></div></div>
-</div>
-
-    
-    <div class="bottom">
-      <div class="text-area">
-        <h1 class="text title"><span>单文件组件的使用</span></h1>
-      </div>
-    </div>
-    
-  </div>
-  </div><article class="md-text content"><p>vue组件有两种：脚本化组件，单文件组件</p>
-<p>脚本化组件的缺点：<br>1.htm代码是作为js的字符串进行编写，所以组装和开发的时候不易理解，而且没有高亮效果<br>2.普通组件用在小项目中非常合适，但是复杂的大项目中，如果把更多的组件放在html文件中，那么维护成本就会变得非常<br>昂贵。<br>3.脚本化组件只是整合了js和html,但是css代码被剥离出去了。使用的时候的时候不好处理，既要引入js组件又要保存css代码一起引入到页面，相当麻烦。</p>
-<h2 id="创建并注册组件"><a href="#创建并注册组件" class="headerlink" title="创建并注册组件"></a>创建并注册组件</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813164548861.png" data-fancybox="true"/></div></div>
-
-<p>在组件中编辑三个标签，编写视图，vm对象和css样式</p>
-<h2 id="组件内容编写"><a href="#组件内容编写" class="headerlink" title="组件内容编写"></a>组件内容编写</h2><p>template编写html代码的地方</p>
-<p>script编写vue.js代码</p>
-<p>style编写当前组件的样式代码</p>
-<p>template内部有且只能有一个子标签(2.0版本的限制，3.0版本不限制)，组件所有的html代码必须被包，含在这个子标签中。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=&quot;num++&quot;&gt;&#123;&#123; num &#125;&#125;&lt;/button&gt;</span><br><span class="line">  &lt;button @click=&quot;num++&quot;&gt;&#123;&#123; num &#125;&#125;&lt;/button&gt;&lt;!--vue2要求内部只能有一个子标签，但vue3可以这么写--&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">const Home = &#123;</span><br><span class="line">  name: &#x27;Home&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      num: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Home;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;!--scoped表示局部样式 vue2.0如果不添加会导致样式污染其他组件 vue3也会，总之最好添加一个scoped属性--&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">button &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在App.vue中导入、注册并调用Home组件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo.png&quot;&gt;</span><br><span class="line">  &lt;HelloWorld msg=&quot;Welcome to Your Vue.js App&quot;/&gt;</span><br><span class="line">  &lt;Home&gt;&lt;/Home&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import HelloWorld from &#x27;./components/HelloWorld.vue&#x27;</span><br><span class="line">import Home from &quot;./components/Home&quot;;               //这里导入需要在下面组件中启用</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;App&#x27;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    HelloWorld,</span><br><span class="line">    Home</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">##app &#123;</span><br><span class="line">  font-family: Avenir, Helvetica, Arial, sans-serif;</span><br><span class="line">  -webkit-font-smoothing: antialiased;</span><br><span class="line">  -moz-osx-font-smoothing: grayscale;</span><br><span class="line">  text-align: center;</span><br><span class="line">  color: ##2c3e50;</span><br><span class="line">  margin-top: 60px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="完成案例-点击加减数字"><a href="#完成案例-点击加减数字" class="headerlink" title="完成案例-点击加减数字"></a>完成案例-点击加减数字</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=&quot;num--&quot;&gt;-&lt;/button&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot; v-model=&quot;num&quot;&gt;</span><br><span class="line">  &lt;button @click=&quot;num++&quot;&gt;+&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="在webstorm启动项目"><a href="#在webstorm启动项目" class="headerlink" title="在webstorm启动项目"></a>在webstorm启动项目</h2><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813174149772.png" data-fancybox="true"/></div></div>
-
-<p>其实在package.json中点击一下哪些以及设置好的命令，他会自动帮我们配置</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813174300587.png" data-fancybox="true"/></div></div>
-
-<p>要注意的一点就是，这个启动的包管理器就如上面所示配置信息最前面写的是Project而不是yarn,但是在后面写了yarn</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813174748404.png" data-fancybox="true"/></div></div>
-
-<p>在实参部分添加port和host可以更改部署的端口和IP地址</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--port=8000 --host=0.0.0.0</span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813175248733.png" data-fancybox="true"/></div></div>
-
-<p>然后就可以运行了</p>
-<h2 id="组件的嵌套"><a href="#组件的嵌套" class="headerlink" title="组件的嵌套"></a>组件的嵌套</h2><p>有时候开发vu项目时，页面也可以算是一个大组件，同时页面也可以分成多个子组件<br>因为，产生了父组件调用子组件的情况。<br>例如，我们就可以声明一个页面组件保存目录src&#x2F;views,并提供2个页面组件，分别是Home.vue和Register..vue,作为页面组件<br>同时在<code>src/components/</code>创建一个保存子组件的目录Menu</p>
-<p>做了几个操作：</p>
-<p>创建Menu组件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">const Menu=&#123;</span><br><span class="line">  name:&quot;Menu&quot;,</span><br><span class="line">  data()&#123;</span><br><span class="line">    return&#123;</span><br><span class="line">      li_list:[&#x27;主页&#x27;,&#x27;商城&#x27;,&#x27;论坛&#x27;,&#x27;注册&#x27;],</span><br><span class="line">      num:10</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Menu;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li v-for=&quot;(member,index) in li_list&quot; :key=&quot;index&quot;&gt;&#123;&#123;member&#125;&#125;&lt;/li&gt;</span><br><span class="line">    &lt;button @click=&quot;num++&quot;&gt;&#123;&#123;num&#125;&#125;&lt;/button&gt;</span><br><span class="line">&lt;!--    &lt;li&gt;主页&lt;/li&gt;--&gt;</span><br><span class="line">&lt;!--    &lt;li&gt;商城&lt;/li&gt;--&gt;</span><br><span class="line">&lt;!--    &lt;li&gt;论坛&lt;/li&gt;--&gt;</span><br><span class="line">&lt;!--    &lt;li&gt;注册&lt;/li&gt;--&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>从Register导入Menu</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import Menu from &quot;@/components/Menu.vue&quot;;</span><br><span class="line"></span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;Register_page&quot;//不能使用Register</span><br><span class="line">  , components: &#123;</span><br><span class="line">    Menu</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;h1&gt;这是Register3页面&lt;/h1&gt;</span><br><span class="line">  &lt;Menu&gt;&lt;/Menu&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>从Home导入Register、Menu</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;h1&gt;Home页面&lt;/h1&gt;</span><br><span class="line">  &lt;Menu&gt;&lt;/Menu&gt;</span><br><span class="line">  &lt;p&gt;下面是Register&lt;/p&gt;</span><br><span class="line">  &lt;Register&gt;&lt;/Register&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Menu from &quot;@/components/Menu.vue&quot;;</span><br><span class="line">import Register from &quot;@/View/Register.vue&quot;;</span><br><span class="line">const Home = &#123;</span><br><span class="line">  name: &#x27;Home&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      num: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components:&#123;</span><br><span class="line">    Menu,</span><br><span class="line">    Register</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Home;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>从App导入Register、Home</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;Home&gt;&lt;/Home&gt;</span><br><span class="line">  &lt;button ref=&quot;btn&quot; class=&quot;add&quot;&gt;提交&lt;/button&gt;</span><br><span class="line">  &lt;Register&gt;&lt;/Register&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Home from &quot;./View/Home&quot;;               //这里导入需要在下面组件中启用</span><br><span class="line">import Register from &quot;@/View/Register.vue&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;App&#x27;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    Register,</span><br><span class="line">    Home</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    console.log(this.$refs.btn)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">##app &#123;</span><br><span class="line">  font-family: Avenir, Helvetica, Arial, sans-serif;</span><br><span class="line">  -webkit-font-smoothing: antialiased;</span><br><span class="line">  -moz-osx-font-smoothing: grayscale;</span><br><span class="line">  text-align: center;</span><br><span class="line">  color: ##2c3e50;</span><br><span class="line">  margin-top: 60px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>效果如下</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813200625908.png" data-fancybox="true"/></div></div>
-
-<pre class="mermaid" data-processed="true"><svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="-8 -8 399.7125244140625 519.2000122070312" height="519.2000122070312" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="399.7125244140625" id="mermaid-1695282602409"><style>#mermaid-1695282602409{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#ccc;}#mermaid-1695282602409 .error-icon{fill:#a44141;}#mermaid-1695282602409 .error-text{fill:#ddd;stroke:#ddd;}#mermaid-1695282602409 .edge-thickness-normal{stroke-width:2px;}#mermaid-1695282602409 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1695282602409 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1695282602409 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1695282602409 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1695282602409 .marker{fill:lightgrey;stroke:lightgrey;}#mermaid-1695282602409 .marker.cross{stroke:lightgrey;}#mermaid-1695282602409 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1695282602409 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#ccc;}#mermaid-1695282602409 .cluster-label text{fill:#F9FFFE;}#mermaid-1695282602409 .cluster-label span{color:#F9FFFE;}#mermaid-1695282602409 .label text,#mermaid-1695282602409 span{fill:#ccc;color:#ccc;}#mermaid-1695282602409 .node rect,#mermaid-1695282602409 .node circle,#mermaid-1695282602409 .node ellipse,#mermaid-1695282602409 .node polygon,#mermaid-1695282602409 .node path{fill:#1f2020;stroke:#81B1DB;stroke-width:1px;}#mermaid-1695282602409 .node .label{text-align:center;}#mermaid-1695282602409 .node.clickable{cursor:pointer;}#mermaid-1695282602409 .arrowheadPath{fill:lightgrey;}#mermaid-1695282602409 .edgePath .path{stroke:lightgrey;stroke-width:2.0px;}#mermaid-1695282602409 .flowchart-link{stroke:lightgrey;fill:none;}#mermaid-1695282602409 .edgeLabel{background-color:hsl(0, 0%, 34.4117647059%);text-align:center;}#mermaid-1695282602409 .edgeLabel rect{opacity:0.5;background-color:hsl(0, 0%, 34.4117647059%);fill:hsl(0, 0%, 34.4117647059%);}#mermaid-1695282602409 .cluster rect{fill:hsl(180, 1.5873015873%, 28.3529411765%);stroke:rgba(255, 255, 255, 0.25);stroke-width:1px;}#mermaid-1695282602409 .cluster text{fill:#F9FFFE;}#mermaid-1695282602409 .cluster span{color:#F9FFFE;}#mermaid-1695282602409 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:hsl(20, 1.5873015873%, 12.3529411765%);border:1px solid rgba(255, 255, 255, 0.25);border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1695282602409 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#ccc;}#mermaid-1695282602409 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="10" viewBox="0 0 12 20" class="marker flowchart" id="flowchart-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="0" viewBox="0 0 10 10" class="marker flowchart" id="flowchart-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart" id="flowchart-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart" id="flowchart-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart" id="flowchart-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart" id="flowchart-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id1 LE-id2" id="L-id1-id2-0" d="M50.900001525878906,368.8000030517578L50.900001525878906,343.8000030517578L50.900001525878906,318.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id2 LE-id6" id="L-id2-id6-0" d="M50.900001525878906,276.60000228881836L50.900001525878906,251.60000228881836L152.43750381469727,217.744988323219"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id4 LE-id5" id="L-id4-id5-0" d="M190.03750228881836,368.8000030517578L190.03750228881836,343.8000030517578L228.75089717613935,318.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id3 LE-id5" id="L-id3-id5-0" d="M332.81250381469727,368.8000030517578L332.81250381469727,343.8000030517578L294.0991089273763,318.8000030517578"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id5 LE-id6" id="L-id5-id6-0" d="M261.4250030517578,276.60000228881836L261.4250030517578,251.60000228881836L222.23709623777762,226.60000228881836"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id7 LE-id3" id="L-id7-id3-0" d="M332.81250381469727,461.00000381469727L332.81250381469727,436.00000381469727L332.81250381469727,411.00000381469727"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id6 LE-id9" id="L-id6-id9-0" d="M189.16250228881836,184.4000015258789L189.16250228881836,159.4000015258789L189.16250228881836,134.4000015258789"></path><path marker-end="url(#flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-id9 LE-id8" id="L-id9-id8-0" d="M189.16250228881836,92.20000076293945L189.16250228881836,67.20000076293945L189.16250228881836,42.20000076293945"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(50.900001525878906, 389.90000343322754)" id="flowchart-id1-50" class="node default default"><rect height="42.20000076293945" width="83.75" y="-21.100000381469727" x="-41.875" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-34.375, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="68.75"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Menu.vue</span></div></foreignObject></g></g><g transform="translate(50.900001525878906, 297.7000026702881)" id="flowchart-id2-51" class="node default default"><rect height="42.20000076293945" width="101.80000305175781" y="-21.100000381469727" x="-50.900001525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-43.400001525878906, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="86.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Register.vue</span></div></foreignObject></g></g><g transform="translate(332.81250381469727, 389.90000343322754)" id="flowchart-id3-52" class="node default default"><rect height="42.20000076293945" width="101.80000305175781" y="-21.100000381469727" x="-50.900001525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-43.400001525878906, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="86.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Register.vue</span></div></foreignObject></g></g><g transform="translate(190.03750228881836, 389.90000343322754)" id="flowchart-id4-53" class="node default default"><rect height="42.20000076293945" width="83.75" y="-21.100000381469727" x="-41.875" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-34.375, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="68.75"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Menu.vue</span></div></foreignObject></g></g><g transform="translate(261.4250030517578, 297.7000026702881)" id="flowchart-id5-54" class="node default default"><rect height="42.20000076293945" width="87.25" y="-21.100000381469727" x="-43.625" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-36.125, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="72.25"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Home.vue</span></div></foreignObject></g></g><g transform="translate(189.16250228881836, 205.50000190734863)" id="flowchart-id6-55" class="node default default"><rect height="42.20000076293945" width="73.45000076293945" y="-21.100000381469727" x="-36.72500038146973" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-29.225000381469727, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="58.45000076293945"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">App.vue</span></div></foreignObject></g></g><g transform="translate(332.81250381469727, 482.100004196167)" id="flowchart-id7-56" class="node default default"><rect height="42.20000076293945" width="83.75" y="-21.100000381469727" x="-41.875" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-34.375, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="68.75"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">Menu.vue</span></div></foreignObject></g></g><g transform="translate(189.16250228881836, 21.100000381469727)" id="flowchart-id8-57" class="node default"><rect height="42.20000076293945" width="92.92500305175781" y="-21.100000381469727" x="-46.462501525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-38.962501525878906, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="77.92500305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">index.html</span></div></foreignObject></g></g><g transform="translate(189.16250228881836, 113.30000114440918)" id="flowchart-id9-58" class="node default default"><rect height="42.20000076293945" width="68.2125015258789" y="-21.100000381469727" x="-34.10625076293945" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-26.606250762939453, -13.600000381469727)" style="" class="label"><foreignObject height="27.200000762939453" width="53.212501525878906"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">main.js</span></div></foreignObject></g></g></g></g></g></svg></pre>
-
-
-
-<h3 id="组件嵌套的style影响"><a href="#组件嵌套的style影响" class="headerlink" title="组件嵌套的style影响"></a>组件嵌套的style影响</h3><p>##Menu.vue文件中，我们对设置了button标签样式和class类选择器样式</p>
-<p>注这里设置了局部样式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">const Menu = &#123;</span><br><span class="line">  name: &quot;Menu&quot;,</span><br><span class="line">&#125;</span><br><span class="line">export default Menu;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;button&gt;子-标签选择器&lt;/button&gt;</span><br><span class="line">	&lt;button class=&quot;add&quot;&gt;子-类选择器选择器&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">div &#123;</span><br><span class="line">  border: 1px solid red;</span><br><span class="line">&#125;</span><br><span class="line">button&#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">ul &#123;</span><br><span class="line">  list-style: none;</span><br><span class="line">&#125;</span><br><span class="line">.add&#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在Home.vue中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;h1&gt;Home页面&lt;/h1&gt;</span><br><span class="line">  &lt;button class=&quot;add&quot;&gt;类选择器&lt;/button&gt;</span><br><span class="line">  &lt;button &gt;标签选择器&lt;/button&gt;</span><br><span class="line">  &lt;Menu &gt;&lt;/Menu&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Menu from &quot;@/components/Menu.vue&quot;;</span><br><span class="line">const Home = &#123;</span><br><span class="line">  name: &#x27;Home&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      total: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components:&#123;</span><br><span class="line">    Menu,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Home;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">/*.add &#123;color: red;&#125;*/</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在App.vue中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;Home&gt;&lt;/Home&gt;</span><br><span class="line">  &lt;button class=&quot;add&quot;&gt;根-类选择器&lt;/button&gt;</span><br><span class="line">  &lt;button&gt;根-标签选择器&lt;/button&gt;&lt;!--其实写不写无所谓就跟id选择器一样--&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Home from &quot;./View/Home&quot;;              </span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;App&#x27;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    Home</span><br><span class="line">  &#125;,</span><br><span class="line">  mounted() &#123;</span><br><span class="line">    console.log(this.$refs.btn)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">##app &#123;</span><br><span class="line">  font-family: Avenir, Helvetica, Arial, sans-serif;</span><br><span class="line">  -webkit-font-smoothing: antialiased;</span><br><span class="line">  -moz-osx-font-smoothing: grayscale;</span><br><span class="line">  text-align: center;</span><br><span class="line">  color: ##2c3e50;</span><br><span class="line">  margin-top: 60px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813214052955.png" data-fancybox="true"/></div></div>
-
-<p>就样式最内部发生了改变</p>
-<p>去掉scoped,子组件的样式就变成了全局样式，如果你不是有意为之，那么就会造成了样式污染</p>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813214150080.png" data-fancybox="true"/></div></div>
-
-<h2 id="组件之间传递数据"><a href="#组件之间传递数据" class="headerlink" title="组件之间传递数据"></a>组件之间传递数据</h2><p>父组件的数据传递给子组件<br>例列如，我们希望把父组件的数据传递给子组件<br>可以通过props属性来进行数据传递<br>传递数据三个步骤：</p>
-<h3 id="父组件的数据传递给子组件"><a href="#父组件的数据传递给子组件" class="headerlink" title="父组件的数据传递给子组件"></a>父组件的数据传递给子组件</h3><ol>
-<li><p>在父组件中，调用子组件的组名除，使用属性值的方式往下传递数据</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;h1&gt;Home页面&lt;/h1&gt;</span><br><span class="line">  &lt;button @click=&quot;total++&quot;&gt;Home的total:&#123;&#123;total&#125;&#125;&lt;/button&gt;</span><br><span class="line">&lt;!--  父组件要发送数据给子组件，通过组件的属性传递数据，属性名就是将来的变量名，传递则需要在属性左边加上:--&gt;</span><br><span class="line">  &lt;Menu :htotal=&quot;total&quot; total=&quot;1100&quot; title=&quot;来自home的数据呀！&quot;&gt;&lt;/Menu&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Menu from &quot;@/components/Menu.vue&quot;;</span><br><span class="line">const Home = &#123;</span><br><span class="line">  name: &#x27;Home&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      total: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components:&#123;</span><br><span class="line">    Menu,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Home;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
-<li><p>在子组件Menu.vue中接受上面父组件传递的数据，需要在script中，使用props属性类接受。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">const Menu = &#123;</span><br><span class="line">  name: &quot;Menu&quot;,</span><br><span class="line">  //来自父组件的数据,全部通过props来接受，2种写法：json写法：必须指定数据类型，数组写法：不用指定数据类型</span><br><span class="line">  // props:&#123;    //变量名:数据类型</span><br><span class="line">  //            数据类型有</span><br><span class="line">  //            Number数值(整数，浮点)</span><br><span class="line">  //            String字符串</span><br><span class="line">  //            Boolean布尔值</span><br><span class="line">  //            Array数组</span><br><span class="line">  //            Object对象</span><br><span class="line">  //            Function函数</span><br><span class="line">  //            Promise异步对象</span><br><span class="line">  //			default默认值</span><br><span class="line">  //			还可以做一些验证</span><br><span class="line">  //   htotal:Number,</span><br><span class="line">  //   total:Number,</span><br><span class="line">  //   title:String</span><br><span class="line">  // &#125;,</span><br><span class="line">  props:[&quot;htotal&quot;,&#x27;total&#x27;,&quot;title&quot;],//数组写法可以不写类型</span><br><span class="line">&#125;</span><br><span class="line">export default Menu;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在子组件中的template中使用父组件传递过来的数据</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">   &lt;p&gt;来自父组件的数据 &lt;br&gt;变量&#123;&#123;htotal&#125;&#125;&lt;br&gt;数值：&#123;&#123;total&#125;&#125;&lt;br&gt;字符串：&#123;&#123;title&#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;!--    &lt;button @click=&quot;htotal++&quot;&gt;&#123;&#123; htotal &#125;&#125;&lt;/button&gt;--&gt;</span><br><span class="line">&lt;!--    子组件不能直接对父组件转入的数据变量进行操作    --&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813222128058.png" data-fancybox="true"/></div></div></li>
-</ol>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813222609903.png" data-fancybox="true"/></div></div>
-
-<p>使用父组件传递数据给子组件时，注意以下事项：</p>
-<ol>
-<li>传递数据是变量，则需要在属性左边添加英文冒号。<br>传递数据是变量，这种数据称之为”动态数据传递”，父组件数据改动的时候，子组件中被随之改动。<br>传递数据不是变量，这种数据称之为”静态数据传递”</li>
-<li>父组件中修改了数据，在子组件中会被同步修改。但是来自orops的数据，在子组件是不能修改的，因为不是data中声明的。在开发时这种情况，也被称为”单向数据流”</li>
-</ol>
-<p>在子组件中对父组件传递的数据进行操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click=&quot;htotal++&quot;&gt;&#123;&#123; htotal &#125;&#125;&lt;/button&gt;</span><br></pre></td></tr></table></figure>
-
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813220113664.png" data-fancybox="true"/></div></div>
-
-<h4 id="单向数据流"><a href="#单向数据流" class="headerlink" title="单向数据流"></a>单向数据流</h4><blockquote>
-<p>所有的 props 都遵循着<strong>单向绑定</strong>原则，props 因父组件的更新而变化，自然地将新的状态向下流往子组件，而不会逆向传递。这避免了子组件意外修改父组件的状态的情况，不然应用的数据流将很容易变得混乱而难以理解。</p>
-</blockquote>
-<p>所以子组件不能直接对父组件转入的数据变量进行操作</p>
-<p>补充:父组件传递数据到子数据的过程中，可以给子组件设置对父组件的默认值和验证</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">defineProps</span>(&#123;</span><br><span class="line">  <span class="comment">// 基础类型检查</span></span><br><span class="line">  <span class="comment">// （给出 `null` 和 `undefined` 值则会跳过任何类型检查）</span></span><br><span class="line">  <span class="attr">propA</span>: <span class="title class_">Number</span>,</span><br><span class="line">  <span class="comment">// 多种可能的类型</span></span><br><span class="line">  <span class="attr">propB</span>: [<span class="title class_">String</span>, <span class="title class_">Number</span>],</span><br><span class="line">  <span class="comment">// 必传，且为 String 类型</span></span><br><span class="line">  <span class="attr">propC</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Number 类型的默认值</span></span><br><span class="line">  <span class="attr">propD</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Number</span>,</span><br><span class="line">    <span class="attr">default</span>: <span class="number">100</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 对象类型的默认值</span></span><br><span class="line">  <span class="attr">propE</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Object</span>,</span><br><span class="line">    <span class="comment">// 对象或数组的默认值</span></span><br><span class="line">    <span class="comment">// 必须从一个工厂函数返回。</span></span><br><span class="line">    <span class="comment">// 该函数接收组件所接收到的原始 prop 作为参数。</span></span><br><span class="line">    <span class="title function_">default</span>(<span class="params">rawProps</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; <span class="attr">message</span>: <span class="string">&#x27;hello&#x27;</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 自定义类型校验函数</span></span><br><span class="line">  <span class="attr">propF</span>: &#123;</span><br><span class="line">    <span class="title function_">validator</span>(<span class="params">value</span>) &#123;</span><br><span class="line">      <span class="comment">// The value must match one of these strings</span></span><br><span class="line">      <span class="keyword">return</span> [<span class="string">&#x27;success&#x27;</span>, <span class="string">&#x27;warning&#x27;</span>, <span class="string">&#x27;danger&#x27;</span>].<span class="title function_">includes</span>(value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 函数类型的默认值</span></span><br><span class="line">  <span class="attr">propG</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Function</span>,</span><br><span class="line">    <span class="comment">// 不像对象或数组的默认，这不是一个</span></span><br><span class="line">    <span class="comment">// 工厂函数。这会是一个用来作为默认值的函数</span></span><br><span class="line">    <span class="title function_">default</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;Default function&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="子组件传递数据给父组件"><a href="#子组件传递数据给父组件" class="headerlink" title="子组件传递数据给父组件"></a>子组件传递数据给父组件</h3><ol>
-<li><p>在子组件中，通过his.$emit()来声明一个自定义的信号(vue中称之为自定义事件名)，父组件中针对这个信号（自定义事件）在调用子组件的组件名处进行@监听。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">const Menu = &#123;</span><br><span class="line">  name: &quot;Menu&quot;,</span><br><span class="line">  //来自父组件的数据,全部通过props来接受，2种写法：json写法：必须指定数据类型，数组写法：不用指定数据类型</span><br><span class="line">  // props:&#123;    //变量名:数据类型</span><br><span class="line">  //            数据类型有</span><br><span class="line">  //            Number数值(整数，浮点)</span><br><span class="line">  //            String字符串</span><br><span class="line">  //            Boolean布尔值</span><br><span class="line">  //            Array数组</span><br><span class="line">  //            Object对象</span><br><span class="line">  //            Function函数</span><br><span class="line">  //            Promise异步对象</span><br><span class="line">  //   htotal:Number,</span><br><span class="line">  //   total:Number,</span><br><span class="line">  //   title:String</span><br><span class="line">  // &#125;,</span><br><span class="line">  props:[&quot;htotal&quot;,&#x27;total&#x27;,&quot;title&quot;],//数组写法可以不写类型</span><br><span class="line">  data()&#123;</span><br><span class="line">    return&#123;</span><br><span class="line">      num:0,</span><br><span class="line">      message:&#x27;我是子组件里来的&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    add()&#123;</span><br><span class="line">      this.num++;</span><br><span class="line">      //this,emit(&quot;自定义事件名&quot;,变量1，变量2……)</span><br><span class="line">      this.$emit(&quot;add_num&quot;,this.num,this.message)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Menu;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">   &lt;p&gt;来自父组件的数据 &lt;br&gt;变量&#123;&#123;htotal&#125;&#125;&lt;br&gt;数值：&#123;&#123;total&#125;&#125;&lt;br&gt;字符串：&#123;&#123;title&#125;&#125;&lt;/p&gt;</span><br><span class="line">  &lt;hr&gt;</span><br><span class="line">  &lt;p&gt;要发送给父组件的数据,num=&#123;&#123;num&#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;button @click=&quot;add&quot;&gt;&#123;&#123; num &#125;&#125;&lt;/button&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-</li>
-<li><p>父组件中，声明一个方法用于在自定义事件发生时用于获取数据。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;h1&gt;Home页面&lt;/h1&gt;</span><br><span class="line">  &lt;button @click=&quot;total++&quot;&gt;Home的total:&#123;&#123;total&#125;&#125;&lt;/button&gt;</span><br><span class="line">&lt;!--  父组件要发送数据给子组件，通过组件的属性传递数据，属性名就是将来的变量名，传递则需要在属性左边加上:--&gt;</span><br><span class="line">  &lt;Menu :htotal=&quot;total&quot; total=&quot;1100&quot; title=&quot;来自home的数据呀！&quot; @add_num=&quot;get_data&quot;&gt;&lt;/Menu&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Menu from &quot;@/components/Menu.vue&quot;;</span><br><span class="line">const Home = &#123;</span><br><span class="line">  name: &#x27;Home&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      total: 0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  components:&#123;</span><br><span class="line">    Menu,</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    get_data(num,message)&#123;</span><br><span class="line">      console.log(&quot;子组件的数据过来了！！&quot;);</span><br><span class="line">      console.log(`num=$&#123;num&#125;,message=$&#123;message&#125;`)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default Home;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li></li>
-</ol>
-<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="单文件组件的使用/image-20230813224024761.png" data-fancybox="true"/></div></div>
-</article>
-<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">回顾上一篇</div><a href="/wiki/vue/%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7.html">项目构建工具</a></div><div class="item" id="next"><div class="note">接下来阅读</div><a href="/wiki/vue/Vue%E8%B7%AF%E7%94%B1.html">Vue路由</a></div></section></div>
-
-
-  <div class="related-wrap md-text" id="comments">
-    <section class='header cmt-title cap theme'>
-      快来参与讨论吧
-    </section>
-    <section class='body cmt-body waline'>
-      
-
-<div id="waline_container" class="waline_thread"><svg class="loading" style="vertical-align:middle;fill:currentColor;overflow:hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
-
-    </section>
-  </div>
-
-
-
-<footer class="page-footer footnote"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs15">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archives/">归档</a></div><div class="sitemap-group"><span class="fs15">笔记</span><a href="/wiki/vue/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html#start">Vue学习笔记</a><a href="/wiki/django/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">Django学习笔记</a><a href="/wiki/mysql/%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">MySQL学习笔记</a></div><div class="sitemap-group"><span class="fs15">社交</span><a href="/friends/">友链</a><a href="/comments/">留言板</a></div><div class="sitemap-group"><span class="fs15">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/YGuang233">GitHub</a><a target="_blank" rel="noopener" href="https://gitee.com/half-awake-sunshine">Gitee</a></div></div><div class="text"><center>
-<p>本破站由 <a href="/">@BXZDYG</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar">Stellar</a> 主题创建。<br>本博客部分素材来源于网络，如有侵权请联系<a href="mailto:1476341845@qq.com">1476341845@qq.com</a>删除<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>  
-<!--不蒜子计数器-->
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<!--添加一个访问量-->
-<span>
-      本"<span style="color: hsl(192 98% 55%); font-weight: bold;">页面</ a></span>"访问 <span id="busuanzi_value_page_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 次 | 👀总访问 <span id="busuanzi_value_site_pv" style="color: hsl(192 98% 55%); font-weight: bold;"></span>       次 | 总访客 <span id="busuanzi_value_site_uv" style="color: hsl(192 98% 55%); font-weight: bold;"></span> 人
-</span>
-</br>
-<span id="runtime_span"></span>
-<script type="text/javascript">
-function show_runtime() {
-    window.setTimeout("show_runtime()", 1000);
-    X = new Date("2023/09/17 17:00:00");
-    Y = new Date();
-    T = (Y.getTime() - X.getTime());
-    M = 24 * 60 * 60 * 1000;
-    a = T / M;
-    A = Math.floor(a);
-    b = (a - A) * 24;
-    B = Math.floor(b);
-    c = (b - B) * 60;
-    C = Math.floor((b - B) * 60);
-    D = Math.floor((c - C) * 60);
-    runtime_span.innerHTML = "⏱️本站已运行 " + A + "天" + B + "小时" + C + "分" + D + "秒"
+.l_body {
+  display: flex;
+  margin: auto;
+  padding: 0 var(--gap-l);
+  justify-content: center;
+  font-size: var(--fsp);
 }
-show_runtime();
-</script>
-</center>
-<div style="display: flex;justify-content: center;align-items: center;margin: 10px;">
-<a target="_blank" rel="noopener" href="https://notbyai.fyi/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/Written-By-Human-white.png" alt='全部都是博主用心学编写的啊！不是ai啊' style="width:140px;height:50px;margin-right: 10px " id='notbyai'></a>
-<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/assets/website/by-nc-sa.eu.png" alt="只要保留原作者姓名并在基于原作创作的新作品适用同类型的许可协议，即可基于非商业目的对原作重新编排、改编或者再创作。" style="width:140px;height:50px"></a>
-</div>
-<div class="NewYear"></div>
-</div></footer>
-<div class='float-panel mobile-only blur' style='display:none'>
-  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
-  </button>
-</div>
-<div class="main-mask" onclick="sidebar.toggle()"></div></div></div><div class="scripts">
-<script type="text/javascript">
-  const stellar = {
-    // 懒加载 css https://github.com/filamentgroup/loadCSS
-    loadCSS: (href, before, media, attributes) => {
-      var doc = window.document;
-      var ss = doc.createElement("link");
-      var ref;
-      if (before) {
-        ref = before;
-      } else {
-        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
-        ref = refs[refs.length - 1];
-      }
-      var sheets = doc.styleSheets;
-      if (attributes) {
-        for (var attributeName in attributes) {
-          if (attributes.hasOwnProperty(attributeName)) {
-            ss.setAttribute(attributeName, attributes[attributeName]);
-          }
-        }
-      }
-      ss.rel = "stylesheet";
-      ss.href = href;
-      ss.media = "only x";
-      function ready(cb) {
-        if (doc.body) {
-          return cb();
-        }
-        setTimeout(function () {
-          ready(cb);
-        });
-      }
-      ready(function () {
-        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
-      });
-      var onloadcssdefined = function (cb) {
-        var resolvedHref = ss.href;
-        var i = sheets.length;
-        while (i--) {
-          if (sheets[i].href === resolvedHref) {
-            return cb();
-          }
-        }
-        setTimeout(function () {
-          onloadcssdefined(cb);
-        });
-      };
-      function loadCB() {
-        if (ss.addEventListener) {
-          ss.removeEventListener("load", loadCB);
-        }
-        ss.media = media || "all";
-      }
-      if (ss.addEventListener) {
-        ss.addEventListener("load", loadCB);
-      }
-      ss.onloadcssdefined = onloadcssdefined;
-      onloadcssdefined(loadCB);
-      return ss;
-    },
-
-    // 从 butterfly 和 volantis 获得灵感
-    loadScript: (src, opt) => new Promise((resolve, reject) => {
-      var script = document.createElement('script');
-      if (src.startsWith('/')){
-        src = stellar.config.root + src.substring(1);
-      }
-      script.src = src;
-      if (opt) {
-        for (let key of Object.keys(opt)) {
-          script[key] = opt[key]
-        }
-      } else {
-        // 默认异步，如果需要同步，第二个参数传入 {} 即可
-        script.async = true
-      }
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    }),
-
-    // https://github.com/jerryc127/hexo-theme-butterfly
-    jQuery: (fn) => {
-      if (typeof jQuery === 'undefined') {
-        stellar.loadScript(stellar.plugins.jQuery).then(fn)
-      } else {
-        fn()
-      }
-    }
-  };
-  stellar.version = '1.26.8';
-  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.26.8';
-  stellar.config = {
-    date_suffix: {
-      just: '刚刚',
-      min: '分钟前',
-      hour: '小时前',
-      day: '天前',
-      month: '个月前',
-    },
-    root : '/',
-  };
-
-  // required plugins (only load if needs)
-  stellar.plugins = {
-    jQuery: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js'
-  };
-
-  if ('local_search') {
-    stellar.search = {};
-    stellar.search.service = 'local_search';
-    if (stellar.search.service == 'local_search') {
-      let service_obj = Object.assign({}, {"field":"all","path":"/search.json","content":true,"codeblock":true,"sort":"-date"});
-      stellar.search[stellar.search.service] = service_obj;
-    }
+.l_body .l_left {
+  z-index: 8;
+  width: var(--width-left);
+  flex-shrink: 0;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 8px;
+}
+.l_body .l_main {
+  flex-shrink: 1;
+  flex-grow: 1;
+  width: 320px;
+  max-width: var(--width-main);
+}
+.main-mask {
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.2);
+  z-index: 9;
+  opacity: 0;
+  trans1: opacity;
+}
+@media screen and (max-width: $device-mobile-max) {
+  .mobile-only {
+    display: block !important;
   }
-
-  // stellar js
-  stellar.plugins.stellar = Object.assign({"sites":"/js/plugins/sites.js","friends":"/js/plugins/friends.js","ghinfo":"/js/plugins/ghinfo.js","timeline":"/js/plugins/timeline.js","linkcard":"/js/plugins/linkcard.js","fcircle":"/js/plugins/fcircle.js","weibo":"/js/plugins/weibo.js","memos":"/js/plugins/memos.js","marked":"/js/plugins/marked.js"});
-
-  stellar.plugins.marked = Object.assign("https://cdn.bootcdn.net/ajax/libs/marked/4.0.18/marked.min.js");
-  // optional plugins
-  if ('true' == 'true') {
-    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/vanilla-lazyload/17.8.4/lazyload.min.js","transition":"fade"});
+  .l_body {
+    padding: 0;
   }
-  if ('true' == 'true') {
-    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@10.3/swiper-bundle.min.css","js":"https://unpkg.com/swiper@10.3/swiper-bundle.min.js"});
+  .l_body .l_left {
+    position: fixed;
+    transform: translateX(-320px);
+    margin: 0;
+    left: 8px;
+    box-shadow: $boxshadow-card-float;
+    z-index: 10;
   }
-  if ('' == 'true') {
-    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://cdn.bootcdn.net/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js","distance":"16px","duration":800,"interval":100,"scale":1});
+  .l_body .l_main {
+    max-width: 100%;
   }
-  if ('true' == 'true') {
-    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","flying_pages":"https://cdn.bootcdn.net/ajax/libs/flying-pages/2.1.2/flying-pages.min.js"});
+  .l_body.mobile .l_left {
+    transition: transform 0.38s ease-out;
   }
-  if ('true' == 'true') {
-    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.umd.min.js","css":"https://cdn.bootcdn.net/ajax/libs/fancyapps-ui/5.0.22/fancybox/fancybox.min.css","selector":".swiper-slide img, .gallery img ,#waline_container .vcontent img"});
+  .l_body.mobile.sidebar .l_left {
+    transform: translateX(0px);
   }
-  if ('false' == 'true') {
-    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti@0.9.2/umd/heti.min.css","js":"https://unpkg.com/heti@0.9.2/umd/heti-addon.min.js"});
+  .l_body.mobile.sidebar .main-mask {
+    opacity: 1;
+    pointer-events: inherit;
   }
-  if ('true' == 'true') {
-    stellar.plugins.copycode = Object.assign({"enable":true,"js":"/js/plugins/copycode.js","default_text":"Copy","success_text":"Copied","toast":"复制成功"});
-  }
-</script>
-
-<!-- required -->
-<script src="/js/main.js?v=1.26.8" async></script>
-
-<!-- optional -->
-
-  <script>
-  function load_comment(){
-    if(!document.getElementById("waline_container"))return;
-    stellar.loadCSS('https://unpkg.com/@waline/client@2.14.1/dist/waline.css');
-    stellar.loadScript('https://unpkg.com/@waline/client@2.14.1/dist/waline.js', {defer:true}).then(function () {
-      const el = document.getElementById("waline_container");
-      var path = el.getAttribute('comment_id');
-      if (!path) {
-        path = decodeURI(window.location.pathname);
-      }
-      Waline.init(Object.assign({"js":"https://unpkg.com/@waline/client@2.14.1/dist/waline.js","css":"https://unpkg.com/@waline/client@2.14.1/dist/waline.css","serverURL":"https://comment.bxzdyg.cn/","commentCount":true,"pageview":false,"meta":["nick","mail","link"],"locale":{"placeholder":"有什么想说的？大胆说出来吧(*^_^*)","reactionTitle":"请给这篇文章做个评价吧","reaction0":"感兴趣","reaction1":"给心心","reaction2":"什么？","reaction3":"心碎了","reaction4":"别过来","reaction5":"矮油~","reaction6":"不忍直视","reaction7":"我真生气辣！","reaction8":"摇晃","level0":"潜水","level1":"冒泡","level2":"吐槽","level3":"活跃","level4":"话痨","level5":"传说"},"reaction":["/emojis/ablobcatattentionreverse.png","/emojis/ablobcatheart.png","/emojis/ablobcatdoubt.png","/emojis/ablobcatheartbroken.png","/emojis/ablobcatterrified.png","/emojis/ablobcatshy.png","/emojis/ablobcatnoface.png","/emojis/ablobcatanger.gif","/emojis/ablobcatrainbow.png"],"emoji":["https://gcore.jsdelivr.net/gh/norevi/waline-blobcatemojis@1.0/blobs"]}, {
-        el: '#waline_container',
-        path: path,
-        
-      }));
-    });
-  }
-  window.addEventListener('DOMContentLoaded', (event) => {
-    console.log('DOM fully loaded and parsed');
-    load_comment();
-  });
-
-</script>
-
-
-
-
-
-
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
-<script>
-  var mermaid_config = {
-    startOnLoad: true,
-    theme:
-      "auto" == "auto" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "dark",
-    logLevel: 3,
-    themeVariables: {
-      darkMode: true
-    },
-    flowchart: {
-      useMaxWidth: false,
-      htmlLabels: true,
-      curve: "linear"
-    },
-    gantt: {
-      axisFormat: "%Y/%m/%d"
-    },
-    sequence: {
-      actorMargin: 50
-    }
-  }
-  if (window.mermaid) {
-    mermaid.initialize(mermaid_config);
-  }
-</script>
-
-
-<!-- inject -->
-<script type="text/javascript" src="/js/darkmode.js"></script>
-</div></body></html>
+}
