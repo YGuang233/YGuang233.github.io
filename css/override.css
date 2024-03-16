@@ -1,3 +1,6 @@
-.page-footer .text p {
+/* .page-footer .text p {
     text-align: center;
+} */
+.l_left footer.footer {
+    margin: 0.7rem 1rem;
 }
